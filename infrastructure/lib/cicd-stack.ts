@@ -176,8 +176,8 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
         defaultBehavior: {
           origin: new origins.OriginGroup({
             primaryOrigin:
-              origins.S3BucketOrigin.withOriginAccessIdentity(deploymentBucket),
-            fallbackOrigin: new origins.HttpOrigin(`${subDomain}`),
+              origins.S3BucketOrigin.withOriginAccessControl(deploymentBucket),
+            fallbackOrigin: new origins.HttpOrigin(subDomain),
             fallbackStatusCodes: [404, 403, 500, 502, 503, 504],
           }),
           viewerProtocolPolicy:
