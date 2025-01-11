@@ -260,10 +260,6 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
       description: "Custom domain URL for Materia Shop",
     });
 
-    new cdk.CfnOutput(this, "DeploymentBucketName", {
-      value: deploymentBucket.bucketName,
-    });
-
     new cdk.CfnOutput(this, "ProductsTableARN", {
       value: `${props?.productsTableARN}`,
       description: "Validation of ARN of the Products DynamoDB Table",

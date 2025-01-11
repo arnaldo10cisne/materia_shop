@@ -137,6 +137,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# CDK Out
-
+# CDK
 cdk.out
+cdk.context.json
