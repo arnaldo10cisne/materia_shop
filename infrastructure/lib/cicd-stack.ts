@@ -47,7 +47,7 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
       {
         projectName: resourceName("CodeBuild"),
         environment: {
-          buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
+          buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
           computeType: codebuild.ComputeType.SMALL,
         },
         buildSpec: codebuild.BuildSpec.fromObject({
