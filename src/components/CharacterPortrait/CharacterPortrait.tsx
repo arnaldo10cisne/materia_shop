@@ -4,7 +4,7 @@ import classNames from "classnames";
 import styles from "./CharacterPortrait.module.scss";
 
 interface CharacterPortraitProps {
-  character: UserModel;
+  character: UserModel | null;
   showName?: boolean;
 }
 
@@ -12,6 +12,10 @@ export const CharacterPortrait = ({
   character,
   showName = false,
 }: CharacterPortraitProps) => {
+  if (!character) {
+    return <p>No Character Selected</p>;
+  }
+
   return (
     <div className={classNames(styles.CharacterPortrait)}>
       <div className={classNames(styles.CharacterPortraitImageContainer)}>
