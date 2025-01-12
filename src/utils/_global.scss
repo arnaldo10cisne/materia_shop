@@ -1,0 +1,13 @@
+@import 'responsiveMixins';
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
