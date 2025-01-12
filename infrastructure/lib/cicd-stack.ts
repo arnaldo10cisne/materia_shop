@@ -14,7 +14,9 @@ import * as route53_targets from "aws-cdk-lib/aws-route53-targets";
 interface MateriaShopCICDStackProps extends cdk.StackProps {
   serverlessStackName: string;
   productsTableARN: string;
-  transactionsTableARN: string;
+  paymentsTableARN: string;
+  usersTableARN: string;
+  ordersTableARN: string;
 }
 
 export class MateriaShop_CICD_Stack extends cdk.Stack {
@@ -100,7 +102,7 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
     //   buildProject.addToRolePolicy(
     //     new iam.PolicyStatement({
     //       actions: ['dynamodb:PutItem'],
-    //       resources: [props.productsTableARN, props.transactionsTableARN],
+    //       resources: [props.productsTableARN, props.paymentsTableARN],
     //     })
     //   );
     // }
@@ -265,9 +267,19 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
       description: "Validation of ARN of the Products DynamoDB Table",
     });
 
-    new cdk.CfnOutput(this, "TransactionsTableARN", {
-      value: `${props?.transactionsTableARN}`,
-      description: "Validation of ARN of the Transactions DynamoDB Table",
+    new cdk.CfnOutput(this, "PaymentsTableARN", {
+      value: `${props?.paymentsTableARN}`,
+      description: "Validation of ARN of the Payments DynamoDB Table",
+    });
+
+    new cdk.CfnOutput(this, "UsersTableARN", {
+      value: `${props?.usersTableARN}`,
+      description: "Validation of ARN of the Users DynamoDB Table",
+    });
+
+    new cdk.CfnOutput(this, "OrdersTableARN", {
+      value: `${props?.ordersTableARN}`,
+      description: "Validation of ARN of the Orders DynamoDB Table",
     });
   }
 }
