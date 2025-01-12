@@ -1,0 +1,29 @@
+@import "../../utils/global";
+
+.CharacterPortrait {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.CharacterPortraitImageContainer {
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  // border: solid 1px yellow;
+  position: relative;
+}
+
+.CharacterPortraitImage {
+  object-fit: contain;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.CharacterPortraitName {
+  margin-left: 15px;
+}

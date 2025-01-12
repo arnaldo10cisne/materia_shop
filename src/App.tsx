@@ -15,7 +15,6 @@ const queryClient = new QueryClient();
 export function App() {
   return (
     <div className={classNames(styles.App)}>
-      app1
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Layout>

@@ -1,0 +1,10 @@
+@import "../../utils/global";
+
+.Header {
+  height: $header-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid white 1px;
+  margin-bottom: 30px;
+}

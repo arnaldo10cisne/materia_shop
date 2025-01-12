@@ -1,0 +1,40 @@
+@import "../../utils//global";
+
+.SelectableOption {
+  // display: flex;
+  position: relative;
+  cursor: pointer;
+  margin: 10px 0px;
+  padding: 10px 0px;
+}
+
+.SelectableOptionDisabled {
+  cursor: default;
+}
+
+.CursorImage {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.OptionContent {
+  margin-left: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.OptionIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.OptionText {
+}
+
+.OptionTextDisabled {
+  color: $disabled-text;
+}

@@ -5,6 +5,7 @@ $main-bg-blue-light-shade: #0059be;
 $main-bg-blue: #00068b;
 $main-bg-blue-dark-shade: #00022b;
 $white-text: #eaeaed;
+$disabled-text: #696b74;
 $ligth-blue-text: #00d4e9;
 $green-materia: #4f9a52;
 $pink-materia: #c85ec1;
@@ -21,7 +22,18 @@ $screen-4k-styles-applied: 3000px;
 
 // Reactor7 Font: https://www.dafont.com/reactor7.font
 $reactor7_font: "Reactor7", sans-serif;
-$reactor7_font_size_default: 50px;
+$reactor7_font_size_default: 35px; // small-mobile-styles-applied
+
+// Mixins
+
+@mixin font-size-mobile {
+  font-size: 55px;
+}
+
+@mixin small-mobile-icon-height {
+  height: 26px;
+  margin-top: -2px;
+}
 
 @mixin blue-gradient {
   background: $main-bg-blue-light-shade;
