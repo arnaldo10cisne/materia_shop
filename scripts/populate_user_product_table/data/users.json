@@ -1,0 +1,121 @@
+{
+  "users": [
+    {
+      "Item": {
+        "id": {
+          "S": "1"
+        },
+        "name": {
+          "S": "Cloud Strife"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "2"
+        },
+        "name": {
+          "S": "Barret Wallace"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "3"
+        },
+        "name": {
+          "S": "Tifa Lockhart"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "4"
+        },
+        "name": {
+          "S": "Aerith Gainsborough"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "5"
+        },
+        "name": {
+          "S": "Red XIII"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "6"
+        },
+        "name": {
+          "S": "Yuffie Kisaragi"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "7"
+        },
+        "name": {
+          "S": "Cait Sith"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "8"
+        },
+        "name": {
+          "S": "Vincent Valentine"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "9"
+        },
+        "name": {
+          "S": "Cid Highwind"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
+    }
+  ]
+}

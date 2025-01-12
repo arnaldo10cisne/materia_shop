@@ -1,0 +1,304 @@
+{
+  "products": [
+    {
+      "Item": {
+        "id": {
+          "S": "1"
+        },
+        "name": {
+          "S": "Fire Materia"
+        },
+        "description": {
+          "S": "Allows the use of Fire magic spells, including Fire, Fira, and Firaga."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "500"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "2"
+        },
+        "name": {
+          "S": "Ice Materia"
+        },
+        "description": {
+          "S": "Allows the use of Ice magic spells, including Blizzard, Blizzara, and Blizzaga."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "500"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "3"
+        },
+        "name": {
+          "S": "Ifrit Materia"
+        },
+        "description": {
+          "S": "Summons Ifrit, the fiery being that unleashes Hellfire on enemies."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "1000"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "4"
+        },
+        "name": {
+          "S": "Shiva Materia"
+        },
+        "description": {
+          "S": "Summons Shiva, the queen of ice, to unleash Diamond Dust on enemies."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "1000"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "5"
+        },
+        "name": {
+          "S": "Chocobo & Moogle Materia"
+        },
+        "description": {
+          "S": "Summons Chocobo & Moogle to trample enemies with Stampede."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "800"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "6"
+        },
+        "name": {
+          "S": "Leviathan Materia"
+        },
+        "description": {
+          "S": "Summons Leviathan, the water deity, to unleash Tidal Wave on enemies."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "1500"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "7"
+        },
+        "name": {
+          "S": "Bahamut Materia"
+        },
+        "description": {
+          "S": "Summons Bahamut, the dragon king, to unleash Megaflare on enemies."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "2000"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "8"
+        },
+        "name": {
+          "S": "Phoenix Materia"
+        },
+        "description": {
+          "S": "Summons Phoenix to attack enemies and revive allies with its flames."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "1800"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "9"
+        },
+        "name": {
+          "S": "Cure Materia"
+        },
+        "description": {
+          "S": "Allows the use of healing spells, including Cure, Cura, and Curaga."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "600"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "10"
+        },
+        "name": {
+          "S": "Titan Materia"
+        },
+        "description": {
+          "S": "Summons Titan to cause a massive earthquake with Gaia's Wrath."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "1400"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "11"
+        },
+        "name": {
+          "S": "Gravity Materia"
+        },
+        "description": {
+          "S": "Allows the use of Gravity magic spells, including Demi, Demi2, and Demi3."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "1100"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "12"
+        },
+        "name": {
+          "S": "Poison Materia"
+        },
+        "description": {
+          "S": "Allows the use of Poison magic spells, including Bio, Biora, and Bioga."
+        },
+        "picture": {
+          "S": "placeholder.png"
+        },
+        "price": {
+          "N": "800"
+        },
+        "stock_amount": {
+          "N": "5"
+        },
+        "is_available": {
+          "BOOL": true
+        }
+      }
+    }
+  ]
+}
