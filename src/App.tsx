@@ -1,13 +1,26 @@
 import React from "react";
+import "./App.module.scss";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "./components/layout/Layout.tsx";
+import { Homepage } from "./pages/Homepage/Homepage.tsx";
 
-function App() {
+// Create a client
+const queryClient = new QueryClient();
+
+export function App() {
   return (
     <div className="App">
-      <p>MATERIA SHOP</p>
-
-      <p>WORK IN PROGRESS</p>
+      app1
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   );
 }
-
-export default App;
