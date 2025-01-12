@@ -1,0 +1,24 @@
+@import "../../utils/global";
+
+.ExternalBorder {
+  border: 4px solid #555759;
+  border-radius: 12px;
+}
+
+.MiddleBorder {
+  border: $white-text solid 3px;
+  border-radius: 8px;
+  // border-style: inset;
+}
+
+.InternalBorder {
+  border-radius: 5px;
+  border: #9291a1 solid 3px;
+}
+
+.BlueBox {
+  @include blue-gradient;
+  @include reactor7-text-shadow;
+
+  padding: 100px;
+}

@@ -1,20 +1,38 @@
+@import "../assets/fonts/reactor7/webfont.scss";
+
 // Colors
 $main-bg-blue-light-shade: #0059be;
-$main-bg-blue:#00068b;
-$main-bg-blue-dark-shade:#00022b;
+$main-bg-blue: #00068b;
+$main-bg-blue-dark-shade: #00022b;
 $white-text: #eaeaed;
-$ligth-blue-text:#00d4e9;
+$ligth-blue-text: #00d4e9;
 $green-materia: #4f9a52;
 $pink-materia: #c85ec1;
 $yellow-materia: #c8be3e;
 
 // Dimensions
 $header-height: 62px;
-$small-mobile-styles-applied:667px;
+$small-mobile-styles-applied: 667px;
 $mobile-styles-applied: 740px;
 $tablet-styles-applied: 920px;
-$small-desktop-styles-applied:1400px;
-$desktop-styles-applied:1800px;
+$small-desktop-styles-applied: 1400px;
+$desktop-styles-applied: 1800px;
 $screen-4k-styles-applied: 3000px;
 
 // Reactor7 Font: https://www.dafont.com/reactor7.font
+$reactor7_font: "Reactor7", sans-serif;
+$reactor7_font_size_default: 50px;
+
+@mixin blue-gradient {
+  background: $main-bg-blue-light-shade;
+  background: linear-gradient(
+    133deg,
+    $main-bg-blue-light-shade 0%,
+    $main-bg-blue 30%,
+    $main-bg-blue-dark-shade 100%
+  );
+}
+
+@mixin reactor7-text-shadow {
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.9);
+}
