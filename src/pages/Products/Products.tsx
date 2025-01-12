@@ -15,7 +15,7 @@ export const Products = () => {
   return (
     <div className={classNames(styles.Products)}>
       <BlueBox>
-        <SelectableOption onClickHandler={handleClickReturn}>
+        <SelectableOption onClickHandler={handleClickReturn} is_return={true}>
           Return
         </SelectableOption>
       </BlueBox>

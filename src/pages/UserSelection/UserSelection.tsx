@@ -33,15 +33,22 @@ export const UserSelection = () => {
   return (
     <div className={classNames(styles.UserSelection)}>
       <BlueBox>
-        <SelectableOption onClickHandler={handleClickReturn}>
+        <SelectableOption onClickHandler={handleClickReturn} is_return={true}>
           Return
         </SelectableOption>
       </BlueBox>
       <BlueBox>
         {characterList.map((character: UserModel) => {
           return (
-            <SelectableOption onClickHandler={handleClickSelectCharacter}>
-              <CharacterPortrait character={character} showName={true} />
+            <SelectableOption
+              key={character.id}
+              onClickHandler={handleClickSelectCharacter}
+            >
+              <CharacterPortrait
+                key={character.name}
+                character={character}
+                showName={true}
+              />
             </SelectableOption>
           );
         })}
