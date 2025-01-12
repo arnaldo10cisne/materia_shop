@@ -8,12 +8,14 @@ interface SelectableOptionProps {
   icon?: IconModel | null;
   children: React.ReactNode;
   disabled?: boolean;
+  onClickHandler?: () => any;
 }
 
 export const SelectableOption = ({
   children,
   icon = null,
   disabled = false,
+  onClickHandler = () => {},
 }: SelectableOptionProps) => {
   const [cursorIsVisble, setCursorIsVisble] = useState(false);
 
@@ -25,10 +27,16 @@ export const SelectableOption = ({
     setCursorIsVisble(false);
   };
 
+  const handleClick = () => {
+    onClickHandler();
+    // RUN SOUND
+  };
+
   return (
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       className={classNames(
         styles.SelectableOption,
         disabled && styles.SelectableOptionDisabled,
