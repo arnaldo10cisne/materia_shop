@@ -116,6 +116,19 @@
           "S": "placeholder.png"
         }
       }
+    },
+    {
+      "Item": {
+        "id": {
+          "S": "10"
+        },
+        "name": {
+          "S": "Sephiroth"
+        },
+        "portrait": {
+          "S": "placeholder.png"
+        }
+      }
     }
   ]
 }
