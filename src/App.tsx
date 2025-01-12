@@ -4,6 +4,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout.tsx";
 import { Homepage } from "./pages/Homepage/Homepage.tsx";
+import { Products } from "./pages/Products/Products.tsx";
+import { Order } from "./pages/Order/Order.tsx";
+import { UserSelection } from "./pages/UserSelection/UserSelection.tsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -17,6 +20,9 @@ export function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Homepage />} />
+              <Route path="/users" element={<UserSelection />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/order" element={<Order />} />
             </Routes>
           </Layout>
         </BrowserRouter>
