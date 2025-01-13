@@ -1,7 +1,6 @@
 @import "../../utils//global";
 
 .SelectableOption {
-  // display: flex;
   position: relative;
   cursor: pointer;
 }
@@ -17,10 +16,11 @@
 
   top: 50%;
   transform: translateY(-50%);
+  left: -45px;
+  z-index: 50;
 }
 
 .OptionContent {
-  margin-left: 45px;
   display: flex;
   align-items: center;
   -webkit-user-select: none;

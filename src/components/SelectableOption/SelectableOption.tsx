@@ -6,7 +6,6 @@ import { MateriaIconModel } from "../../utils/models.ts";
 import {
   playAcceptCursorSfx,
   playBuzzerCursorSfx,
-  playCancelCursorSfx,
   playMoveCursorSfx,
 } from "../../utils/utilityFunctions.ts";
 
