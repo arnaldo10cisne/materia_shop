@@ -1,0 +1,23 @@
+@import "../../utils/global";
+
+.CcInfoModalContainer {
+  position: fixed;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+}
+
+.CcInfoModal {
+  width: 95%;
+  height: auto;
+}
+
+.CloseModal {
+  margin-top: 20px;
+  margin-left: 45px;
+}

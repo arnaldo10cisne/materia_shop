@@ -63,6 +63,15 @@ export interface CreditCardModel {
   id: string;
   company: CreditCardCompany;
   last_four_digits: number;
+  encrypted_data?: string;
+}
+
+export interface CreditCardSensitiveDataModel {
+  company: CreditCardCompany;
+  number: number;
+  expiration_date: Date;
+  secret_code: number;
+  holder_name: string;
 }
 
 export interface PaymentModel {
