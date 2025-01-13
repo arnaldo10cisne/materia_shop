@@ -80,7 +80,9 @@ export const ProductInfoModal = ({
             <p className={classNames(styles.ProductDescription)}>
               {product.description}
             </p>
-
+            <p className={classNames(styles.ProductPrice)}>
+              Price: {product.price} Gil
+            </p>
             <p className={classNames(styles.ProductStock)}>
               Stock: {product.stock_amount}
             </p>
@@ -101,6 +103,10 @@ export const ProductInfoModal = ({
                 <span className={classNames(styles.ChangeCartAmount)}>+</span>
               </SelectableOption>
             </div>
+
+            <p className={classNames(styles.TotalPrice)}>
+              Total Price: {product.price * amountInCart} Gil
+            </p>
 
             <SelectableOption
               onClickHandler={handleAddToCart}
