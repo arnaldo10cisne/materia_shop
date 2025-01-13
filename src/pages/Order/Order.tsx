@@ -13,6 +13,7 @@ import {
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
+import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
 
 export const Order = () => {
   const [address, setAddress] = useState<string>("");
@@ -21,6 +22,10 @@ export const Order = () => {
 
   const selectedUser = useSelector(
     (state: RootState) => state.user.selectedUser,
+  );
+
+  const creditCard = useSelector(
+    (state: RootState) => state.creditCard.creditCard,
   );
 
   const handleClickReturn = () => {
@@ -34,6 +39,8 @@ export const Order = () => {
   const handleAddressChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddress(e.target.value);
   };
+
+  console.log(creditCard);
 
   return (
     <>
@@ -87,7 +94,14 @@ export const Order = () => {
           >
             Enter Credit Card Information
           </SelectableOption>
+
+          {creditCard !== null ? (
+          <CreditCardInfo creditCard={creditCard} />
+        ) : null}
+
         </BlueBox>
+
+        
 
         <BlueBox>
           <SelectableOption
