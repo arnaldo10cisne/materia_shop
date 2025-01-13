@@ -9,19 +9,27 @@ import {
   playCancelCursorSfx,
   playPurchaseSfx,
 } from "../../utils/utilityFunctions.ts";
+import { useDispatch } from "react-redux";
+import {
+  addOrUpdateCartItem,
+  removeCartItem,
+} from "../../store/cartReducer.ts";
 
 interface ProductInfoModalProps {
   product: ProductModel | null;
   onClose: () => any;
   onAddToCart: () => any;
+  initialAmount?: number;
 }
 
 export const ProductInfoModal = ({
   product,
   onClose,
   onAddToCart,
+  initialAmount = 0,
 }: ProductInfoModalProps) => {
-  const [amountInCart, setAmountInCart] = useState(0);
+  const [amountInCart, setAmountInCart] = useState(initialAmount);
+  const dispatch = useDispatch();
   const handleCloseButtonClick = () => {
     onClose();
   };
@@ -38,14 +46,30 @@ export const ProductInfoModal = ({
     }
   };
 
-  const handleAddToCart = () => {
-    onAddToCart();
-  };
-
   if (!product) {
     onClose();
     return null;
   }
+
+  const handleAddToCart = () => {
+    if (amountInCart === 0) {
+      dispatch(
+        removeCartItem({
+          product: product,
+          amount: amountInCart,
+        }),
+      );
+    } else {
+      dispatch(
+        addOrUpdateCartItem({
+          product: product,
+          amount: amountInCart,
+          total_price: product?.price * amountInCart,
+        }),
+      );
+    }
+    onAddToCart();
+  };
 
   return (
     <div className={classNames(styles.ProductInfoModalContainer)}>
@@ -111,10 +135,13 @@ export const ProductInfoModal = ({
             <SelectableOption
               onClickHandler={handleAddToCart}
               sfxOnClick={playPurchaseSfx}
-              disabled={amountInCart === 0}
               customStyles={styles.AddToCart}
             >
-              Add to cart
+              {initialAmount === 0
+                ? "Add to cart"
+                : amountInCart === 0 && initialAmount > 0
+                  ? "Remove from cart"
+                  : "Update cart"}
             </SelectableOption>
           </div>
         </BlueBox>

@@ -33,6 +33,8 @@ export const Products = () => {
     (state: RootState) => state.user.selectedUser,
   );
 
+  const cartContent = useSelector((state: RootState) => state.cart.currentCart);
+
   const productsList: ProductModel[] = PLACEHOLDER_PRODUCT_LIST;
 
   const handleClickReturn = () => {
@@ -40,9 +42,10 @@ export const Products = () => {
   };
 
   const handleClickPayWithCreditCard = () => {
-    //Add validations
     navigate("/order");
   };
+
+  console.log(cartContent);
 
   return (
     <>
@@ -61,6 +64,9 @@ export const Products = () => {
             setProductInModal(null);
             playPurchaseSfx();
           }}
+          initialAmount={
+            cartContent.find((item) => item.product === productInModal)?.amount
+          }
         />
       ) : null}
       {openCartModal ? (
@@ -125,6 +131,9 @@ export const Products = () => {
                   )}
                 >
                   Stock: {product.stock_amount}
+                  {cartContent.some((item) => item.product === product)
+                    ? `  |||  In Cart:${cartContent.find((item) => item.product === product)?.amount}`
+                    : null}
                 </p>
               </>
             );
@@ -135,6 +144,7 @@ export const Products = () => {
           <SelectableOption
             onClickHandler={handleClickPayWithCreditCard}
             customStyles={styles.PayWithCreditCard}
+            disabled={cartContent.length === 0}
           >
             Pay with Credit card
           </SelectableOption>

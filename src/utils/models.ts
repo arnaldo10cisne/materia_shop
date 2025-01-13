@@ -44,7 +44,6 @@ export interface ProductModel {
 }
 
 export interface CartItem {
-  id: string;
   product: ProductModel;
   amount: number;
   total_price?: number;
