@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { OrderModel, OrderStatus, CartItem, UserModel } from "../utils/models";
+import {
+  OrderModel,
+  OrderStatus,
+  CartItem,
+  UserModel,
+} from "../utils/models.ts";
 // import { RootState } from "./store.ts"; // Ajusta la ruta según tu configuración
 
 interface OrderStateModel {

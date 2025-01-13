@@ -1,0 +1,19 @@
+@import "../../utils/global";
+
+.Order {
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.Return {
+  margin: 20px 45px;
+}
+
+.ContinueWithPayment {
+  margin: 20px 45px;
+}
