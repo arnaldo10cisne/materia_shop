@@ -17,7 +17,52 @@
   height: auto;
 }
 
+.EmptyCartWarning {
+  color: $danger-red-text;
+  margin-top: 20px;
+}
+
+.CartModalBlueBox {
+  padding-left: 45px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
 .CloseModal {
   margin-top: 20px;
-  margin-left: 45px;
+}
+
+.ProductName {
+  margin-top: 20px;
+}
+
+.ProductIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.CartItemInfoRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CartItemInfoLabelRow p {
+  color: $ligth-blue-text;
+}
+
+.CartItemInfoData {
+  font-size: 25px;
+}
+
+.RemoveItem {
+  color: $danger-red-text;
+  font-size: 30px;
+}
+
+.EmptyCartOption {
+  margin-top: 30px;
+}
+.EmptyCart {
+  color: $danger-red-text;
+  // margin-top: 30px;
 }
