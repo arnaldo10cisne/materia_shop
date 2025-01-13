@@ -4,21 +4,24 @@ import styles from "./Order.module.scss";
 import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
 import { useNavigate } from "react-router-dom";
-import { CreditCardSensitiveDataModel } from "../../utils/models.ts";
 import { CcInfoModal } from "../../components/CcInfoModal/CcInfoModal.tsx";
 import {
   disableScroll,
   enableScroll,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store.ts";
 
 export const Order = () => {
-  const [address, setAddress] = useState<string | null>(null);
-  const [ccInfo, setCcInfo] = useState<CreditCardSensitiveDataModel | null>(
-    null,
-  );
+  const [address, setAddress] = useState<string>("");
   const [openCcInfoModal, setOpenCcInfoModal] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const selectedUser = useSelector(
+    (state: RootState) => state.user.selectedUser,
+  );
 
   const handleClickReturn = () => {
     navigate("/products");
@@ -28,7 +31,9 @@ export const Order = () => {
     alert("making Payment");
   };
 
-  const handleEnterCreditCard = () => {};
+  const handleAddressChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setAddress(e.target.value);
+  };
 
   return (
     <>
@@ -37,7 +42,10 @@ export const Order = () => {
           onClose={() => {
             enableScroll();
             setOpenCcInfoModal(false);
-            playCancelCursorSfx();
+          }}
+          onSubmitCreditCard={() => {
+            enableScroll();
+            setOpenCcInfoModal(false);
           }}
         />
       ) : null}
@@ -52,16 +60,30 @@ export const Order = () => {
           </SelectableOption>
         </BlueBox>
 
+        <BlueBox customStyles={styles.UserBlueBox}>
+          <p className={classNames(styles.CreatingOrderFor)}>
+            Creating Order for
+          </p>
+          <CharacterPortrait character={selectedUser} showName={true} />
+        </BlueBox>
+
         <BlueBox customStyles={styles.OrderDataBlueBox}>
-          <p>Delivery Address</p>
-          <textarea name="" id=""></textarea>
+          <label htmlFor="delivery-address">Delivery Address</label>
+          <textarea
+            className={classNames(styles.addressTextArea)}
+            name="deliveryAddress"
+            id="delivery-address"
+            value={address}
+            onChange={handleAddressChange}
+            maxLength={200}
+          ></textarea>
+          <p>{200 - address.length} characters remaining</p>
 
           <SelectableOption
             onClickHandler={() => {
               setOpenCcInfoModal(true);
               disableScroll();
             }}
-            // customStyles={}
           >
             Enter Credit Card Information
           </SelectableOption>

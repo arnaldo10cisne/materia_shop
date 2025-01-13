@@ -14,7 +14,6 @@ import {
   disableScroll,
   enableScroll,
   playCancelCursorSfx,
-  playPurchaseSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CartModal } from "../../components/CartModal/CartModal.tsx";
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
@@ -54,13 +53,11 @@ export const Products = () => {
             enableScroll();
             setOpenProductModal(false);
             setProductInModal(null);
-            playCancelCursorSfx();
           }}
           onAddToCart={() => {
             enableScroll();
             setOpenProductModal(false);
             setProductInModal(null);
-            playPurchaseSfx();
           }}
           initialAmount={
             cartContent.find((item) => item.product === productInModal)?.amount
