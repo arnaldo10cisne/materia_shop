@@ -7,9 +7,14 @@ import {
   playAcceptCursorSfx,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
-import { CreditCardCompany, CreditCardModel, CreditCardSensitiveDataModel } from "../../utils/models.ts";
+import {
+  CreditCardCompany,
+  CreditCardModel,
+  CreditCardSensitiveDataModel,
+} from "../../utils/models.ts";
 import { useDispatch } from "react-redux";
 import { setCreditCard } from "../../store/creditCardReducer.ts";
+import { CARD_COMPANY_LIST } from "../../utils/constants.ts";
 
 interface CcInfoModalProps {
   onClose: () => any;
@@ -82,18 +87,26 @@ export const CcInfoModal = ({
     setCardNumber("");
     setCvv("");
     setExpirationDate("");
-    
+
     // Opcional: Llamar a la función onSubmitCreditCard si necesitas realizar alguna acción adicional
     onSubmitCreditCard();
   };
 
-  const detectCreditCardCompany = (number: string): CreditCardCompany => {
-    // TODO: Implementar la lógica para detectar la compañía de la tarjeta
-    // Por ahora, devolveremos 'OTHER' por defecto
+  const detectCreditCardCompany = (cardNumber: string): CreditCardCompany => {
+    const sanitizedNumber = cardNumber.replace(/\s+/g, ""); // Remueve espacios si los hubiera
+
+    if (/^4/.test(sanitizedNumber)) {
+      return CreditCardCompany.VISA;
+    }
+    // En este ejemplo solo se contemplan rangos 51-55 para MasterCard.
+    // (MasterCard en la actualidad también comprende rangos 2221–2720,
+    //  pero aquí mostramos la forma más básica)
+    if (/^5[1-5]/.test(sanitizedNumber)) {
+      return CreditCardCompany.MASTER_CARD;
+    }
+
     return CreditCardCompany.OTHER;
   };
-
-
 
   return (
     <div className={classNames(styles.CcInfoModalContainer)}>
@@ -130,7 +143,19 @@ export const CcInfoModal = ({
               pattern="[\d ]{16,19}"
             />
           </div>
-          COMPANY: MASTER CARD
+          <div className={classNames(styles.CreditCardLogoContainer)}>
+            <img
+              className={classNames(styles.CreditCardLogo)}
+              src={
+                CARD_COMPANY_LIST.find((element) => {
+                  return (
+                    element.company === detectCreditCardCompany(cardNumber)
+                  );
+                })?.src
+              }
+              alt={`Credit Card Company`}
+            />
+          </div>
           <div className={styles.FormGroup}>
             <label htmlFor="cvv">Security Code (CVV)</label>
             <input

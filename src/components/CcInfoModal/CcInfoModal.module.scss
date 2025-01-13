@@ -37,3 +37,25 @@
 .ModalBlueBox {
   padding: 20px 45px;
 }
+
+.SubmitButton {
+  margin-top: 20px;
+  margin-left: 45px;
+}
+
+.CreditCardLogoContainer {
+  height: 100px;
+  width: 100px;
+  min-width: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.CreditCardLogo {
+  object-fit: contain;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

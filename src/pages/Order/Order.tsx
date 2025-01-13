@@ -91,17 +91,19 @@ export const Order = () => {
               setOpenCcInfoModal(true);
               disableScroll();
             }}
+            customStyles={styles.EnterCreditCardInfo}
           >
             Enter Credit Card Information
           </SelectableOption>
 
           {creditCard !== null ? (
-          <CreditCardInfo creditCard={creditCard} />
-        ) : null}
-
+            <CreditCardInfo creditCard={creditCard} />
+          ) : (
+            <p className={classNames(styles.PleaseEnterCC)}>
+              Please Enter Credit Card Information
+            </p>
+          )}
         </BlueBox>
-
-        
 
         <BlueBox>
           <SelectableOption

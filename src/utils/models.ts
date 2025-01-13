@@ -14,7 +14,6 @@ export enum PaymentStatus {
 export enum CreditCardCompany {
   VISA = "VISA",
   MASTER_CARD = "MASTER_CARD",
-  AMEX = "AMEX",
   OTHER = "OTHER",
 }
 
