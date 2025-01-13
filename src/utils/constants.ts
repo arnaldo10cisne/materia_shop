@@ -8,6 +8,8 @@ import command_materia_icon from "../assets/icons/FFVII_Command_Materia_Icon.png
 import mc_logo from "../assets/images/mc_logo.png";
 import visa_logo from "../assets/images/visa_logo.png";
 import other_logo from "../assets/images/other_logo.png";
+import deliveryChocobo from "../assets/images/delivery_chocobo.gif";
+import fatChocobo from "../assets/images/fat_chocobo.gif";
 import {
   CreditCardCompany,
   CreditCardIconModel,
@@ -19,6 +21,9 @@ import {
 
 export const CURSOR_POINTER = cursor_pointer;
 export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
+
+export const DELIVERY_CHOCOBO_IMAGE = deliveryChocobo;
+export const FAT_CHOCOBO_IMAGE = fatChocobo;
 
 export const MASTERCARD_CARD: CreditCardIconModel = {
   company: CreditCardCompany.MASTER_CARD,
