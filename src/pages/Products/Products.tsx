@@ -17,6 +17,9 @@ import {
   playPurchaseSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CartModal } from "../../components/CartModal/CartModal.tsx";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store.ts";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);
@@ -26,13 +29,15 @@ export const Products = () => {
   );
   const navigate = useNavigate();
 
+  const selectedUser = useSelector(
+    (state: RootState) => state.user.selectedUser,
+  );
+
   const productsList: ProductModel[] = PLACEHOLDER_PRODUCT_LIST;
 
   const handleClickReturn = () => {
     navigate("/");
   };
-
-  const handleClickShowCart = () => {};
 
   const handleClickPayWithCreditCard = () => {
     //Add validations
@@ -78,16 +83,19 @@ export const Products = () => {
           </SelectableOption>
         </BlueBox>
 
-        <BlueBox>Client Info</BlueBox>
-
-        <BlueBox>
+        <BlueBox customStyles={styles.UserBlueBox}>
+          <p className={classNames(styles.BuyingMateriaFor)}>
+            Buying Materia for
+          </p>
+          <CharacterPortrait character={selectedUser} showName={true} />
           <SelectableOption
             onClickHandler={() => {
               setOpenCartModal(true);
               disableScroll();
             }}
+            customStyles={styles.ShowCart}
           >
-            Show Cart
+            Open Shopping Cart
           </SelectableOption>
         </BlueBox>
 
