@@ -3,6 +3,8 @@ import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
 import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
 import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
+import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
+import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
 import { CartItem } from "./models.ts";
 
 export const disableScroll = () => {
@@ -44,6 +46,20 @@ export const playBuzzerCursorSfx = () => {
 export const playPurchaseSfx = () => {
   const sfx = new Audio(purchaseAudio);
   sfx.play().catch((err) => console.error("Error playing Purchase sfx:", err));
+};
+
+export const playChocoboDance = () => {
+  const sfx = new Audio(chocoboDance);
+  sfx
+    .play()
+    .catch((err) => console.error("Error playing chocoboDance sfx:", err));
+};
+
+export const playChocoboCry = () => {
+  const sfx = new Audio(chocoboCry);
+  sfx
+    .play()
+    .catch((err) => console.error("Error playing chocoboCry sfx:", err));
 };
 
 export const calculateOrderPrice = (

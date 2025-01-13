@@ -126,6 +126,11 @@ export const Summary = () => {
         <SelectableOption
           onClickHandler={handleClickMakePayment}
           customStyles={styles.ContinueWithPayment}
+          disabled={
+            !order.currentOrder?.address ||
+            order.currentOrder.content.length === 0 ||
+            !order.currentOrder.payment_method?.credit_card
+          }
         >
           Continue with Payment
         </SelectableOption>
