@@ -10,8 +10,11 @@
   width: 90%;
 }
 
+.ProductItem {
+  margin-top: 20px;
+}
+
 .ProductInfo {
-  // width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +24,6 @@
   font-size: 30px;
   color: $ligth-blue-text;
   margin-left: 45px;
-  margin-top: -20px;
 }
 
 .ProductStockEmpty {

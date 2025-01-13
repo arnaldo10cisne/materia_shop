@@ -16,6 +16,7 @@ interface SelectableOptionProps {
   disabled?: boolean;
   onClickHandler?: () => any;
   sfxOnClick?: () => void;
+  customStyles?: any;
 }
 
 export const SelectableOption = ({
@@ -24,6 +25,7 @@ export const SelectableOption = ({
   disabled = false,
   onClickHandler = () => {},
   sfxOnClick = playAcceptCursorSfx,
+  customStyles = null,
 }: SelectableOptionProps) => {
   const [cursorIsVisble, setCursorIsVisble] = useState(false);
 
@@ -55,6 +57,7 @@ export const SelectableOption = ({
       className={classNames(
         styles.SelectableOption,
         disabled && styles.SelectableOptionDisabled,
+        customStyles,
       )}
     >
       {cursorIsVisble && !disabled ? (

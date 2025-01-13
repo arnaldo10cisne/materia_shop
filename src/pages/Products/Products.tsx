@@ -89,6 +89,7 @@ export const Products = () => {
                     return materia.type === product.materia_type;
                   })}
                   disabled={product.stock_amount <= 0}
+                  customStyles={styles.ProductItem}
                 >
                   {product.name}
                 </SelectableOption>
