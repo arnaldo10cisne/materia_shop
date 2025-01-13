@@ -41,3 +41,19 @@
   text-align: center;
   font-size: 30px;
 }
+
+.AddToCartController {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -45px;
+}
+
+.ChangeCartAmount {
+  color: $ligth-blue-text;
+  font-size: 50px;
+}
+
+.CartAmount {
+  margin-left: 45px;
+}
