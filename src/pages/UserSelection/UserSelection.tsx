@@ -32,11 +32,12 @@ export const UserSelection = () => {
         <SelectableOption
           onClickHandler={handleClickReturn}
           sfxOnClick={playCancelCursorSfx}
+          customStyles={styles.Return}
         >
           Return
         </SelectableOption>
       </BlueBox>
-      <BlueBox>
+      <BlueBox customStyles={styles.CharacterListBlueBox}>
         {characterList.map((character: UserModel) => {
           return (
             <SelectableOption
@@ -44,6 +45,7 @@ export const UserSelection = () => {
               onClickHandler={() => {
                 handleClickSelectCharacter(character);
               }}
+              customStyles={styles.CharacterItem}
             >
               <CharacterPortrait
                 key={character.name}

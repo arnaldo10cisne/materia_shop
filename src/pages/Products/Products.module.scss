@@ -10,6 +10,15 @@
   width: 90%;
 }
 
+.Return {
+  margin: 20px 45px;
+}
+
+.ProductListBlueBox {
+  padding-left: 45px;
+  padding-bottom: 20px;
+}
+
 .ProductItem {
   margin-top: 20px;
 }
@@ -28,4 +37,8 @@
 
 .ProductStockEmpty {
   color: $danger-red-text;
+}
+
+.PayWithCreditCard {
+  margin: 20px 45px;
 }

@@ -61,6 +61,7 @@ export const Products = () => {
           <SelectableOption
             onClickHandler={handleClickReturn}
             sfxOnClick={playCancelCursorSfx}
+            customStyles={styles.Return}
           >
             Return
           </SelectableOption>
@@ -74,7 +75,7 @@ export const Products = () => {
           </SelectableOption>
         </BlueBox>
 
-        <BlueBox>
+        <BlueBox customStyles={styles.ProductListBlueBox}>
           {productsList.map((product: ProductModel) => {
             return (
               <>
@@ -107,7 +108,10 @@ export const Products = () => {
         </BlueBox>
 
         <BlueBox>
-          <SelectableOption onClickHandler={handleClickPayWithCreditCard}>
+          <SelectableOption
+            onClickHandler={handleClickPayWithCreditCard}
+            customStyles={styles.PayWithCreditCard}
+          >
             Pay with Credit card
           </SelectableOption>
         </BlueBox>

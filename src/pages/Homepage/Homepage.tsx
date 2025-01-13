@@ -24,14 +24,20 @@ export const Homepage = () => {
 
   return (
     <div className={classNames(styles.Homepage)}>
-      <BlueBox>Welcome to the Materia Shop</BlueBox>
-      <BlueBox>
-        <SelectableOption onClickHandler={handleClickSelectCharacter}>
+      <BlueBox customStyles={styles.WelcomeBlueBox}>
+        Welcome to the Materia Shop
+      </BlueBox>
+      <BlueBox customStyles={styles.HomepageBlueBox}>
+        <SelectableOption
+          onClickHandler={handleClickSelectCharacter}
+          customStyles={styles.SelectCharacter}
+        >
           Select Character
         </SelectableOption>
         <SelectableOption
           onClickHandler={handleClickBuyMateria}
           disabled={!selectedUser}
+          customStyles={styles.BuyMateria}
         >
           Buy Materia
         </SelectableOption>
