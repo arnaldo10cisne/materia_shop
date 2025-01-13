@@ -5,7 +5,13 @@ import summon_materia_icon from "../assets/icons/FFVII_Summon_Materia_Icon.png";
 import support_materia_icon from "../assets/icons/FFVII_Support_Materia_Icon.png";
 import independent_materia_icon from "../assets/icons/FFVII_Independent_Materia_Icon.png";
 import command_materia_icon from "../assets/icons/FFVII_Command_Materia_Icon.png";
+import amex_logo from "../assets/images/amex_logo.png";
+import mc_logo from "../assets/images/mc_logo.png";
+import visa_logo from "../assets/images/visa_logo.png";
+import other_logo from "../assets/images/other_logo.png";
 import {
+  CreditCardCompany,
+  CreditCardIconModel,
   MateriaIconModel,
   MateriaTypes,
   ProductModel,
@@ -14,6 +20,33 @@ import {
 
 export const CURSOR_POINTER = cursor_pointer;
 export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
+
+export const MASTERCARD_CARD: CreditCardIconModel = {
+  company: CreditCardCompany.MASTER_CARD,
+  src: mc_logo,
+};
+
+export const VISA_CARD: CreditCardIconModel = {
+  company: CreditCardCompany.VISA,
+  src: visa_logo,
+};
+
+export const AMEX_CARD: CreditCardIconModel = {
+  company: CreditCardCompany.AMEX,
+  src: amex_logo,
+};
+
+export const OTHER_CARD: CreditCardIconModel ={
+  company: CreditCardCompany.OTHER,
+  src: other_logo,
+}
+
+export const CARD_COMPANY_LIST: CreditCardIconModel[] = [
+  MASTERCARD_CARD,
+  VISA_CARD,
+  AMEX_CARD,
+  OTHER_CARD,
+]
 
 export const MAGIC_MATERIA: MateriaIconModel = {
   type: MateriaTypes.MAGIC,

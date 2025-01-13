@@ -86,3 +86,8 @@ export interface MateriaIconModel {
   type: MateriaTypes;
   src: string;
 }
+
+export interface CreditCardIconModel {
+  company: CreditCardCompany;
+  src: string;
+}
