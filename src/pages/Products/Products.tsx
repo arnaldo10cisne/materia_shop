@@ -16,9 +16,11 @@ import {
   playCancelCursorSfx,
   playPurchaseSfx,
 } from "../../utils/utilityFunctions.ts";
+import { CartModal } from "../../components/CartModal/CartModal.tsx";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);
+  const [openCartModal, setOpenCartModal] = useState<boolean>(false);
   const [productInModal, setProductInModal] = useState<ProductModel | null>(
     null,
   );
@@ -56,6 +58,15 @@ export const Products = () => {
           }}
         />
       ) : null}
+      {openCartModal ? (
+        <CartModal
+          onClose={() => {
+            enableScroll();
+            setOpenCartModal(false);
+            playCancelCursorSfx();
+          }}
+        />
+      ) : null}
       <div className={classNames(styles.Products)}>
         <BlueBox>
           <SelectableOption
@@ -70,7 +81,12 @@ export const Products = () => {
         <BlueBox>Client Info</BlueBox>
 
         <BlueBox>
-          <SelectableOption onClickHandler={handleClickShowCart}>
+          <SelectableOption
+            onClickHandler={() => {
+              setOpenCartModal(true);
+              disableScroll();
+            }}
+          >
             Show Cart
           </SelectableOption>
         </BlueBox>
