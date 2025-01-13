@@ -18,6 +18,11 @@
   height: auto;
 }
 
+.CloseModal {
+  margin-top: 20px;
+  margin-left: 45px;
+}
+
 .ProductInfoContainer {
   display: flex;
   flex-direction: column;
@@ -34,11 +39,17 @@
 }
 
 .ProductName {
-  margin: 10px 0px;
+  margin: 20px 0px;
 }
 
 .ProductDescription {
   text-align: center;
+  font-size: 30px;
+  width: 80%;
+}
+
+.ProductStock {
+  margin-top: 20px;
   font-size: 30px;
 }
 
@@ -46,7 +57,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: -45px;
 }
 
 .ChangeCartAmount {
@@ -56,5 +66,9 @@
 
 .CartAmount {
   color: $ligth-blue-text;
-  margin-left: 45px;
+  margin: 20px 45px;
+}
+
+.AddToCart {
+  margin-bottom: 20px;
 }

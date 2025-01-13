@@ -54,6 +54,7 @@ export const ProductInfoModal = ({
           <SelectableOption
             onClickHandler={handleCloseButtonClick}
             sfxOnClick={playCancelCursorSfx}
+            customStyles={styles.CloseModal}
           >
             Close
           </SelectableOption>
@@ -80,7 +81,9 @@ export const ProductInfoModal = ({
               {product.description}
             </p>
 
-            <p>Stock: {product.stock_amount}</p>
+            <p className={classNames(styles.ProductStock)}>
+              Stock: {product.stock_amount}
+            </p>
             <div className={classNames(styles.AddToCartController)}>
               <SelectableOption
                 onClickHandler={handleDecreaseAmount}
@@ -103,6 +106,7 @@ export const ProductInfoModal = ({
               onClickHandler={handleAddToCart}
               sfxOnClick={playPurchaseSfx}
               disabled={amountInCart === 0}
+              customStyles={styles.AddToCart}
             >
               Add to cart
             </SelectableOption>
