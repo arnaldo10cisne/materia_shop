@@ -56,6 +56,7 @@ export interface OrderModel {
   content: CartItem[];
   status: OrderStatus;
   payment_method: PaymentModel | null;
+  total_order_prince: number;
 }
 
 export interface CreditCardModel {
@@ -76,9 +77,8 @@ export interface CreditCardSensitiveDataModel {
 
 export interface PaymentModel {
   id: string;
-  credit_card: CreditCardModel;
+  credit_card?: CreditCardModel;
   status: PaymentStatus;
-  order: OrderModel;
 }
 
 export interface MateriaIconModel {

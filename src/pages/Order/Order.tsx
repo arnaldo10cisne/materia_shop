@@ -11,14 +11,21 @@ import {
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
 import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
+import { createOrder } from "../../store/orderReducer.ts";
+import { CreditCardModel, UserModel } from "../../utils/models.ts";
 
 export const Order = () => {
-  const [address, setAddress] = useState<string>("");
+  const order = useSelector((state: RootState) => state.order);
+
+  const [address, setAddress] = useState<string>(
+    order.currentOrder?.address || "",
+  );
   const [openCcInfoModal, setOpenCcInfoModal] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const selectedUser = useSelector(
     (state: RootState) => state.user.selectedUser,
@@ -28,11 +35,22 @@ export const Order = () => {
     (state: RootState) => state.creditCard.creditCard,
   );
 
+  const currentCart = useSelector((state: RootState) => state.cart);
+
   const handleClickReturn = () => {
     navigate("/products");
   };
 
-  const handleClickContinueWithPayment = () => {
+  const handleClickViewSummary = () => {
+    dispatch(
+      createOrder({
+        user: selectedUser as UserModel,
+        content: currentCart.currentCart,
+        address: address,
+        credit_card: creditCard as CreditCardModel,
+      }),
+    );
+
     navigate("/summary");
   };
 
@@ -112,7 +130,7 @@ export const Order = () => {
 
         <BlueBox>
           <SelectableOption
-            onClickHandler={handleClickContinueWithPayment}
+            onClickHandler={handleClickViewSummary}
             customStyles={styles.ContinueWithPayment}
             disabled={!address || creditCard === null}
           >

@@ -3,6 +3,7 @@ import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
 import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
 import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
+import { CartItem } from "./models.ts";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
@@ -43,4 +44,20 @@ export const playBuzzerCursorSfx = () => {
 export const playPurchaseSfx = () => {
   const sfx = new Audio(purchaseAudio);
   sfx.play().catch((err) => console.error("Error playing Purchase sfx:", err));
+};
+
+export const calculateOrderPrice = (
+  cartItems: CartItem[],
+  addCcFee = false,
+  includeDeliveryFee = false,
+): number => {
+  const sum_of_items = cartItems.reduce(
+    (total, item) => total + (item.total_price || 0),
+    0,
+  );
+
+  const cc_fee = addCcFee ? parseFloat((sum_of_items * 0.14).toFixed(2)) : 0;
+  const delivery_fee = includeDeliveryFee ? 750 : 0;
+
+  return sum_of_items + cc_fee + delivery_fee;
 };

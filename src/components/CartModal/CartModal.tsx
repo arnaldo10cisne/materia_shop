@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MATERIA_LIST } from "../../utils/constants.ts";
 import { MateriaIconModel } from "../../utils/models.ts";
 import { removeCartItem, clearCartContent } from "../../store/cartReducer.ts";
+import { PriceSummary } from "../PriceSummary/PriceSummary.tsx";
 
 interface CartModalProps {
   onClose: () => any;
@@ -94,6 +95,11 @@ export const CartModal = ({ onClose }: CartModalProps) => {
                   </>
                 );
               })}
+              <PriceSummary
+                cart={cartContent}
+                addCcFee={false}
+                includeDeliveryFee={false}
+              />
               <SelectableOption
                 onClickHandler={() => {
                   dispatch(clearCartContent());
