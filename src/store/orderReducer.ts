@@ -4,6 +4,7 @@ import {
   OrderStatus,
   CartItem,
   UserModel,
+  PaymentModel,
 } from "../utils/models.ts";
 // import { RootState } from "./store.ts"; // Ajusta la ruta según tu configuración
 
@@ -19,13 +20,21 @@ export const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    createOrder: (state, action: PayloadAction<UserModel>) => {
+    createOrder: (
+      state,
+      action: PayloadAction<{
+        user: UserModel;
+        content: CartItem[];
+      }>,
+    ) => {
       state.currentOrder = {
         id: crypto.randomUUID(), // Generate unique ID
-        User: action.payload,
+        user: action.payload.user,
         creation_date: new Date(),
-        content: [],
+        content: action.payload.content,
         status: OrderStatus.IN_PROGRESS,
+        payment_method: null,
+        address: "",
       };
     },
     updateOrderStatus: (state, action: PayloadAction<OrderStatus>) => {
@@ -33,33 +42,28 @@ export const orderSlice = createSlice({
         state.currentOrder.status = action.payload;
       }
     },
-    addCartItem: (state, action: PayloadAction<CartItem>) => {
+    assignCart: (state, action: PayloadAction<CartItem[]>) => {
       if (state.currentOrder) {
-        state.currentOrder.content.push(action.payload);
+        state.currentOrder.content = action.payload;
       }
     },
-    removeCartItem: (state, action: PayloadAction<string>) => {
+    updatePaymentMethodAndAddress: (
+      state,
+      action: PayloadAction<{
+        payment_method: PaymentModel;
+        address: string;
+      }>,
+    ) => {
       if (state.currentOrder) {
-        state.currentOrder.content = state.currentOrder.content.filter(
-          (item) => item.id !== action.payload,
-        );
-      }
-    },
-    clearCartContent: (state) => {
-      if (state.currentOrder) {
-        state.currentOrder.content = [];
+        state.currentOrder.payment_method = action.payload.payment_method;
+        state.currentOrder.address = action.payload.address;
       }
     },
   },
 });
 
-export const {
-  createOrder,
-  updateOrderStatus,
-  addCartItem,
-  removeCartItem,
-  clearCartContent,
-} = orderSlice.actions;
+export const { createOrder, updateOrderStatus, assignCart } =
+  orderSlice.actions;
 export default orderSlice.reducer;
 
 // Ejemplo de uso con el estado global y el userReducer

@@ -5,18 +5,18 @@ export enum OrderStatus {
   CANCELLED = "CANCELLED",
 }
 
-// export enum PaymentStatus {
-//   IN_PROGRESS = 'IN_PROGRESS',
-//   COMPLETED = 'COMPLETED',
-//   FAILED = 'FAILED',
-// }
+export enum PaymentStatus {
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+  FAILED = "FAILED",
+}
 
-// export enum CreditCardCompany {
-//   VISA = 'VISA',
-//   MASTER_CARD = 'MASTER_CARD',
-//   AMEX = 'AMEX',
-//   OTHER = 'OTHER',
-// }
+export enum CreditCardCompany {
+  VISA = "VISA",
+  MASTER_CARD = "MASTER_CARD",
+  AMEX = "AMEX",
+  OTHER = "OTHER",
+}
 
 export enum MateriaTypes {
   COMMAND = "COMMAND",
@@ -52,24 +52,26 @@ export interface CartItem {
 
 export interface OrderModel {
   id: string;
-  User: UserModel;
+  user: UserModel;
+  address: string;
   creation_date: Date;
   content: CartItem[];
   status: OrderStatus;
+  payment_method: PaymentModel | null;
 }
 
-// export interface CreditCardModel {
-//   id: string;
-//   company: CreditCardCompany;
-//   last_four_digits: number;
-// }
+export interface CreditCardModel {
+  id: string;
+  company: CreditCardCompany;
+  last_four_digits: number;
+}
 
-// export interface PaymentModel {
-//   id: string;
-//   credit_card: CreditCardModel;
-//   status: PaymentStatus;
-//   order: OrderModel;
-// }
+export interface PaymentModel {
+  id: string;
+  credit_card: CreditCardModel;
+  status: PaymentStatus;
+  order: OrderModel;
+}
 
 export interface MateriaIconModel {
   type: MateriaTypes;
