@@ -1,9 +1,9 @@
-// export enum OrderStatus {
-//   IN_PROGRESS = 'IN_PROGRESS',
-//   COMPLETED = 'COMPLETED',
-//   FAILED = 'FAILED',
-//   CANCELLED = 'CANCELLED',
-// }
+export enum OrderStatus {
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+  FAILED = "FAILED",
+  CANCELLED = "CANCELLED",
+}
 
 // export enum PaymentStatus {
 //   IN_PROGRESS = 'IN_PROGRESS',
@@ -43,20 +43,20 @@ export interface ProductModel {
   materia_type: MateriaTypes;
 }
 
-// export interface CartItem {
-//   id: string;
-//   product: ProductModel;
-//   amount: number;
-//   total_price?: number;
-// }
+export interface CartItem {
+  id: string;
+  product: ProductModel;
+  amount: number;
+  total_price?: number;
+}
 
-// export interface OrderModel {
-//   id: string;
-//   User: UserModel;
-//   creation_date: Date;
-//   content: CartItem[];
-//   status: OrderStatus;
-// }
+export interface OrderModel {
+  id: string;
+  User: UserModel;
+  creation_date: Date;
+  content: CartItem[];
+  status: OrderStatus;
+}
 
 // export interface CreditCardModel {
 //   id: string;

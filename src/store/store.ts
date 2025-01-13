@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userReducer.ts"; // Importa el reducer por defecto de userSlice
+import userReducer from "./userReducer.ts";
+import orderReducer from "./orderReducer.ts";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    order: orderReducer,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
