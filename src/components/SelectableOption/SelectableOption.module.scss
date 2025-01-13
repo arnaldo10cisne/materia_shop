@@ -25,6 +25,9 @@
   margin-left: 45px;
   display: flex;
   align-items: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .OptionIcon {
@@ -33,6 +36,9 @@
 }
 
 .OptionText {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .OptionTextDisabled {

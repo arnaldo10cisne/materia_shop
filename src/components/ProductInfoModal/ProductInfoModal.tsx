@@ -5,31 +5,41 @@ import { MateriaIconModel, ProductModel } from "../../utils/models.ts";
 import { BlueBox } from "../BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
 import { MATERIA_LIST } from "../../utils/constants.ts";
+import {
+  playCancelCursorSfx,
+  playPurchaseSfx,
+} from "../../utils/utilityFunctions.ts";
 
 interface ProductInfoModalProps {
   product: ProductModel | null;
   onClose: () => any;
+  onAddToCart: () => any;
 }
 
 export const ProductInfoModal = ({
   product,
   onClose,
+  onAddToCart,
 }: ProductInfoModalProps) => {
   const [amountInCart, setAmountInCart] = useState(0);
   const handleCloseButtonClick = () => {
     onClose();
   };
 
-  const handleAddToCart = () => {
+  const handleIncreaseAmount = () => {
     if (product && amountInCart < product.stock_amount) {
       setAmountInCart(amountInCart + 1);
     }
   };
 
-  const handleRemoveFromCart = () => {
+  const handleDecreaseAmount = () => {
     if (amountInCart > 0) {
       setAmountInCart(amountInCart - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    onAddToCart();
   };
 
   if (!product) {
@@ -43,7 +53,7 @@ export const ProductInfoModal = ({
         <BlueBox>
           <SelectableOption
             onClickHandler={handleCloseButtonClick}
-            is_return={true}
+            sfxOnClick={playCancelCursorSfx}
           >
             Close
           </SelectableOption>
@@ -72,18 +82,28 @@ export const ProductInfoModal = ({
 
             <p>Stock: {product.stock_amount}</p>
             <div className={classNames(styles.AddToCartController)}>
-              <SelectableOption onClickHandler={handleRemoveFromCart}>
+              <SelectableOption
+                onClickHandler={handleDecreaseAmount}
+                disabled={amountInCart === 0}
+              >
                 <span className={classNames(styles.ChangeCartAmount)}>-</span>
               </SelectableOption>
               <p className={classNames(styles.CartAmount)}>
                 Cart: {amountInCart}
               </p>
-              <SelectableOption onClickHandler={handleAddToCart}>
+              <SelectableOption
+                onClickHandler={handleIncreaseAmount}
+                disabled={amountInCart >= product.stock_amount}
+              >
                 <span className={classNames(styles.ChangeCartAmount)}>+</span>
               </SelectableOption>
             </div>
 
-            <SelectableOption onClickHandler={() => {}}>
+            <SelectableOption
+              onClickHandler={handleAddToCart}
+              sfxOnClick={playPurchaseSfx}
+              disabled={amountInCart === 0}
+            >
               Add to cart
             </SelectableOption>
           </div>

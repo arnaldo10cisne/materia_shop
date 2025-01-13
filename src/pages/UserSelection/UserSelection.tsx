@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userReducer.ts";
+import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
 
 export const UserSelection = () => {
   const navigate = useNavigate();
@@ -28,7 +29,10 @@ export const UserSelection = () => {
   return (
     <div className={classNames(styles.UserSelection)}>
       <BlueBox>
-        <SelectableOption onClickHandler={handleClickReturn} is_return={true}>
+        <SelectableOption
+          onClickHandler={handleClickReturn}
+          sfxOnClick={playCancelCursorSfx}
+        >
           Return
         </SelectableOption>
       </BlueBox>

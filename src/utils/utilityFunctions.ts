@@ -2,6 +2,7 @@ import cursorAcceptAudio from "../assets/sfx/Cursor-Accept.mp3";
 import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
 import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
 import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
+import purchaseAudio from "../assets/sfx/Purchase.mp3";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
@@ -37,4 +38,9 @@ export const playBuzzerCursorSfx = () => {
   sfx
     .play()
     .catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+};
+
+export const playPurchaseSfx = () => {
+  const sfx = new Audio(purchaseAudio);
+  sfx.play().catch((err) => console.error("Error playing Purchase sfx:", err));
 };

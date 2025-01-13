@@ -14,16 +14,16 @@ interface SelectableOptionProps {
   icon?: MateriaIconModel | null;
   children: React.ReactNode;
   disabled?: boolean;
-  is_return?: boolean;
   onClickHandler?: () => any;
+  sfxOnClick?: () => void;
 }
 
 export const SelectableOption = ({
   children,
   icon = null,
   disabled = false,
-  is_return = false,
   onClickHandler = () => {},
+  sfxOnClick = playAcceptCursorSfx,
 }: SelectableOptionProps) => {
   const [cursorIsVisble, setCursorIsVisble] = useState(false);
 
@@ -40,11 +40,7 @@ export const SelectableOption = ({
 
   const handleClick = () => {
     if (!disabled) {
-      if (is_return) {
-        playCancelCursorSfx();
-      } else {
-        playAcceptCursorSfx();
-      }
+      sfxOnClick();
       onClickHandler();
     } else {
       playBuzzerCursorSfx();

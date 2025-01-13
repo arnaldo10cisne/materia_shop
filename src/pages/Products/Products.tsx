@@ -14,6 +14,7 @@ import {
   disableScroll,
   enableScroll,
   playCancelCursorSfx,
+  playPurchaseSfx,
 } from "../../utils/utilityFunctions.ts";
 
 export const Products = () => {
@@ -47,11 +48,20 @@ export const Products = () => {
             setProductInModal(null);
             playCancelCursorSfx();
           }}
+          onAddToCart={() => {
+            enableScroll();
+            setOpenProductModal(false);
+            setProductInModal(null);
+            playPurchaseSfx();
+          }}
         />
       ) : null}
       <div className={classNames(styles.Products)}>
         <BlueBox>
-          <SelectableOption onClickHandler={handleClickReturn} is_return={true}>
+          <SelectableOption
+            onClickHandler={handleClickReturn}
+            sfxOnClick={playCancelCursorSfx}
+          >
             Return
           </SelectableOption>
         </BlueBox>
