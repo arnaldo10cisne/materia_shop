@@ -8,6 +8,8 @@ import { Products } from "./pages/Products/Products.tsx";
 import { Order } from "./pages/Order/Order.tsx";
 import { UserSelection } from "./pages/UserSelection/UserSelection.tsx";
 import classNames from "classnames";
+import { Summary } from "./pages/Summary/Summary.tsx";
+import { Results } from "./pages/Results/Results.tsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -23,6 +25,8 @@ export function App() {
               <Route path="/users" element={<UserSelection />} />
               <Route path="/products" element={<Products />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/summary" element={<Summary />} />
+              <Route path="/results" element={<Results />} />
             </Routes>
           </Layout>
         </BrowserRouter>

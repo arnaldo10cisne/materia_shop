@@ -8,10 +8,10 @@ import {
 } from "../../utils/constants.ts";
 import classNames from "classnames";
 import styles from "./SelectableOption.module.scss";
-import { IconModel } from "../../utils/models.ts";
+import { MateriaIconModel } from "../../utils/models.ts";
 
 interface SelectableOptionProps {
-  icon?: IconModel | null;
+  icon?: MateriaIconModel | null;
   children: React.ReactNode;
   disabled?: boolean;
   is_return?: boolean;
@@ -81,7 +81,12 @@ export const SelectableOption = ({
         />
       ) : null}
 
-      <div className={classNames(styles.OptionContent)}>
+      <div
+        className={classNames(
+          styles.OptionContent,
+          disabled && styles.OptionTextDisabled,
+        )}
+      >
         {icon ? (
           <img
             className={classNames(styles.OptionIcon)}
@@ -89,9 +94,7 @@ export const SelectableOption = ({
             alt="optionIcon"
           />
         ) : null}{" "}
-        <p className={classNames(disabled && styles.OptionTextDisabled)}>
-          {children}
-        </p>{" "}
+        {children}
       </div>
     </div>
   );

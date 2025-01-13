@@ -1,11 +1,11 @@
 declare module "*.wav" {
-  const src: string;
-  export default src;
+  const wav: string;
+  export default wav;
 }
 
 declare module "*.mp3" {
-  const src: string;
-  export default src;
+  const mp3: string;
+  export default mp3;
 }
 
 declare module "*.scss" {
@@ -14,11 +14,11 @@ declare module "*.scss" {
 }
 
 declare module "*.png" {
-  const src: string;
-  export default src;
+  const png: string;
+  export default png;
 }
 
 declare module "*.webp" {
-  const src: string;
-  export default src;
+  const webp: string;
+  export default webp;
 }

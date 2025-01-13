@@ -9,3 +9,21 @@
   align-items: center;
   width: 90%;
 }
+
+.ProductInfo {
+  // width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ProductStock {
+  font-size: 30px;
+  color: $ligth-blue-text;
+  margin-left: 45px;
+  margin-top: -20px;
+}
+
+.ProductStockEmpty {
+  color: $danger-red-text;
+}

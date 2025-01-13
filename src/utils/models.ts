@@ -18,21 +18,30 @@
 //   OTHER = 'OTHER',
 // }
 
+export enum MateriaTypes {
+  COMMAND = "COMMAND",
+  INDEPENDENT = "INDEPENDENT",
+  MAGIC = "MAGIC",
+  SUMMON = "SUMMON",
+  SUPPORT = "SUPPORT",
+}
+
 export interface UserModel {
   id: string;
   name: string;
   portrait: string;
 }
 
-// export interface ProductModel {
-//   id: string;
-//   name: string;
-//   description: string;
-//   picture: string;
-//   price: number;
-//   stock_amount: number;
-//   is_available: boolean;
-// }
+export interface ProductModel {
+  id: string;
+  name: string;
+  description: string;
+  picture: string;
+  price: number;
+  stock_amount: number;
+  is_available: boolean;
+  materia_type: MateriaTypes;
+}
 
 // export interface CartItem {
 //   id: string;
@@ -62,6 +71,7 @@ export interface UserModel {
 //   order: OrderModel;
 // }
 
-export interface IconModel {
+export interface MateriaIconModel {
+  type: MateriaTypes;
   src: string;
 }
