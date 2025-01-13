@@ -53,3 +53,12 @@
   font-size: 30px;
   margin-top: 20px;
 }
+
+.RemainingCharacters {
+  font-size: 30px;
+  color: $ligth-blue-text;
+}
+
+.RemainingCharactersWarning {
+  color: $danger-red-text;
+}

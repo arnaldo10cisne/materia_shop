@@ -33,14 +33,12 @@ export const Order = () => {
   };
 
   const handleClickContinueWithPayment = () => {
-    alert("making Payment");
+    navigate("/summary");
   };
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddress(e.target.value);
   };
-
-  console.log(creditCard);
 
   return (
     <>
@@ -84,7 +82,14 @@ export const Order = () => {
             onChange={handleAddressChange}
             maxLength={200}
           ></textarea>
-          <p>{200 - address.length} characters remaining</p>
+          <p
+            className={classNames(
+              styles.RemainingCharacters,
+              address.length >= 170 && styles.RemainingCharactersWarning,
+            )}
+          >
+            {200 - address.length} characters remaining
+          </p>
 
           <SelectableOption
             onClickHandler={() => {
@@ -109,6 +114,7 @@ export const Order = () => {
           <SelectableOption
             onClickHandler={handleClickContinueWithPayment}
             customStyles={styles.ContinueWithPayment}
+            disabled={!address || creditCard === null}
           >
             View Summary
           </SelectableOption>
