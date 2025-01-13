@@ -45,8 +45,6 @@ export const Products = () => {
     navigate("/order");
   };
 
-  console.log(cartContent);
-
   return (
     <>
       {openProductModal ? (
