@@ -11,18 +11,9 @@ import {
   ProductModel,
   UserModel,
 } from "./models.ts";
-import cursorAcceptAudio from "../assets/sfx/Cursor-Accept.mp3";
-import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
-import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
-import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
 
 export const CURSOR_POINTER = cursor_pointer;
 export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
-
-export const cursorMoveSfx = new Audio(cursorMoveAudio);
-export const cursorCancelSfx = new Audio(cursorCancelAudio);
-export const cursorAcceptSfx = new Audio(cursorAcceptAudio);
-export const cursorBuzzerSfx = new Audio(cursorBuzzerAudio);
 
 export const MAGIC_MATERIA: MateriaIconModel = {
   type: MateriaTypes.MAGIC,

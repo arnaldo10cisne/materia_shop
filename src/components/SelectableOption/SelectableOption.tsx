@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import {
-  CURSOR_POINTER,
-  cursorAcceptSfx,
-  cursorBuzzerSfx,
-  cursorCancelSfx,
-  cursorMoveSfx,
-} from "../../utils/constants.ts";
+import { CURSOR_POINTER } from "../../utils/constants.ts";
 import classNames from "classnames";
 import styles from "./SelectableOption.module.scss";
 import { MateriaIconModel } from "../../utils/models.ts";
+import {
+  playAcceptCursorSfx,
+  playBuzzerCursorSfx,
+  playCancelCursorSfx,
+  playMoveCursorSfx,
+} from "../../utils/utilityFunctions.ts";
 
 interface SelectableOptionProps {
   icon?: MateriaIconModel | null;
@@ -30,9 +30,7 @@ export const SelectableOption = ({
   const handleMouseEnter = () => {
     if (!disabled) {
       setCursorIsVisble(true);
-      cursorMoveSfx
-        .play()
-        .catch((err) => console.error("Error playing Cursor-Move sfx:", err));
+      playMoveCursorSfx();
     }
   };
 
@@ -43,23 +41,13 @@ export const SelectableOption = ({
   const handleClick = () => {
     if (!disabled) {
       if (is_return) {
-        cursorCancelSfx
-          .play()
-          .catch((err) =>
-            console.error("Error playing Cursor-Cancel sfx:", err),
-          );
+        playCancelCursorSfx();
       } else {
-        cursorAcceptSfx
-          .play()
-          .catch((err) =>
-            console.error("Error playing Cursor-Accept sfx:", err),
-          );
+        playAcceptCursorSfx();
       }
       onClickHandler();
     } else {
-      cursorBuzzerSfx
-        .play()
-        .catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+      playBuzzerCursorSfx();
     }
   };
 

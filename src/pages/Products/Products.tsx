@@ -6,12 +6,15 @@ import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { MateriaIconModel, ProductModel } from "../../utils/models.ts";
 import {
-  cursorCancelSfx,
   MATERIA_LIST,
   PLACEHOLDER_PRODUCT_LIST,
 } from "../../utils/constants.ts";
 import { ProductInfoModal } from "../../components/ProductInfoModal/ProductInfoModal.tsx";
-import { disableScroll, enableScroll } from "../../utils/utilityFunctions.ts";
+import {
+  disableScroll,
+  enableScroll,
+  playCancelCursorSfx,
+} from "../../utils/utilityFunctions.ts";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);
@@ -42,11 +45,7 @@ export const Products = () => {
             enableScroll();
             setOpenProductModal(false);
             setProductInModal(null);
-            cursorCancelSfx
-              .play()
-              .catch((err) =>
-                console.error("Error playing Cursor-Cancel sfx:", err),
-              );
+            playCancelCursorSfx();
           }}
         />
       ) : null}
