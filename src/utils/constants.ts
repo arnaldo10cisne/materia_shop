@@ -16,7 +16,6 @@ import {
   MateriaIconModel,
   MateriaTypes,
   ProductModel,
-  UserModel,
 } from "./models.ts";
 
 export const API_ADDRESS = "http://localhost:8000";
@@ -79,65 +78,6 @@ export const MATERIA_LIST: MateriaIconModel[] = [
   COMMAND_MATERIA,
   INDEPENDENT_MATERIA,
   SUPPORT_MATERIA,
-];
-
-export const PLACEHOLDER_CHARACTER: UserModel = {
-  id: "1",
-  name: "Cloud Strife",
-  portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-};
-
-export const PLACEHOLDER_CHARACTER_LIST: UserModel[] = [
-  {
-    id: "1",
-    name: "Cloud Strife",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "2",
-    name: "Barret Wallace",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "3",
-    name: "Tifa Lockhart",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "4",
-    name: "Aerith Gainsborough",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "5",
-    name: "Red XIII",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "6",
-    name: "Yuffie Kisaragi",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "7",
-    name: "Cait Sith",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "8",
-    name: "Vincent Valentine",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "9",
-    name: "Cid Highwind",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
-  {
-    id: "10",
-    name: "Sephiroth",
-    portrait: CLOUD_PORTRAIT_PLACEHOLDER,
-  },
 ];
 
 export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
