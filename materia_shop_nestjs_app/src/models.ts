@@ -41,11 +41,11 @@ export interface CartItem {
 
 export interface OrderModel {
   id: string;
-  user: string; // ID de UserModel
+  user_id: string; // ID de UserModel
   address: string;
   creation_date: Date;
   content: CartItem[];
-  status: OrderStatus;
+  order_status: OrderStatus;
   payment_method: string; // ID de PaymentModel
   total_order_prince: number;
 }
@@ -59,6 +59,6 @@ export interface CreditCardModel {
 export interface PaymentModel {
   id: string;
   credit_card: CreditCardModel;
-  status: PaymentStatus;
+  payment_status: PaymentStatus;
   order: OrderModel;
 }
