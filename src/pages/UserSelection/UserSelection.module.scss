@@ -1,0 +1,24 @@
+@import "../../utils/global";
+
+.UserSelection {
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.Return {
+  margin: 20px 45px;
+}
+
+.CharacterListBlueBox {
+  padding-bottom: 20px;
+}
+
+.CharacterItem {
+  margin-top: 20px;
+  margin-left: 45px;
+}

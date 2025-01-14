@@ -140,3 +140,5 @@ yarn-error.log*
 # CDK
 cdk.out
 cdk.context.json
+
+todolist.txt

@@ -1,0 +1,16 @@
+@import "responsiveMixins";
+@import "variables";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $white-text;
+  font-size: $reactor7_font_size_default;
+  font-family: $reactor7_font;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}

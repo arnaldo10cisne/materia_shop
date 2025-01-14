@@ -1,0 +1,44 @@
+@import "../../utils//global";
+
+.SelectableOption {
+  position: relative;
+  cursor: pointer;
+}
+
+.SelectableOptionDisabled {
+  cursor: default;
+}
+
+.CursorImage {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+
+  top: 50%;
+  transform: translateY(-50%);
+  left: -45px;
+  z-index: 50;
+}
+
+.OptionContent {
+  display: flex;
+  align-items: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.OptionIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.OptionText {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.OptionTextDisabled {
+  color: $disabled-text;
+}

@@ -1,0 +1,30 @@
+@import "../../utils/global";
+
+.Homepage {
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.WelcomeBlueBox {
+  padding: 20px 0px;
+  padding-left: 45px;
+}
+
+.HomepageBlueBox {
+  padding-bottom: 40px;
+  padding-left: 45px;
+}
+
+.SelectCharacter {
+  margin-top: 40px;
+}
+
+.BuyMateria {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

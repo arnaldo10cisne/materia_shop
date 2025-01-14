@@ -1,0 +1,68 @@
+@import "../../utils/global";
+
+.CartModalContainer {
+  position: fixed;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+}
+
+.CartModal {
+  width: 95%;
+  height: auto;
+}
+
+.EmptyCartWarning {
+  color: $danger-red-text;
+  margin-top: 20px;
+}
+
+.CartModalBlueBox {
+  padding-left: 45px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.CloseModal {
+  margin-top: 20px;
+}
+
+.ProductName {
+  margin-top: 20px;
+}
+
+.ProductIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.CartItemInfoRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CartItemInfoLabelRow p {
+  color: $ligth-blue-text;
+}
+
+.CartItemInfoData {
+  font-size: 25px;
+}
+
+.RemoveItem {
+  color: $danger-red-text;
+  font-size: 30px;
+}
+
+.EmptyCartOption {
+  margin-top: 30px;
+}
+.EmptyCart {
+  color: $danger-red-text;
+  // margin-top: 30px;
+}

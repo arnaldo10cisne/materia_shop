@@ -1,0 +1,64 @@
+@import "../../utils/global";
+
+.Order {
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.Return {
+  margin: 20px 45px;
+}
+
+.UserBlueBox {
+  padding-left: 45px;
+  padding-bottom: 20px;
+}
+
+.CreatingOrderFor {
+  margin: 20px 0px;
+}
+
+.ContinueWithPayment {
+  margin: 20px 45px;
+}
+
+.addressTextArea {
+  resize: none;
+
+  width: 80%;
+  margin: 0 auto;
+  height: 120px;
+  border-radius: 5px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.OrderDataBlueBox {
+  padding: 20px 45px;
+}
+
+.EnterCreditCardInfo {
+  margin-top: 20px;
+}
+
+.PleaseEnterCC {
+  color: $danger-red-text;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.RemainingCharacters {
+  font-size: 30px;
+  color: $ligth-blue-text;
+}
+
+.RemainingCharactersWarning {
+  color: $danger-red-text;
+}

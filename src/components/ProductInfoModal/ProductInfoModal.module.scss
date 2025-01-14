@@ -1,0 +1,82 @@
+@import "../../utils/global";
+
+.ProductInfoModalContainer {
+  position: fixed;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+}
+
+.ProductInfoModal {
+  width: 95%;
+  height: auto;
+}
+
+.CloseModal {
+  margin-top: 20px;
+  margin-left: 45px;
+}
+
+.ProductInfoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProductPicture {
+  height: 200px;
+}
+
+.ProductIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.ProductName {
+  margin: 20px 0px;
+}
+
+.ProductDescription {
+  text-align: center;
+  font-size: 30px;
+  width: 80%;
+}
+
+.ProductPrice {
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.ProductStock {
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.AddToCartController {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ChangeCartAmount {
+  color: $ligth-blue-text;
+  font-size: 50px;
+}
+
+.CartAmount {
+  color: $ligth-blue-text;
+  margin: 20px 45px;
+}
+
+.TotalPrice {
+  font-size: 30px;
+}
+
+.AddToCart {
+  margin: 20px;
+}
