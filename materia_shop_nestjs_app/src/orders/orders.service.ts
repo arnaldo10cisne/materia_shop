@@ -14,9 +14,6 @@ export class OrdersService {
   private readonly dynamoDBClient = new DynamoDBClient({ region: 'us-east-1' });
   private readonly tableName = 'MateriaShop__orders-table';
 
-  /**
-   * Devuelve todas las órdenes (Scan de DynamoDB).
-   */
   async getAllOrders(): Promise<OrderModel[]> {
     const command = new ScanCommand({
       TableName: this.tableName,
@@ -26,9 +23,6 @@ export class OrdersService {
     return response.Items?.map((item) => unmarshall(item) as OrderModel) || [];
   }
 
-  /**
-   * Devuelve una sola orden con el ID especificado (GetItem de DynamoDB).
-   */
   async getOneOrder(id: string): Promise<OrderModel | null> {
     const command = new GetItemCommand({
       TableName: this.tableName,
@@ -39,10 +33,6 @@ export class OrdersService {
     return response.Item ? (unmarshall(response.Item) as OrderModel) : null;
   }
 
-  /**
-   * Crea una nueva orden (PutItem de DynamoDB).
-   * Es buena práctica generar tú mismo el ID, si tu OrderModel no lo trae ya.
-   */
   async createOrder(newOrder: OrderModel): Promise<OrderModel> {
     if (!newOrder.id) {
       newOrder.id = crypto.randomUUID();
@@ -58,20 +48,14 @@ export class OrdersService {
     return newOrder;
   }
 
-  /**
-   * Actualiza una orden existente (UpdateItem de DynamoDB).
-   */
   async updateOrder(
     id: string,
     updatedOrder: Partial<OrderModel>,
   ): Promise<OrderModel | null> {
-    // Construimos dinámicamente la UpdateExpression y ExpressionAttributeValues
     const updateExpressions: string[] = [];
     const expressionAttributeValues: Record<string, any> = {};
 
-    // Se recorren las claves del objeto parcial para actualizar los campos necesarios
     for (const [key, value] of Object.entries(updatedOrder)) {
-      // Evitamos actualizar el campo `id` si llegara a venir en el body
       if (key === 'id') continue;
 
       updateExpressions.push(`${key} = :${key}`);
@@ -79,7 +63,6 @@ export class OrdersService {
     }
 
     if (updateExpressions.length === 0) {
-      // Si no hay nada que actualizar, se retorna la orden original o un mensaje.
       return this.getOneOrder(id);
     }
 
