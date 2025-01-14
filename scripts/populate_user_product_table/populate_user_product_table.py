@@ -1,5 +1,6 @@
 import boto3
 import json
+import uuid
 from boto3.dynamodb.types import TypeDeserializer
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
 
@@ -40,6 +41,10 @@ def load_data_to_dynamodb(json_file_path, table_name, region='us-east-1'):
         try:
             # Deserialize the item to convert it into a Python dictionary
             deserialized_item = {k: deserializer.deserialize(v) for k, v in item.items()}
+
+            # Generate a new UUID for the 'id' field
+            deserialized_item['id'] = str(uuid.uuid4())
+
         except Exception as e:
             print(f"Error deserializing item: {e}")
             continue
