@@ -146,7 +146,7 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     description: 'Equips "Steal" command. Allows stealing items from enemies.',
     picture: cloud_portrait_placeholder,
     price: 1200,
-    stock_amount: 0,
+    stock_amount: 5,
     is_available: true,
     materia_type: MateriaTypes.COMMAND,
   },
