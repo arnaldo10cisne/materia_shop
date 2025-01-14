@@ -47,19 +47,23 @@ export class OrdersService {
 
     await this.dynamoDBClient.send(command);
 
-    // const createPayment = async () => {
-    //   try {
-    //     const response = await axios.post(`${this.apiAddress}/payments`, {
-    //       id: string;
-    //       credit_card: CreditCardModel;
-    //       payment_status: PaymentStatus;
-    //       order: OrderModel;
-    //     });
-    //     console.log("Response:", response.data);
-    //   } catch (error) {
-    //     console.error("Error making POST request in /payments:", error);
-    //   }
-    // };
+    const createPayment = async () => {
+      try {
+        const response = await axios.post(`${this.apiAddress}/payments`, {
+          id: newOrder.payment_method.id,
+          tokenized_credit_card: newOrder.payment_method.tokenized_credit_card,
+          payment_status: newOrder.payment_method.payment_status,
+          customer_email: newOrder.payment_method.customer_email,
+          payment_amount: newOrder.total_order_price,
+          order: newOrder.id,
+        });
+        console.log("Response:", response.data);
+      } catch (error) {
+        console.error("Error making POST request in /payments:", error);
+      }
+    };
+
+    createPayment()
 
     return newOrder;
   }

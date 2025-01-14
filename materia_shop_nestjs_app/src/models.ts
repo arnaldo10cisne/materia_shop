@@ -46,7 +46,7 @@ export interface OrderModel {
   creation_date: Date;
   content: CartItem[];
   order_status: OrderStatus;
-  payment_method: string; // ID de PaymentModel
+  payment_method: PaymentModel; // ID de PaymentModel
   total_order_price: number;
 }
 
@@ -59,6 +59,9 @@ export interface CreditCardModel {
 export interface PaymentModel {
   id: string;
   credit_card: CreditCardModel;
+  tokenized_credit_card: string;
   payment_status: PaymentStatus;
+  customer_email: string;
+  payment_amount: string;
   order: OrderModel;
 }
