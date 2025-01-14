@@ -7,7 +7,9 @@
         "description": {
           "S": "Equips 'Steal' command. Allows stealing items from enemies."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Steal.webp"
+        },
         "price": { "N": "1200" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "COMMAND" }
@@ -20,7 +22,9 @@
         "description": {
           "S": "Equips 'Sense' command. Allows analyzing enemy stats."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Sense.webp"
+        },
         "price": { "N": "1000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "COMMAND" }
@@ -33,7 +37,9 @@
         "description": {
           "S": "Equips 'Morph' command. Allows transforming enemies into items."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Morph.webp"
+        },
         "price": { "N": "1000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "COMMAND" }
@@ -46,7 +52,9 @@
         "description": {
           "S": "Equips 'Manipulate' command. Allows controlling enemies in battle."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Manipulate.webp"
+        },
         "price": { "N": "10000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "COMMAND" }
@@ -59,7 +67,9 @@
         "description": {
           "S": "20% chance of intercepting attacks on an ally."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Cover.webp"
+        },
         "price": { "N": "2000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "INDEPENDENT" }
@@ -72,7 +82,9 @@
         "description": {
           "S": "Allows encountering Chocobos near chocobo tracks."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Chocobo_Lure.webp"
+        },
         "price": { "N": "3000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "INDEPENDENT" }
@@ -85,7 +97,9 @@
         "description": {
           "S": "Allows full damage from back row and melee attacks on distant enemies."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII-Long-Range.png"
+        },
         "price": { "N": "5000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "INDEPENDENT" }
@@ -94,14 +108,16 @@
     {
       "Item": {
         "id": { "S": "8" },
-        "name": { "S": "Counter Attack" },
+        "name": { "S": "Alexander" },
         "description": {
-          "S": "20% chance of countering attacks with a physical attack."
+          "S": "Summon the mighty Alexander to cast Judgment, a devastating Holy-elemental spell that strikes all foes with unmatched power."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Alexander.avif"
+        },
         "price": { "N": "15000" },
         "stock_amount": { "N": "5" },
-        "materia_type": { "S": "INDEPENDENT" }
+        "materia_type": { "S": "SUMMON" }
       }
     },
     {
@@ -111,7 +127,9 @@
         "description": {
           "S": "Allows the use of Fire magic spells, including Fire, Fira, and Firaga."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Fire.webp"
+        },
         "price": { "N": "500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "MAGIC" }
@@ -124,7 +142,9 @@
         "description": {
           "S": "Allows the use of Ice magic spells, including Blizzard, Blizzara, and Blizzaga."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ice.webp"
+        },
         "price": { "N": "500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "MAGIC" }
@@ -137,7 +157,9 @@
         "description": {
           "S": "Allows the use of Earth magic spells, including Quake, Quakera, and Quakega."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Earth.webp"
+        },
         "price": { "N": "1500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "MAGIC" }
@@ -150,7 +172,9 @@
         "description": {
           "S": "Allows the use of Lightning magic spells, including Bolt, Boltra, and Boltga."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Bolt.webp"
+        },
         "price": { "N": "500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "MAGIC" }
@@ -163,7 +187,9 @@
         "description": {
           "S": "Allows the use of healing magic spells, including Cure, Cura, and Curaga."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Restore.webp"
+        },
         "price": { "N": "750" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "MAGIC" }
@@ -176,7 +202,9 @@
         "description": {
           "S": "Summons Choco/Mog to trample enemies with Stampede."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_ChocoMog.avif"
+        },
         "price": { "N": "800" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUMMON" }
@@ -189,7 +217,9 @@
         "description": {
           "S": "Summons Shiva, the queen of ice, to unleash Diamond Dust."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Shiva.avif"
+        },
         "price": { "N": "1000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUMMON" }
@@ -202,7 +232,9 @@
         "description": {
           "S": "Summons Ifrit, the fiery being that unleashes Hellfire."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ifrit.avif"
+        },
         "price": { "N": "1500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUMMON" }
@@ -215,7 +247,9 @@
         "description": {
           "S": "Summons Ramuh, the lightning master, to cast Judgment Bolt."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ramuh.avif"
+        },
         "price": { "N": "2000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUMMON" }
@@ -228,7 +262,9 @@
         "description": {
           "S": "Summons Titan to cause a massive earthquake with Gaia’s Wrath."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Titan.avif"
+        },
         "price": { "N": "2500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUMMON" }
@@ -241,7 +277,9 @@
         "description": {
           "S": "Adds status effects of linked Materia to attacks or defenses."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Added_Effect.webp"
+        },
         "price": { "N": "10000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUPPORT" }
@@ -254,7 +292,9 @@
         "description": {
           "S": "Allows linked Magic Materia to target all enemies or allies."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_All.webp"
+        },
         "price": { "N": "1500" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUPPORT" }
@@ -265,7 +305,9 @@
         "id": { "S": "21" },
         "name": { "S": "Counter" },
         "description": { "S": "Counters attacks with linked Materia actions." },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Counter.jpg"
+        },
         "price": { "N": "2000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUPPORT" }
@@ -278,7 +320,9 @@
         "description": {
           "S": "Adds elemental properties of linked Materia to attacks or defenses."
         },
-        "picture": { "S": "cloud_portrait_placeholder" },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVI_Elemental.png"
+        },
         "price": { "N": "3000" },
         "stock_amount": { "N": "5" },
         "materia_type": { "S": "SUPPORT" }
