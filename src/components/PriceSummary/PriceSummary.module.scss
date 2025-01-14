@@ -1,0 +1,18 @@
+@import "../../utils/global";
+
+.PriceSummary {
+  margin-top: 20px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoRow p {
+  font-size: 25px;
+}
+
+.orderTotal {
+  color: yellow;
+}

@@ -1,0 +1,53 @@
+@import "../../utils/global";
+
+.Products {
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.Return {
+  margin: 20px 45px;
+}
+
+.UserBlueBox {
+  padding-left: 45px;
+}
+
+.BuyingMateriaFor,
+.ShowCart {
+  margin: 20px 0px;
+}
+
+.ProductListBlueBox {
+  padding-left: 45px;
+  padding-bottom: 20px;
+}
+
+.ProductItem {
+  margin-top: 20px;
+}
+
+.ProductInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ProductStock {
+  font-size: 30px;
+  color: $ligth-blue-text;
+  margin-left: 45px;
+}
+
+.ProductStockEmpty {
+  color: $danger-red-text;
+}
+
+.PayWithCreditCard {
+  margin: 20px 45px;
+}

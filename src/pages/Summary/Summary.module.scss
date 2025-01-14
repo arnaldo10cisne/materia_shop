@@ -1,0 +1,74 @@
+@import "../../utils/global";
+
+.Summary {
+  margin: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.Return {
+  margin: 20px 45px;
+}
+
+.UserBlueBox {
+  padding-left: 45px;
+  padding-bottom: 20px;
+}
+
+.OrderSummary {
+  margin: 20px 0px;
+}
+
+.ContinueWithPayment {
+  margin: 20px 45px;
+}
+
+.SummaryBlueBox {
+  padding: 20px 45px;
+}
+
+.ProductName {
+  margin-top: 20px;
+}
+
+.ProductIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.CartItemInfoRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CartItemInfoLabelRow p {
+  color: $ligth-blue-text;
+}
+
+.CartItemInfoData {
+  font-size: 25px;
+}
+
+.orderNumber {
+  font-size: 30px;
+  color: $ligth-blue-text;
+}
+
+.shoppingCartlabel {
+  margin-top: 20px;
+  margin-bottom: -20px;
+}
+
+.PaymentMethodLabel {
+  margin-top: 20px;
+}
+
+.address {
+  color: $ligth-blue-text;
+  font-size: 25px;
+  margin-top: 10px;
+}

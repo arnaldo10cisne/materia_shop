@@ -26,5 +26,7 @@ new MateriaShop_CICD_Stack(app, "MateriaShop-CICDStack", {
   env: { account: "706169966278", region: "us-east-1" },
   serverlessStackName: serverlessStack.serverlessStackName,
   productsTableARN: serverlessStack.productsTableARN,
-  transactionsTableARN: serverlessStack.transactionsTableARN,
+  paymentsTableARN: serverlessStack.paymentsTableARN,
+  usersTableARN: serverlessStack.usersTableARN,
+  ordersTableARN: serverlessStack.ordersTableARN,
 });
