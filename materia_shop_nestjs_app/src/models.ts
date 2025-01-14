@@ -1,12 +1,12 @@
 export enum OrderStatus {
-  IN_PROGRESS = 'IN_PROGRESS',
+  PENDING = 'PENDING',
   COMPLETED = 'COMPLETED',
   FAILED = 'FAILED',
   CANCELLED = 'CANCELLED',
 }
 
 export enum PaymentStatus {
-  IN_PROGRESS = 'IN_PROGRESS',
+  PENDING = 'PENDING',
   COMPLETED = 'COMPLETED',
   FAILED = 'FAILED',
 }
@@ -41,10 +41,13 @@ export interface CartItem {
 
 export interface OrderModel {
   id: string;
-  User: UserModel;
+  user: string; // ID de UserModel
+  address: string;
   creation_date: Date;
   content: CartItem[];
   status: OrderStatus;
+  payment_method: string; // ID de PaymentModel
+  total_order_prince: number;
 }
 
 export interface CreditCardModel {

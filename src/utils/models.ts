@@ -1,12 +1,12 @@
 export enum OrderStatus {
-  IN_PROGRESS = "IN_PROGRESS",
+  PENDING = "PENDING",
   COMPLETED = "COMPLETED",
   FAILED = "FAILED",
   CANCELLED = "CANCELLED",
 }
 
 export enum PaymentStatus {
-  IN_PROGRESS = "IN_PROGRESS",
+  PENDING = "PENDING",
   COMPLETED = "COMPLETED",
   FAILED = "FAILED",
 }

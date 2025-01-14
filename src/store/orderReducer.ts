@@ -36,11 +36,11 @@ export const orderSlice = createSlice({
         user: action.payload.user,
         creation_date: new Date(),
         content: action.payload.content,
-        status: OrderStatus.IN_PROGRESS,
+        status: OrderStatus.PENDING,
         payment_method: {
           id: crypto.randomUUID(), // Generate unique ID
           credit_card: action.payload.credit_card,
-          status: PaymentStatus.IN_PROGRESS,
+          status: PaymentStatus.PENDING,
         },
         address: action.payload.address,
         total_order_prince: calculateOrderPrice(
