@@ -147,7 +147,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1200,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.COMMAND,
   },
   {
@@ -157,7 +156,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.COMMAND,
   },
   {
@@ -168,7 +166,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.COMMAND,
   },
   {
@@ -179,7 +176,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 10000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.COMMAND,
   },
 
@@ -191,7 +187,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 2000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.INDEPENDENT,
   },
   {
@@ -201,7 +196,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 3000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.INDEPENDENT,
   },
   {
@@ -212,7 +206,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 5000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.INDEPENDENT,
   },
   {
@@ -222,7 +215,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 15000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.INDEPENDENT,
   },
 
@@ -235,7 +227,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.MAGIC,
   },
   {
@@ -246,7 +237,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.MAGIC,
   },
   {
@@ -257,7 +247,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.MAGIC,
   },
   {
@@ -268,7 +257,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.MAGIC,
   },
   {
@@ -279,7 +267,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 750,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.MAGIC,
   },
 
@@ -291,7 +278,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 800,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUMMON,
   },
   {
@@ -301,7 +287,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUMMON,
   },
   {
@@ -311,7 +296,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUMMON,
   },
   {
@@ -321,7 +305,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 2000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUMMON,
   },
   {
@@ -332,7 +315,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 2500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUMMON,
   },
 
@@ -345,7 +327,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 10000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUPPORT,
   },
   {
@@ -355,7 +336,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 1500,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUPPORT,
   },
   {
@@ -365,7 +345,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 2000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUPPORT,
   },
   {
@@ -376,7 +355,6 @@ export const PLACEHOLDER_PRODUCT_LIST: ProductModel[] = [
     picture: cloud_portrait_placeholder,
     price: 3000,
     stock_amount: 5,
-    is_available: true,
     materia_type: MateriaTypes.SUPPORT,
   },
 ];

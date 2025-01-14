@@ -10,7 +10,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1200" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -24,7 +23,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -38,7 +36,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -52,7 +49,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "10000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -66,7 +62,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "2000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -80,7 +75,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "3000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -94,7 +88,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "5000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -108,7 +101,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "15000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -122,7 +114,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -136,7 +127,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -150,7 +140,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -164,7 +153,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -178,7 +166,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "750" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -192,7 +179,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "800" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -206,7 +192,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -220,7 +205,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -234,7 +218,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "2000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -248,7 +231,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "2500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -262,7 +244,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "10000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUPPORT" }
       }
     },
@@ -276,7 +257,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "1500" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUPPORT" }
       }
     },
@@ -288,7 +268,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "2000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUPPORT" }
       }
     },
@@ -302,7 +281,6 @@
         "picture": { "S": "cloud_portrait_placeholder" },
         "price": { "N": "3000" },
         "stock_amount": { "N": "5" },
-        "is_available": { "BOOL": true },
         "materia_type": { "S": "SUPPORT" }
       }
     }

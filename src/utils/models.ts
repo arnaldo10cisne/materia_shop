@@ -38,7 +38,6 @@ export interface ProductModel {
   picture: string;
   price: number;
   stock_amount: number;
-  is_available: boolean;
   materia_type: MateriaTypes;
 }
 

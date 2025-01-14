@@ -30,7 +30,6 @@ export interface ProductModel {
   picture: string;
   price: number;
   stock_amount: number;
-  is_available: boolean;
 }
 
 export interface CartItem {
