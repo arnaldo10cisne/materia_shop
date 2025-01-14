@@ -6,6 +6,7 @@ import purchaseAudio from "../assets/sfx/Purchase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
 import { CartItem } from "./models.ts";
+import { API_ADDRESS } from "./constants.ts";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
@@ -76,4 +77,24 @@ export const calculateOrderPrice = (
   const delivery_fee = includeDeliveryFee ? 750 : 0;
 
   return sum_of_items + cc_fee + delivery_fee;
+};
+
+/// API CALLS UTILITIES
+
+// Reusable fetch handler
+const fetchData = async (url: string) => {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
+    );
+  }
+
+  return await response.json();
+};
+
+export const getAllUsers = async () => {
+  return await fetchData(`${API_ADDRESS}/users`);
 };

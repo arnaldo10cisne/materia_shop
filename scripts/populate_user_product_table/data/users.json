@@ -9,7 +9,7 @@
           "S": "Cloud Strife"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Cloud_Portrait.webp"
         }
       }
     },
@@ -22,7 +22,7 @@
           "S": "Barret Wallace"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Barret_PortraitNB.webp"
         }
       }
     },
@@ -35,7 +35,7 @@
           "S": "Tifa Lockhart"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Tifa_Portrait.webp"
         }
       }
     },
@@ -48,7 +48,7 @@
           "S": "Aerith Gainsborough"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Aeris_Portrait.webp"
         }
       }
     },
@@ -61,7 +61,7 @@
           "S": "Red XIII"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Red_XIII_Portrait.webp"
         }
       }
     },
@@ -74,7 +74,7 @@
           "S": "Yuffie Kisaragi"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Yuffie_Portrait.webp"
         }
       }
     },
@@ -87,7 +87,7 @@
           "S": "Cait Sith"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Cait_Sith_Portrait.webp"
         }
       }
     },
@@ -100,7 +100,7 @@
           "S": "Vincent Valentine"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Vincent_Portrait.webp"
         }
       }
     },
@@ -113,7 +113,7 @@
           "S": "Cid Highwind"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Cid_Portrait.webp"
         }
       }
     },
@@ -126,7 +126,7 @@
           "S": "Sephiroth"
         },
         "portrait": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Sephiroth_Portrait.webp"
         }
       }
     }

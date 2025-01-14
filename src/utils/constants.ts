@@ -19,6 +19,8 @@ import {
   UserModel,
 } from "./models.ts";
 
+export const API_ADDRESS = "http://localhost:8000";
+
 export const CURSOR_POINTER = cursor_pointer;
 export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
 

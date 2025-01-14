@@ -3,19 +3,28 @@ import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
 import styles from "./UserSelection.module.scss";
+import { useQuery } from "react-query";
 import { UserModel } from "../../utils/models.ts";
-import { PLACEHOLDER_CHARACTER_LIST } from "../../utils/constants.ts";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userReducer.ts";
-import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
+import {
+  getAllUsers,
+  playCancelCursorSfx,
+} from "../../utils/utilityFunctions.ts";
 
 export const UserSelection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const characterList: UserModel[] = PLACEHOLDER_CHARACTER_LIST;
+  const {
+    data: characterList,
+    // isLoading,
+    // error,
+  } = useQuery<UserModel[]>(["UserSelection", "user_list"], () =>
+    getAllUsers(),
+  );
 
   const handleClickReturn = () => {
     navigate("/");
@@ -38,7 +47,7 @@ export const UserSelection = () => {
         </SelectableOption>
       </BlueBox>
       <BlueBox customStyles={styles.CharacterListBlueBox}>
-        {characterList.map((character: UserModel) => {
+        {characterList?.map((character: UserModel) => {
           return (
             <SelectableOption
               key={character.id}
