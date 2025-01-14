@@ -5,8 +5,9 @@ import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
-import { CartItem } from "./models.ts";
+import { CartItem, OrderStatus } from "./models.ts";
 import { API_ADDRESS } from "./constants.ts";
+import axios from "axios";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
@@ -79,6 +80,20 @@ export const calculateOrderPrice = (
   return sum_of_items + cc_fee + delivery_fee;
 };
 
+export const formatTimestampToReadableDate = (timestamp) => {
+  const date = new Date(timestamp);
+
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`;
+};
+
 /// API CALLS UTILITIES
 
 // Reusable fetch handler
@@ -101,4 +116,35 @@ export const getAllUsers = async () => {
 
 export const getAllProducts = async () => {
   return await fetchData(`${API_ADDRESS}/products`);
+};
+
+interface CreatedOrderModel {
+  content: [];
+  user_id: string;
+  payment_method: string;
+  total_order_price: number;
+  address: string;
+}
+
+export const createOrderInBackend = async ({
+  user_id,
+  content,
+  payment_method,
+  total_order_price,
+  address,
+}: CreatedOrderModel) => {
+  try {
+    const response = await axios.post(`${API_ADDRESS}/orders`, {
+      content,
+      order_status: OrderStatus.PENDING,
+      user_id,
+      payment_method,
+      total_order_price,
+      address,
+      creation_date: formatTimestampToReadableDate(Date.now()),
+    });
+    console.log("Response:", response.data);
+  } catch (error) {
+    console.error("Error making POST request:", error);
+  }
 };

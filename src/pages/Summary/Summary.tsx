@@ -14,7 +14,10 @@ import {
   UserModel,
 } from "../../utils/models.ts";
 import { useNavigate } from "react-router-dom";
-import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
+import {
+  createOrderInBackend,
+  playCancelCursorSfx,
+} from "../../utils/utilityFunctions.ts";
 import { MATERIA_LIST } from "../../utils/constants.ts";
 import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
 import { PriceSummary } from "../../components/PriceSummary/PriceSummary.tsx";
@@ -33,6 +36,17 @@ export const Summary = () => {
 
   // MOCK
   const handleClickMakePayment = () => {
+    createOrderInBackend({
+      content: order.currentOrder?.content.map((cartItem: CartItem) => ({
+        product: cartItem.product.id,
+        amount: cartItem.amount,
+      })) as [],
+      user_id: order.currentOrder?.user.id as string,
+      payment_method: order.currentOrder?.payment_method?.id as string,
+      total_order_price: order.currentOrder?.total_order_price as number,
+      address: order.currentOrder?.address as string,
+    });
+
     console.log("Processing payment...");
 
     // Simulación de una llamada a la API

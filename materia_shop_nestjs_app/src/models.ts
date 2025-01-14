@@ -47,7 +47,7 @@ export interface OrderModel {
   content: CartItem[];
   order_status: OrderStatus;
   payment_method: string; // ID de PaymentModel
-  total_order_prince: number;
+  total_order_price: number;
 }
 
 export interface CreditCardModel {

@@ -21,7 +21,6 @@ export const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    // 1. Acción que crea la orden e incluye address y credit_card
     createOrder: (
       state,
       action: PayloadAction<{
@@ -43,7 +42,7 @@ export const orderSlice = createSlice({
           status: PaymentStatus.PENDING,
         },
         address: action.payload.address,
-        total_order_prince: calculateOrderPrice(
+        total_order_price: calculateOrderPrice(
           action.payload.content,
           true,
           true,
@@ -51,21 +50,16 @@ export const orderSlice = createSlice({
       };
     },
 
-    // 2. Acción genérica para hacer un update parcial de la orden
-    //    (solo actualizar campos que se manden en el payload)
     updateOrder: (state, action: PayloadAction<Partial<OrderModel>>) => {
       if (!state.currentOrder) return;
 
-      // Extraemos payment_method por si también se quiere actualizar
       const { payment_method, ...rest } = action.payload;
 
-      // Actualizamos la raíz del objeto (lo que no sea payment_method)
       state.currentOrder = {
         ...state.currentOrder,
         ...rest,
       };
 
-      // Si viene algo para payment_method, hacemos un merge profundo
       if (payment_method) {
         state.currentOrder.payment_method = {
           ...state.currentOrder.payment_method,
@@ -74,33 +68,35 @@ export const orderSlice = createSlice({
             ? ({
                 ...state.currentOrder.payment_method?.credit_card,
                 ...payment_method.credit_card,
-              } as CreditCardModel) // <-- Aquí usamos type assertion
+              } as CreditCardModel)
             : state.currentOrder.payment_method?.credit_card,
         };
       }
     },
 
-    // Ejemplo: si quieres seguir teniendo una acción específica para el status
     updateOrderStatus: (state, action: PayloadAction<OrderStatus>) => {
       if (state.currentOrder) {
         state.currentOrder.status = action.payload;
       }
     },
 
-    // Ejemplo: si quisieras cambiar directamente el contenido del cart
     assignCart: (state, action: PayloadAction<CartItem[]>) => {
       if (state.currentOrder) {
         state.currentOrder.content = action.payload;
-        state.currentOrder.total_order_prince = calculateOrderPrice(
+        state.currentOrder.total_order_price = calculateOrderPrice(
           action.payload,
           true,
           true,
         );
       }
     },
+
+    clearOrder: (state) => {
+      state.currentOrder = null;
+    },
   },
 });
 
-export const { createOrder, updateOrder, updateOrderStatus, assignCart } =
+export const { createOrder, updateOrder, updateOrderStatus, assignCart, clearOrder  } =
   orderSlice.actions;
 export default orderSlice.reducer;

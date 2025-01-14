@@ -55,7 +55,7 @@ export interface OrderModel {
   content: CartItem[];
   status: OrderStatus;
   payment_method: PaymentModel | null;
-  total_order_prince: number;
+  total_order_price: number;
 }
 
 export interface CreditCardModel {

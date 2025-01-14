@@ -13,6 +13,9 @@ import {
   getAllUsers,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
+import { clearCartContent } from "../../store/cartReducer.ts";
+import { clearCreditCard } from "../../store/creditCardReducer.ts";
+import { clearOrder } from "../../store/orderReducer.ts";
 
 export const UserSelection = () => {
   const navigate = useNavigate();
@@ -32,6 +35,9 @@ export const UserSelection = () => {
 
   const handleClickSelectCharacter = (character: UserModel) => {
     dispatch(setUser(character));
+    dispatch(clearCartContent());
+    dispatch(clearCreditCard());
+    dispatch(clearOrder())
     navigate("/");
   };
 
