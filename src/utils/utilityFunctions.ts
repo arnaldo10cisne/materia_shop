@@ -98,3 +98,7 @@ const fetchData = async (url: string) => {
 export const getAllUsers = async () => {
   return await fetchData(`${API_ADDRESS}/users`);
 };
+
+export const getAllProducts = async () => {
+  return await fetchData(`${API_ADDRESS}/products`);
+};
