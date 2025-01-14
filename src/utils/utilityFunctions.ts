@@ -5,8 +5,17 @@ import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
-import { CartItem, OrderStatus } from "./models.ts";
-import { API_ADDRESS } from "./constants.ts";
+import {
+  CartItem,
+  CreditCardModel,
+  OrderStatus,
+  PaymentStatus,
+} from "./models.ts";
+import {
+  API_ADDRESS,
+  WOMPI_PUBLIC_KEY,
+  WOMPI_SANDBOX_API,
+} from "./constants.ts";
 import axios from "axios";
 
 export const disableScroll = () => {
@@ -121,7 +130,12 @@ export const getAllProducts = async () => {
 interface CreatedOrderModel {
   content: [];
   user_id: string;
-  payment_method: string;
+  payment_method: {
+    id: string;
+    tokenized_credit_card: string;
+    payment_status: PaymentStatus;
+    order: string;
+  };
   total_order_price: number;
   address: string;
 }
@@ -146,5 +160,36 @@ export const createOrderInBackend = async ({
     console.log("Response:", response.data);
   } catch (error) {
     console.error("Error making POST request:", error);
+  }
+};
+
+// WOMPI UTILITIES
+
+export const getCreditCardToken = async (
+  credit_card: CreditCardModel,
+): Promise<string> => {
+  try {
+    const response = await axios.post(
+      `${WOMPI_SANDBOX_API}/tokens/cards`,
+      {
+        number: credit_card.sensitive_data?.number,
+        cvc: credit_card.sensitive_data?.secret_code as string,
+        exp_month: credit_card.sensitive_data?.exp_month,
+        exp_year: credit_card.sensitive_data?.exp_year,
+        card_holder: credit_card.sensitive_data?.holder_name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${WOMPI_PUBLIC_KEY}`,
+        },
+      },
+    );
+    return String(response.data.data.id); // Token of CC
+  } catch (error) {
+    console.error(
+      "Error making POST request:",
+      error.response?.data || error.message,
+    );
+    throw error;
   }
 };

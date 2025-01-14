@@ -69,8 +69,9 @@ export interface CreditCardModel {
 export interface CreditCardSensitiveDataModel {
   company: CreditCardCompany;
   number: string;
-  expiration_date: Date;
-  secret_code: number;
+  exp_month: string;
+  exp_year: string;
+  secret_code: string;
   holder_name: string;
 }
 

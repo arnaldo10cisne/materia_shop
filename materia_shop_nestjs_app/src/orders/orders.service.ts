@@ -8,11 +8,13 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { OrderModel } from 'src/models';
+import axios from 'axios';
 
 @Injectable()
 export class OrdersService {
   private readonly dynamoDBClient = new DynamoDBClient({ region: 'us-east-1' });
   private readonly tableName = 'MateriaShop__orders-table';
+  private readonly apiAddress = 'http://localhost:8000';
 
   async getAllOrders(): Promise<OrderModel[]> {
     const command = new ScanCommand({
@@ -35,7 +37,7 @@ export class OrdersService {
 
   async createOrder(newOrder: OrderModel): Promise<OrderModel> {
     if (!newOrder.id) {
-      newOrder.id = crypto.randomUUID();
+      newOrder.id = String(Date.now());
     }
 
     const command = new PutItemCommand({
@@ -44,6 +46,20 @@ export class OrdersService {
     });
 
     await this.dynamoDBClient.send(command);
+
+    // const createPayment = async () => {
+    //   try {
+    //     const response = await axios.post(`${this.apiAddress}/payments`, {
+    //       id: string;
+    //       credit_card: CreditCardModel;
+    //       payment_status: PaymentStatus;
+    //       order: OrderModel;
+    //     });
+    //     console.log("Response:", response.data);
+    //   } catch (error) {
+    //     console.error("Error making POST request in /payments:", error);
+    //   }
+    // };
 
     return newOrder;
   }

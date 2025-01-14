@@ -11,11 +11,13 @@ import {
   CreditCardModel,
   MateriaIconModel,
   OrderStatus,
+  PaymentStatus,
   UserModel,
 } from "../../utils/models.ts";
 import { useNavigate } from "react-router-dom";
 import {
   createOrderInBackend,
+  getCreditCardToken,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
 import { MATERIA_LIST } from "../../utils/constants.ts";
@@ -32,30 +34,38 @@ export const Summary = () => {
     navigate("/order");
   };
 
-  // const handleClickMakePayment = () => {};
+  const handleClickMakePayment = async () => {
+    const creditCardToken = await getCreditCardToken(
+      order.currentOrder?.payment_method?.credit_card as CreditCardModel,
+    );
 
-  // MOCK
-  const handleClickMakePayment = () => {
     createOrderInBackend({
       content: order.currentOrder?.content.map((cartItem: CartItem) => ({
         product: cartItem.product.id,
         amount: cartItem.amount,
       })) as [],
       user_id: order.currentOrder?.user.id as string,
-      payment_method: order.currentOrder?.payment_method?.id as string,
+      payment_method: {
+        id: order.currentOrder?.payment_method?.id as string,
+        tokenized_credit_card: creditCardToken,
+        payment_status: PaymentStatus.PENDING,
+        order: order.currentOrder?.id as string,
+      },
       total_order_price: order.currentOrder?.total_order_price as number,
       address: order.currentOrder?.address as string,
     });
 
-    console.log("Processing payment...");
+    // console.log("Processing payment...");
 
     // Simulación de una llamada a la API
-    setTimeout(() => {
-      dispatch(updateOrderStatus(OrderStatus.COMPLETED));
-      console.log("Payment processed successfully.");
-      navigate("/results");
-    }, 3000); // 3 segundos de espera
+    //   setTimeout(() => {
+    //     dispatch(updateOrderStatus(OrderStatus.COMPLETED));
+    //     console.log("Payment processed successfully.");
+    //     navigate("/results");
+    //   }, 3000); // 3 segundos de espera
   };
+
+  console.log(order);
 
   return (
     <div className={classNames(styles.Summary)}>

@@ -37,7 +37,7 @@ export const UserSelection = () => {
     dispatch(setUser(character));
     dispatch(clearCartContent());
     dispatch(clearCreditCard());
-    dispatch(clearOrder())
+    dispatch(clearOrder());
     navigate("/");
   };
 

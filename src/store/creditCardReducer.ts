@@ -21,9 +21,10 @@ const initializeCreditCard = (
       sensitive_data: {
         company,
         number: "",
-        expiration_date: new Date(),
-        secret_code: 0,
+        secret_code: "",
         holder_name: "",
+        exp_month: "",
+        exp_year: "",
       },
     };
   } else {
@@ -31,9 +32,10 @@ const initializeCreditCard = (
       state.creditCard.sensitive_data = {
         company: state.creditCard.company,
         number: "",
-        expiration_date: new Date(),
-        secret_code: 0,
+        secret_code: "",
         holder_name: "",
+        exp_month: "",
+        exp_year: "",
       };
     }
   }
@@ -69,17 +71,21 @@ export const creditCardSlice = createSlice({
       }
     },
 
-    updateCreditCardSecretCode: (state, action: PayloadAction<number>) => {
+    updateCreditCardSecretCode: (state, action: PayloadAction<string>) => {
       initializeCreditCard(state);
       if (state.creditCard && state.creditCard.sensitive_data) {
         state.creditCard.sensitive_data.secret_code = action.payload;
       }
     },
 
-    updateCreditCardExpirationDate: (state, action: PayloadAction<Date>) => {
+    updateCreditCardExpirationDate: (
+      state,
+      action: PayloadAction<{ exp_month: string; exp_year: string }>,
+    ) => {
       initializeCreditCard(state);
       if (state.creditCard && state.creditCard.sensitive_data) {
-        state.creditCard.sensitive_data.expiration_date = action.payload;
+        state.creditCard.sensitive_data.exp_month = action.payload.exp_month;
+        state.creditCard.sensitive_data.exp_year = action.payload.exp_year;
       }
     },
 

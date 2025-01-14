@@ -18,6 +18,8 @@ import {
 } from "./models.ts";
 
 export const API_ADDRESS = "http://localhost:8000";
+export const WOMPI_SANDBOX_API = "https://api-sandbox.co.uat.wompi.dev/v1";
+export const WOMPI_PUBLIC_KEY = "pub_stagtest_g2u0HQd3ZMh05hsSgTS2lUV8t3s4mOt7";
 
 export const CURSOR_POINTER = cursor_pointer;
 export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
