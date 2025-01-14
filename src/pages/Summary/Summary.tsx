@@ -4,12 +4,13 @@ import classNames from "classnames";
 import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import {
   CartItem,
   CreditCardModel,
   MateriaIconModel,
+  OrderStatus,
   UserModel,
 } from "../../utils/models.ts";
 import { useNavigate } from "react-router-dom";
@@ -17,16 +18,30 @@ import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
 import { MATERIA_LIST } from "../../utils/constants.ts";
 import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
 import { PriceSummary } from "../../components/PriceSummary/PriceSummary.tsx";
+import { updateOrderStatus } from "../../store/orderReducer.ts";
 
 export const Summary = () => {
   const order = useSelector((state: RootState) => state.order);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickReturn = () => {
     navigate("/order");
   };
 
-  const handleClickMakePayment = () => {};
+  // const handleClickMakePayment = () => {};
+
+  // MOCK
+  const handleClickMakePayment = () => {
+    console.log("Processing payment...");
+
+    // Simulación de una llamada a la API
+    setTimeout(() => {
+      dispatch(updateOrderStatus(OrderStatus.COMPLETED));
+      console.log("Payment processed successfully.");
+      navigate("/results");
+    }, 3000); // 3 segundos de espera
+  };
 
   return (
     <div className={classNames(styles.Summary)}>
