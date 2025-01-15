@@ -6,11 +6,12 @@ import {
   GetItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import 'dotenv/config';
 
 @Injectable()
 export class UsersService {
   private readonly dynamoDBClient = new DynamoDBClient({ region: 'us-east-1' });
-  private readonly table_name = 'MateriaShop__users-table';
+  private readonly table_name = process.env.USERS_TABLE_NAME;
 
   async findAllUsers() {
     const command = new ScanCommand({ TableName: this.table_name });

@@ -15,11 +15,12 @@ import {
 } from './utils/utilityFunctions';
 import * as crypto from 'crypto';
 import axios from 'axios';
+import 'dotenv/config';
 
 @Injectable()
 export class PaymentsService {
   private readonly dynamoDBClient = new DynamoDBClient({ region: 'us-east-1' });
-  private readonly tableName = 'MateriaShop__payments-table';
+  private readonly tableName = process.env.PAYMENTS_TABLE_NAME;
 
   async getOnePayment(id: string): Promise<PaymentModel | null> {
     const command = new GetItemCommand({

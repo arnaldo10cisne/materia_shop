@@ -10,12 +10,13 @@ import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { CartItem, OrderModel, OrderStatus, PaymentStatus } from 'src/models';
 import axios from 'axios';
 import * as crypto from 'crypto';
+import 'dotenv/config';
 
 @Injectable()
 export class OrdersService {
   private readonly dynamoDBClient = new DynamoDBClient({ region: 'us-east-1' });
-  private readonly tableName = 'MateriaShop__orders-table';
-  private readonly apiAddress = 'http://localhost:8000';
+  private readonly tableName = process.env.ORDERS_TABLE_NAME;
+  private readonly apiAddress = process.env.NESTJS_API_ADDRESS;
 
   async getAllOrders(): Promise<OrderModel[]> {
     const command = new ScanCommand({

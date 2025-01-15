@@ -1,12 +1,11 @@
 import axios from 'axios';
 import * as crypto from 'crypto';
+import 'dotenv/config';
 
-export const WOMPI_SANDBOX_API = 'https://api-sandbox.co.uat.wompi.dev/v1';
-export const WOMPI_PUBLIC_KEY = 'pub_stagtest_g2u0HQd3ZMh05hsSgTS2lUV8t3s4mOt7';
-export const WOMPI_PRIVATE_KEY =
-  'prv_stagtest_5i0ZGIGiFcDQifYsXxvsny7Y37tKqFWg';
-export const WOMPI_INTEGRITY_KEY =
-  'stagtest_integrity_nAIBuqayW70XpUqJS4qf4STYiISd89Fp';
+export const WOMPI_SANDBOX_API = process.env.WOMPI_SANDBOX_API;
+export const WOMPI_PUBLIC_KEY = process.env.WOMPI_PUBLIC_KEY;
+export const WOMPI_PRIVATE_KEY = process.env.WOMPI_PRIVATE_KEY;
+export const WOMPI_INTEGRITY_KEY = process.env.WOMPI_INTEGRITY_KEY;
 
 interface createIntegritySignatureParams {
   payment_id: string;
