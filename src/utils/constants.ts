@@ -19,9 +19,9 @@ import {
   MateriaTypes,
 } from "./models.ts";
 
-export const API_ADDRESS = process.env.REACT_APP_API_ADDRESS
-export const WOMPI_SANDBOX_API = process.env.REACT_APP_WOMPI_SANDBOX_API
-export const WOMPI_PUBLIC_KEY = process.env.REACT_APP_WOMPI_PUBLIC_KEY
+export const API_ADDRESS = process.env.REACT_APP_API_ADDRESS;
+export const WOMPI_SANDBOX_API = process.env.REACT_APP_WOMPI_SANDBOX_API;
+export const WOMPI_PUBLIC_KEY = process.env.REACT_APP_WOMPI_PUBLIC_KEY;
 
 export const CURSOR_POINTER = cursor_pointer;
 export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
