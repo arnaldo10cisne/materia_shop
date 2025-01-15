@@ -1,0 +1,38 @@
+@import "../../utils/global";
+
+.waitingModalContainer {
+  position: fixed;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+}
+
+.waitingModal {
+  width: 95%;
+  height: auto;
+}
+
+.MainContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.InformationText {
+  margin-left: 45px;
+  margin-right: 45px;
+  text-align: center;
+}
+
+.InformationLine {
+  margin: 25px 0px;
+}
+
+.ChocoboWaiting {
+  margin: 20px auto;
+  margin-bottom: 45px;
+}

@@ -2,302 +2,330 @@
   "products": [
     {
       "Item": {
-        "id": {
-          "S": "1"
+        "id": { "S": "1" },
+        "name": { "S": "Steal" },
+        "description": {
+          "S": "Equips 'Steal' command. Allows stealing items from enemies."
         },
-        "name": {
-          "S": "Fire Materia"
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Steal.webp"
         },
+        "price": { "N": "1200" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "COMMAND" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "2" },
+        "name": { "S": "Sense" },
+        "description": {
+          "S": "Equips 'Sense' command. Allows analyzing enemy stats."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Sense.webp"
+        },
+        "price": { "N": "1000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "COMMAND" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "3" },
+        "name": { "S": "Morph" },
+        "description": {
+          "S": "Equips 'Morph' command. Allows transforming enemies into items."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Morph.webp"
+        },
+        "price": { "N": "1000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "COMMAND" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "4" },
+        "name": { "S": "Manipulate" },
+        "description": {
+          "S": "Equips 'Manipulate' command. Allows controlling enemies in battle."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Manipulate.webp"
+        },
+        "price": { "N": "10000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "COMMAND" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "5" },
+        "name": { "S": "Cover" },
+        "description": {
+          "S": "20% chance of intercepting attacks on an ally."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Cover.webp"
+        },
+        "price": { "N": "2000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "INDEPENDENT" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "6" },
+        "name": { "S": "Chocobo Lure" },
+        "description": {
+          "S": "Allows encountering Chocobos near chocobo tracks."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Chocobo_Lure.webp"
+        },
+        "price": { "N": "3000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "INDEPENDENT" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "7" },
+        "name": { "S": "Long Range" },
+        "description": {
+          "S": "Allows full damage from back row and melee attacks on distant enemies."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII-Long-Range.png"
+        },
+        "price": { "N": "5000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "INDEPENDENT" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "8" },
+        "name": { "S": "Alexander" },
+        "description": {
+          "S": "Summon the mighty Alexander to cast Judgment, a devastating Holy-elemental spell that strikes all foes with unmatched power."
+        },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Alexander.avif"
+        },
+        "price": { "N": "15000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUMMON" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "9" },
+        "name": { "S": "Fire" },
         "description": {
           "S": "Allows the use of Fire magic spells, including Fire, Fira, and Firaga."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Fire.webp"
         },
-        "price": {
-          "N": "500"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "MAGIC" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "2"
-        },
-        "name": {
-          "S": "Ice Materia"
-        },
+        "id": { "S": "10" },
+        "name": { "S": "Ice" },
         "description": {
           "S": "Allows the use of Ice magic spells, including Blizzard, Blizzara, and Blizzaga."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ice.webp"
         },
-        "price": {
-          "N": "500"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "MAGIC" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "3"
-        },
-        "name": {
-          "S": "Ifrit Materia"
-        },
+        "id": { "S": "11" },
+        "name": { "S": "Earth" },
         "description": {
-          "S": "Summons Ifrit, the fiery being that unleashes Hellfire on enemies."
+          "S": "Allows the use of Earth magic spells, including Quake, Quakera, and Quakega."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Earth.webp"
         },
-        "price": {
-          "N": "1000"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "1500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "MAGIC" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "4"
-        },
-        "name": {
-          "S": "Shiva Materia"
-        },
+        "id": { "S": "12" },
+        "name": { "S": "Lightning" },
         "description": {
-          "S": "Summons Shiva, the queen of ice, to unleash Diamond Dust on enemies."
+          "S": "Allows the use of Lightning magic spells, including Bolt, Boltra, and Boltga."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Bolt.webp"
         },
-        "price": {
-          "N": "1000"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "MAGIC" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "5"
-        },
-        "name": {
-          "S": "Chocobo & Moogle Materia"
-        },
+        "id": { "S": "13" },
+        "name": { "S": "Restore" },
         "description": {
-          "S": "Summons Chocobo & Moogle to trample enemies with Stampede."
+          "S": "Allows the use of healing magic spells, including Cure, Cura, and Curaga."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Restore.webp"
         },
-        "price": {
-          "N": "800"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "750" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "MAGIC" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "6"
-        },
-        "name": {
-          "S": "Leviathan Materia"
-        },
+        "id": { "S": "14" },
+        "name": { "S": "Choco/Mog" },
         "description": {
-          "S": "Summons Leviathan, the water deity, to unleash Tidal Wave on enemies."
+          "S": "Summons Choco/Mog to trample enemies with Stampede."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_ChocoMog.avif"
         },
-        "price": {
-          "N": "1500"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "800" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUMMON" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "7"
-        },
-        "name": {
-          "S": "Bahamut Materia"
-        },
+        "id": { "S": "15" },
+        "name": { "S": "Shiva" },
         "description": {
-          "S": "Summons Bahamut, the dragon king, to unleash Megaflare on enemies."
+          "S": "Summons Shiva, the queen of ice, to unleash Diamond Dust."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Shiva.avif"
         },
-        "price": {
-          "N": "2000"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "1000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUMMON" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "8"
-        },
-        "name": {
-          "S": "Phoenix Materia"
-        },
+        "id": { "S": "16" },
+        "name": { "S": "Ifrit" },
         "description": {
-          "S": "Summons Phoenix to attack enemies and revive allies with its flames."
+          "S": "Summons Ifrit, the fiery being that unleashes Hellfire."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ifrit.avif"
         },
-        "price": {
-          "N": "1800"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "1500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUMMON" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "9"
-        },
-        "name": {
-          "S": "Cure Materia"
-        },
+        "id": { "S": "17" },
+        "name": { "S": "Ramuh" },
         "description": {
-          "S": "Allows the use of healing spells, including Cure, Cura, and Curaga."
+          "S": "Summons Ramuh, the lightning master, to cast Judgment Bolt."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ramuh.avif"
         },
-        "price": {
-          "N": "600"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "2000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUMMON" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "10"
-        },
-        "name": {
-          "S": "Titan Materia"
-        },
+        "id": { "S": "18" },
+        "name": { "S": "Titan" },
         "description": {
-          "S": "Summons Titan to cause a massive earthquake with Gaia's Wrath."
+          "S": "Summons Titan to cause a massive earthquake with Gaia’s Wrath."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Titan.avif"
         },
-        "price": {
-          "N": "1400"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "2500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUMMON" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "11"
-        },
-        "name": {
-          "S": "Gravity Materia"
-        },
+        "id": { "S": "19" },
+        "name": { "S": "Added Effect" },
         "description": {
-          "S": "Allows the use of Gravity magic spells, including Demi, Demi2, and Demi3."
+          "S": "Adds status effects of linked Materia to attacks or defenses."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Added_Effect.webp"
         },
-        "price": {
-          "N": "1100"
-        },
-        "stock_amount": {
-          "N": "5"
-        },
-        "is_available": {
-          "BOOL": true
-        }
+        "price": { "N": "10000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUPPORT" }
       }
     },
     {
       "Item": {
-        "id": {
-          "S": "12"
-        },
-        "name": {
-          "S": "Poison Materia"
-        },
+        "id": { "S": "20" },
+        "name": { "S": "All" },
         "description": {
-          "S": "Allows the use of Poison magic spells, including Bio, Biora, and Bioga."
+          "S": "Allows linked Magic Materia to target all enemies or allies."
         },
         "picture": {
-          "S": "placeholder.png"
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_All.webp"
         },
-        "price": {
-          "N": "800"
+        "price": { "N": "1500" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUPPORT" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "21" },
+        "name": { "S": "Counter" },
+        "description": { "S": "Counters attacks with linked Materia actions." },
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Counter.jpg"
         },
-        "stock_amount": {
-          "N": "5"
+        "price": { "N": "2000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUPPORT" }
+      }
+    },
+    {
+      "Item": {
+        "id": { "S": "22" },
+        "name": { "S": "Elemental" },
+        "description": {
+          "S": "Adds elemental properties of linked Materia to attacks or defenses."
         },
-        "is_available": {
-          "BOOL": true
-        }
+        "picture": {
+          "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVI_Elemental.png"
+        },
+        "price": { "N": "3000" },
+        "stock_amount": { "N": "5" },
+        "materia_type": { "S": "SUPPORT" }
       }
     }
   ]
