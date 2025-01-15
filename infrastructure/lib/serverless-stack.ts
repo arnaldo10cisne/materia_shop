@@ -3,7 +3,7 @@ import { Construct } from "constructs";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
-import 'dotenv/config';
+import "dotenv/config";
 
 interface MateriaShopServerlessStackProps extends cdk.StackProps {
   projectName: string;
@@ -17,6 +17,8 @@ export class MateriaShop_Serverless_Stack extends cdk.Stack {
   public readonly ordersTableARN: string;
   public readonly productsTableARN: string;
   public readonly paymentsTableARN: string;
+  public readonly apiUrl: string;
+
   constructor(
     scope: Construct,
     id: string,
@@ -120,6 +122,8 @@ export class MateriaShop_Serverless_Stack extends cdk.Stack {
         timeout: cdk.Duration.seconds(29),
       },
     });
+
+    this.apiUrl = api.url;
 
     lambda_NestjsBackendProxy.addEnvironment("NESTJS_API_ADDRESS", api.url);
 
