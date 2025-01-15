@@ -17,13 +17,14 @@ interface MateriaShopCICDStackProps extends cdk.StackProps {
   paymentsTableARN: string;
   usersTableARN: string;
   ordersTableARN: string;
+  projectName: string;
 }
 
 export class MateriaShop_CICD_Stack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: MateriaShopCICDStackProps) {
     super(scope, id, props);
 
-    const projectName = "MateriaShop";
+    const projectName = props?.projectName;
     const resourceName = (name: string) => `${projectName}__${name}`;
 
     const deploymentBucket = s3.Bucket.fromBucketArn(
