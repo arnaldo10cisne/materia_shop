@@ -35,7 +35,7 @@ export const orderSlice = createSlice({
         user: action.payload.user,
         creation_date: new Date(),
         content: action.payload.content,
-        status: OrderStatus.PENDING,
+        order_status: OrderStatus.PENDING,
         payment_method: {
           id: crypto.randomUUID(), // Generate unique ID
           credit_card: action.payload.credit_card,
@@ -76,7 +76,7 @@ export const orderSlice = createSlice({
 
     updateOrderStatus: (state, action: PayloadAction<OrderStatus>) => {
       if (state.currentOrder) {
-        state.currentOrder.status = action.payload;
+        state.currentOrder.order_status = action.payload;
       }
     },
 

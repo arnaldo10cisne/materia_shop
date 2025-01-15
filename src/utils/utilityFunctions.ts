@@ -8,6 +8,7 @@ import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
 import {
   CartItem,
   CreditCardModel,
+  OrderModel,
   OrderStatus,
   PaymentStatus,
 } from "./models.ts";
@@ -16,7 +17,6 @@ import {
   WOMPI_PUBLIC_KEY,
   WOMPI_SANDBOX_API,
 } from "./constants.ts";
-import axios from "axios";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
@@ -147,20 +147,38 @@ export const createOrderInBackend = async ({
   payment_method,
   total_order_price,
   address,
-}: CreatedOrderModel) => {
+}: CreatedOrderModel): Promise<OrderModel | null> => {
   try {
-    const response = await axios.post(`${API_ADDRESS}/orders`, {
-      content,
-      order_status: OrderStatus.PENDING,
-      user_id,
-      payment_method,
-      total_order_price,
-      address,
-      creation_date: formatTimestampToReadableDate(Date.now()),
+    const response = await fetch(`${API_ADDRESS}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content,
+        order_status: OrderStatus.PENDING,
+        user_id,
+        payment_method,
+        total_order_price,
+        address,
+        creation_date: formatTimestampToReadableDate(Date.now()),
+      }),
     });
-    console.log("Response:", response.data);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
+      );
+      return null;
+    }
+
+    const data = await response.json();
+    console.log("Response:", data);
+    return data;
   } catch (error) {
     console.error("Error making POST request:", error);
+    return null;
   }
 };
 
@@ -170,27 +188,31 @@ export const getCreditCardToken = async (
   credit_card: CreditCardModel,
 ): Promise<string> => {
   try {
-    const response = await axios.post(
-      `${WOMPI_SANDBOX_API}/tokens/cards`,
-      {
+    const response = await fetch(`${WOMPI_SANDBOX_API}/tokens/cards`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${WOMPI_PUBLIC_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         number: credit_card.sensitive_data?.number,
         cvc: credit_card.sensitive_data?.secret_code as string,
         exp_month: credit_card.sensitive_data?.exp_month,
         exp_year: credit_card.sensitive_data?.exp_year,
         card_holder: credit_card.sensitive_data?.holder_name,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${WOMPI_PUBLIC_KEY}`,
-        },
-      },
-    );
-    return String(response.data.data.id); // Token of CC
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error("Error making POST request:", errorData);
+      throw new Error(`Fetch error: ${response.status} - ${errorData}`);
+    }
+
+    const data = await response.json();
+    return String(data.data.id);
   } catch (error) {
-    console.error(
-      "Error making POST request:",
-      error.response?.data || error.message,
-    );
+    console.error("Error making POST request:", error);
     throw error;
   }
 };

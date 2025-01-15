@@ -10,6 +10,8 @@ import visa_logo from "../assets/images/visa_logo.png";
 import other_logo from "../assets/images/other_logo.png";
 import deliveryChocobo from "../assets/images/delivery_chocobo.gif";
 import fatChocobo from "../assets/images/fat_chocobo.gif";
+import chocoboWaiting from "../assets/images/chocobo_waiting.gif";
+import chocoboWaltz from "../assets/music/WaltzDeChocobo.mp3";
 import {
   CreditCardCompany,
   CreditCardIconModel,
@@ -26,6 +28,8 @@ export const CLOUD_PORTRAIT_PLACEHOLDER = cloud_portrait_placeholder;
 
 export const DELIVERY_CHOCOBO_IMAGE = deliveryChocobo;
 export const FAT_CHOCOBO_IMAGE = fatChocobo;
+export const CHOCOBO_WAITING = chocoboWaiting;
+export const CHOCOBO_WALTZ = new Audio(chocoboWaltz);
 
 export const MASTERCARD_CARD: CreditCardIconModel = {
   company: CreditCardCompany.MASTER_CARD,

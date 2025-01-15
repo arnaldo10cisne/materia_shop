@@ -54,7 +54,7 @@ export interface OrderModel {
   address: string;
   creation_date: Date;
   content: CartItem[];
-  status: OrderStatus;
+  order_status: OrderStatus;
   payment_method: PaymentModel | null;
   total_order_price: number;
 }

@@ -22,7 +22,7 @@ export const Results = () => {
   const navigate = useNavigate();
 
   const handleClickReturn = () => {
-    if (order.currentOrder?.status === OrderStatus.COMPLETED) {
+    if (order.currentOrder?.order_status === OrderStatus.COMPLETED) {
       navigate("/");
     } else {
       navigate("/summary");
@@ -30,12 +30,12 @@ export const Results = () => {
   };
 
   useEffect(() => {
-    if (order.currentOrder?.status === OrderStatus.COMPLETED) {
+    if (order.currentOrder?.order_status === OrderStatus.COMPLETED) {
       playChocoboDance();
     } else {
       playChocoboCry();
     }
-  });
+  }, [order.currentOrder?.order_status]);
 
   return (
     <div className={classNames(styles.Results)}>
@@ -45,13 +45,13 @@ export const Results = () => {
           sfxOnClick={playCancelCursorSfx}
           customStyles={styles.Return}
         >
-          {order.currentOrder?.status === OrderStatus.COMPLETED
+          {order.currentOrder?.order_status === OrderStatus.COMPLETED
             ? "Return to the Homepage"
             : "Return to Order Summary"}
         </SelectableOption>
       </BlueBox>
       <BlueBox customStyles={styles.ResultsBlueBox}>
-        {order.currentOrder?.status === OrderStatus.COMPLETED ? (
+        {order.currentOrder?.order_status === OrderStatus.COMPLETED ? (
           <div className={classNames(styles.InformationText)}>
             <p className={classNames(styles.InformationLine)}>
               Congratulations!
@@ -83,12 +83,12 @@ export const Results = () => {
 
         <img
           className={classNames(
-            order.currentOrder?.status === OrderStatus.COMPLETED
+            order.currentOrder?.order_status === OrderStatus.COMPLETED
               ? styles.chocoboDancing
               : styles.fatChocobo,
           )}
           src={
-            order.currentOrder?.status === OrderStatus.COMPLETED
+            order.currentOrder?.order_status === OrderStatus.COMPLETED
               ? DELIVERY_CHOCOBO_IMAGE
               : FAT_CHOCOBO_IMAGE
           }
