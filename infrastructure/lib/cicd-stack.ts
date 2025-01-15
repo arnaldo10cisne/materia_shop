@@ -10,6 +10,7 @@ import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53_targets from "aws-cdk-lib/aws-route53-targets";
+import "dotenv/config";
 
 interface MateriaShopCICDStackProps extends cdk.StackProps {
   serverlessStackName: string;
@@ -17,13 +18,15 @@ interface MateriaShopCICDStackProps extends cdk.StackProps {
   paymentsTableARN: string;
   usersTableARN: string;
   ordersTableARN: string;
+  projectName: string;
+  apiUrl: string;
 }
 
 export class MateriaShop_CICD_Stack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: MateriaShopCICDStackProps) {
     super(scope, id, props);
 
-    const projectName = "MateriaShop";
+    const projectName = props?.projectName;
     const resourceName = (name: string) => `${projectName}__${name}`;
 
     const deploymentBucket = s3.Bucket.fromBucketArn(
@@ -51,6 +54,15 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
         environment: {
           buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
           computeType: codebuild.ComputeType.SMALL,
+          environmentVariables: {
+            REACT_APP_API_ADDRESS: { value: props?.apiUrl },
+            REACT_APP_WOMPI_SANDBOX_API: {
+              value: process.env.REACT_APP_WOMPI_SANDBOX_API!,
+            },
+            REACT_APP_WOMPI_PUBLIC_KEY: {
+              value: process.env.REACT_APP_WOMPI_PUBLIC_KEY!,
+            },
+          },
         },
         buildSpec: codebuild.BuildSpec.fromObject({
           version: 0.2,
@@ -60,22 +72,19 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
             },
             pre_build: {
               commands: [
-                // 'node ./scripts/get_config/generateCloudConfig.js',
                 "npx prettier --check .",
                 "npx eslint . --ext .js,.jsx,.ts,.tsx",
                 "npm test -- --watchAll=false",
               ],
             },
             build: {
-              commands: ["npm run build"],
+              commands: [
+                'echo "REACT_APP_API_ADDRESS=$REACT_APP_API_ADDRESS" > .env',
+                'echo "REACT_APP_WOMPI_SANDBOX_API=$REACT_APP_WOMPI_SANDBOX_API" >> .env',
+                'echo "REACT_APP_WOMPI_PUBLIC_KEY=$REACT_APP_WOMPI_PUBLIC_KEY" >> .env',
+                "npm run build",
+              ],
             },
-            // post_build: {
-            //   commands: [
-            //     'cd ./scripts/load_data',
-            //     'pip install -r requirements.txt',
-            //     'python load_data.py',
-            //   ],
-            // },
           },
           artifacts: {
             "base-directory": "build",
@@ -97,15 +106,6 @@ export class MateriaShop_CICD_Stack extends cdk.Stack {
         resources: [serverlessStackName],
       }),
     );
-
-    // if (props) {
-    //   buildProject.addToRolePolicy(
-    //     new iam.PolicyStatement({
-    //       actions: ['dynamodb:PutItem'],
-    //       resources: [props.productsTableARN, props.paymentsTableARN],
-    //     })
-    //   );
-    // }
 
     deploymentBucket.grantReadWrite(buildProject);
 

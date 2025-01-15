@@ -6,7 +6,7 @@ import { UserModel } from 'src/models';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get() // GET /users or /users?role=value
+  @Get() // GET /users
   findAllUsers() {
     return this.usersService.findAllUsers();
   }
