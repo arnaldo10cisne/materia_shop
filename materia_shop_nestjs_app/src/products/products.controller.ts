@@ -1,23 +1,29 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ProductModel } from 'src/models';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import { ProductsService } from './products.service';
 
 @Controller('products') // myapp.api/products
 export class ProductsController {
+  constructor(private readonly productsService: ProductsService) {}
+
   @Get() // GET /products/
-  getAllProducts() {
-    return [];
+  findAllProducts() {
+    return this.productsService.findAllProducts();
   }
 
   @Get(':id') // GET /products/:id
-  getSingleProduct(@Param('id') id: ProductModel['id']) {
-    return { id };
+  findOneProduct(@Param('id') id: string) {
+    return this.productsService.findOneProduct(id);
   }
 
-  // @Patch(':id') // PATCH /products/:id
-  // updateUser(@Param('id') id: string, @Body() updatedProduct: {}) {
-  //   return {
-  //     id,
-  //     ...updatedProduct,
-  //   };
-  // }
+  @Patch() // PATCH /products/
+  async updateProducts(
+    @Body()
+    updates: {
+      id: string;
+      stock_variation: number;
+      variation: 'REDUCE' | 'INCREMENT';
+    }[],
+  ) {
+    return this.productsService.updateProductStock(updates);
+  }
 }

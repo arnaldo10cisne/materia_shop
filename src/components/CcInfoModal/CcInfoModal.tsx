@@ -35,43 +35,34 @@ export const CcInfoModal = ({
   };
 
   const handleSubmit = () => {
-    // e.preventDefault();
-
-    // Validaciones básicas
     if (
       !holderName ||
       !cardNumber ||
       !cvv ||
       !expirationDate ||
-      cardNumber.length < 12 || // Por ejemplo, una longitud mínima
+      cardNumber.length < 12 ||
       cvv.length < 3 ||
-      !/^\d{2}\/\d{2}$/.test(expirationDate) // Formato MM/YY
+      !/^\d{2}\/\d{2}$/.test(expirationDate)
     ) {
       alert("Please fill up the form correctly.");
       return;
     }
 
-    // Detectar la compañía de la tarjeta
     const company = detectCreditCardCompany(cardNumber);
 
-    // Obtener las últimas 4 cifras del número de la tarjeta
     const lastFourDigits = cardNumber.slice(-4);
 
-    // Parsear la fecha de vencimiento
-    const [month, year] = expirationDate.split("/").map(Number);
-    const expiration = new Date();
-    expiration.setFullYear(2000 + year, month - 1, 1); // Asumiendo que el año está en formato YY
+    const [month, year] = expirationDate.split("/");
 
-    // Crear el objeto sensitive_data
     const sensitiveData: CreditCardSensitiveDataModel = {
       company,
       number: cardNumber,
-      expiration_date: expiration,
-      secret_code: Number(cvv),
+      exp_month: month,
+      exp_year: year,
+      secret_code: cvv,
       holder_name: holderName,
     };
 
-    // Crear el objeto CreditCardModel
     const creditCard: CreditCardModel = {
       id: crypto.randomUUID(),
       company,
@@ -79,28 +70,22 @@ export const CcInfoModal = ({
       sensitive_data: sensitiveData,
     };
 
-    // Dispatch de la acción para establecer la tarjeta de crédito
     dispatch(setCreditCard(creditCard));
 
-    // Limpiar el formulario
     setHolderName("");
     setCardNumber("");
     setCvv("");
     setExpirationDate("");
 
-    // Opcional: Llamar a la función onSubmitCreditCard si necesitas realizar alguna acción adicional
     onSubmitCreditCard();
   };
 
   const detectCreditCardCompany = (cardNumber: string): CreditCardCompany => {
-    const sanitizedNumber = cardNumber.replace(/\s+/g, ""); // Remueve espacios si los hubiera
+    const sanitizedNumber = cardNumber.replace(/\s+/g, "");
 
     if (/^4/.test(sanitizedNumber)) {
       return CreditCardCompany.VISA;
     }
-    // En este ejemplo solo se contemplan rangos 51-55 para MasterCard.
-    // (MasterCard en la actualidad también comprende rangos 2221–2720,
-    //  pero aquí mostramos la forma más básica)
     if (/^5[1-5]/.test(sanitizedNumber)) {
       return CreditCardCompany.MASTER_CARD;
     }

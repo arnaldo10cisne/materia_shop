@@ -142,3 +142,5 @@ cdk.out
 cdk.context.json
 
 todolist.txt
+
+.env

@@ -5,20 +5,19 @@ import styles from "./Products.module.scss";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { MateriaIconModel, ProductModel } from "../../utils/models.ts";
-import {
-  MATERIA_LIST,
-  PLACEHOLDER_PRODUCT_LIST,
-} from "../../utils/constants.ts";
+import { MATERIA_LIST } from "../../utils/constants.ts";
 import { ProductInfoModal } from "../../components/ProductInfoModal/ProductInfoModal.tsx";
 import {
   disableScroll,
   enableScroll,
+  getAllProducts,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CartModal } from "../../components/CartModal/CartModal.tsx";
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
+import { useQuery } from "react-query";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);
@@ -34,7 +33,13 @@ export const Products = () => {
 
   const cartContent = useSelector((state: RootState) => state.cart.currentCart);
 
-  const productsList: ProductModel[] = PLACEHOLDER_PRODUCT_LIST;
+  const {
+    data: productsList,
+    // isLoading,
+    // error,
+  } = useQuery<ProductModel[]>(["Products", "product_list"], () =>
+    getAllProducts(),
+  );
 
   const handleClickReturn = () => {
     navigate("/");
@@ -101,7 +106,7 @@ export const Products = () => {
         </BlueBox>
 
         <BlueBox customStyles={styles.ProductListBlueBox}>
-          {productsList.map((product: ProductModel) => {
+          {productsList?.map((product: ProductModel) => {
             return (
               <>
                 <SelectableOption

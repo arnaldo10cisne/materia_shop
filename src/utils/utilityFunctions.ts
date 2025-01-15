@@ -5,7 +5,18 @@ import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
-import { CartItem } from "./models.ts";
+import {
+  CartItem,
+  CreditCardModel,
+  OrderModel,
+  OrderStatus,
+  PaymentStatus,
+} from "./models.ts";
+import {
+  API_ADDRESS,
+  WOMPI_PUBLIC_KEY,
+  WOMPI_SANDBOX_API,
+} from "./constants.ts";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
@@ -76,4 +87,132 @@ export const calculateOrderPrice = (
   const delivery_fee = includeDeliveryFee ? 750 : 0;
 
   return sum_of_items + cc_fee + delivery_fee;
+};
+
+export const formatTimestampToReadableDate = (timestamp) => {
+  const date = new Date(timestamp);
+
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`;
+};
+
+/// API CALLS UTILITIES
+
+// Reusable fetch handler
+const fetchData = async (url: string) => {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
+    );
+  }
+
+  return await response.json();
+};
+
+export const getAllUsers = async () => {
+  return await fetchData(`${API_ADDRESS}/users`);
+};
+
+export const getAllProducts = async () => {
+  return await fetchData(`${API_ADDRESS}/products`);
+};
+
+interface CreatedOrderModel {
+  content: [];
+  user_id: string;
+  payment_method: {
+    id: string;
+    tokenized_credit_card: string;
+    payment_status: PaymentStatus;
+    order: string;
+    customer_email: string;
+  };
+  total_order_price: number;
+  address: string;
+}
+
+export const createOrderInBackend = async ({
+  user_id,
+  content,
+  payment_method,
+  total_order_price,
+  address,
+}: CreatedOrderModel): Promise<OrderModel | null> => {
+  try {
+    const response = await fetch(`${API_ADDRESS}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content,
+        order_status: OrderStatus.PENDING,
+        user_id,
+        payment_method,
+        total_order_price,
+        address,
+        creation_date: formatTimestampToReadableDate(Date.now()),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
+      );
+      return null;
+    }
+
+    const data = await response.json();
+    console.log("Response:", data);
+    return data;
+  } catch (error) {
+    console.error("Error making POST request:", error);
+    return null;
+  }
+};
+
+// WOMPI UTILITIES
+
+export const getCreditCardToken = async (
+  credit_card: CreditCardModel,
+): Promise<string> => {
+  try {
+    const response = await fetch(`${WOMPI_SANDBOX_API}/tokens/cards`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${WOMPI_PUBLIC_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        number: credit_card.sensitive_data?.number,
+        cvc: credit_card.sensitive_data?.secret_code as string,
+        exp_month: credit_card.sensitive_data?.exp_month,
+        exp_year: credit_card.sensitive_data?.exp_year,
+        card_holder: credit_card.sensitive_data?.holder_name,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error("Error making POST request:", errorData);
+      throw new Error(`Fetch error: ${response.status} - ${errorData}`);
+    }
+
+    const data = await response.json();
+    return String(data.data.id);
+  } catch (error) {
+    console.error("Error making POST request:", error);
+    throw error;
+  }
 };
