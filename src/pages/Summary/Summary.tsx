@@ -50,8 +50,10 @@ export const Summary = () => {
         tokenized_credit_card: creditCardToken,
         payment_status: PaymentStatus.PENDING,
         order: order.currentOrder?.id as string,
+        customer_email: order.currentOrder?.user.email as string,
       },
-      total_order_price: order.currentOrder?.total_order_price as number,
+      total_order_price:
+        (order.currentOrder?.total_order_price as number) * 1000,
       address: order.currentOrder?.address as string,
     });
 

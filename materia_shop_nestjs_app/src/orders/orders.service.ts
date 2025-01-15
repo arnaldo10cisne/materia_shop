@@ -9,6 +9,7 @@ import {
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { OrderModel } from 'src/models';
 import axios from 'axios';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class OrdersService {
@@ -37,7 +38,7 @@ export class OrdersService {
 
   async createOrder(newOrder: OrderModel): Promise<OrderModel> {
     if (!newOrder.id) {
-      newOrder.id = String(Date.now());
+      newOrder.id = String(crypto.randomUUID());
     }
 
     const command = new PutItemCommand({
@@ -57,13 +58,13 @@ export class OrdersService {
           payment_amount: newOrder.total_order_price,
           order: newOrder.id,
         });
-        console.log("Response:", response.data);
+        console.log('Response:', response.data);
       } catch (error) {
-        console.error("Error making POST request in /payments:", error);
+        console.error('Error making POST request in /payments:', error);
       }
     };
 
-    createPayment()
+    createPayment();
 
     return newOrder;
   }

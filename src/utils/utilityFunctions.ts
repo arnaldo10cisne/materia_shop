@@ -135,6 +135,7 @@ interface CreatedOrderModel {
     tokenized_credit_card: string;
     payment_status: PaymentStatus;
     order: string;
+    customer_email: string;
   };
   total_order_price: number;
   address: string;

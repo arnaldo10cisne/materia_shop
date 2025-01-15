@@ -8,6 +8,7 @@
         "name": {
           "S": "Cloud Strife"
         },
+        "email": { "S": "cloud@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Cloud_Portrait.webp"
         }
@@ -21,6 +22,7 @@
         "name": {
           "S": "Barret Wallace"
         },
+        "email": { "S": "Barret@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Barret_PortraitNB.webp"
         }
@@ -34,6 +36,7 @@
         "name": {
           "S": "Tifa Lockhart"
         },
+        "email": { "S": "Tifa@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Tifa_Portrait.webp"
         }
@@ -47,6 +50,7 @@
         "name": {
           "S": "Aerith Gainsborough"
         },
+        "email": { "S": "Aerith@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Aeris_Portrait.webp"
         }
@@ -60,6 +64,7 @@
         "name": {
           "S": "Red XIII"
         },
+        "email": { "S": "Red@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Red_XIII_Portrait.webp"
         }
@@ -73,6 +78,7 @@
         "name": {
           "S": "Yuffie Kisaragi"
         },
+        "email": { "S": "Yuffie@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Yuffie_Portrait.webp"
         }
@@ -86,6 +92,7 @@
         "name": {
           "S": "Cait Sith"
         },
+        "email": { "S": "Cait@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Cait_Sith_Portrait.webp"
         }
@@ -99,6 +106,7 @@
         "name": {
           "S": "Vincent Valentine"
         },
+        "email": { "S": "Vincent@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Vincent_Portrait.webp"
         }
@@ -112,6 +120,7 @@
         "name": {
           "S": "Cid Highwind"
         },
+        "email": { "S": "Cid@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Cid_Portrait.webp"
         }
@@ -125,6 +134,7 @@
         "name": {
           "S": "Sephiroth"
         },
+        "email": { "S": "Sephiroth@example.com" },
         "portrait": {
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/Sephiroth_Portrait.webp"
         }

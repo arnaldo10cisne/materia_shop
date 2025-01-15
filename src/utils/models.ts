@@ -29,6 +29,7 @@ export interface UserModel {
   id: string;
   name: string;
   portrait: string;
+  email: string;
 }
 
 export interface ProductModel {
