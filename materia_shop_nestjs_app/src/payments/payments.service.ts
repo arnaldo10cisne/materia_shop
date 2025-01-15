@@ -11,8 +11,10 @@ import {
   getWompiTransactionId,
   getAcceptanceTokens,
   getPaymentSourceId,
+  WOMPI_SANDBOX_API,
 } from './utils/utilityFunctions';
 import * as crypto from 'crypto';
+import axios from 'axios';
 
 @Injectable()
 export class PaymentsService {
@@ -27,6 +29,26 @@ export class PaymentsService {
     const response = await this.dynamoDBClient.send(command);
 
     return response.Item ? (unmarshall(response.Item) as PaymentModel) : null;
+  }
+
+  async waitForTransactionResult(wompiTransactionId: string): Promise<string> {
+    const url = `${WOMPI_SANDBOX_API}/transactions/${wompiTransactionId}`;
+
+    while (true) {
+      try {
+        const response = await axios.get(url);
+        const transactionStatus = response.data?.data?.status;
+
+        if (transactionStatus !== 'PENDING') {
+          return transactionStatus;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (error) {
+        console.error('Error consultando la transacción de Wompi:', error);
+        throw error;
+      }
+    }
   }
 
   async createPayment(newPayment: PaymentModel): Promise<PaymentModel> {
@@ -57,7 +79,10 @@ export class PaymentsService {
       integritySignature,
     });
 
-    newPayment.wompiTransactionId = wompiTransactionId;
+    const wompiTransactionResult =
+      await this.waitForTransactionResult(wompiTransactionId);
+
+    newPayment.wompiTransactionId = wompiTransactionResult;
 
     const command = new PutItemCommand({
       TableName: this.tableName,

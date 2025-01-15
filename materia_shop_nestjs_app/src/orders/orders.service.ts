@@ -7,7 +7,7 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { OrderModel } from 'src/models';
+import { OrderModel, OrderStatus, PaymentStatus } from 'src/models';
 import axios from 'axios';
 import * as crypto from 'crypto';
 
@@ -26,6 +26,24 @@ export class OrdersService {
     return response.Items?.map((item) => unmarshall(item) as OrderModel) || [];
   }
 
+  async createRelatedPayment(relatedOrder: OrderModel) {
+    try {
+      const response = await axios.post(`${this.apiAddress}/payments`, {
+        id: relatedOrder.payment_method.id,
+        tokenized_credit_card:
+          relatedOrder.payment_method.tokenized_credit_card,
+        payment_status: relatedOrder.payment_method.payment_status,
+        customer_email: relatedOrder.payment_method.customer_email,
+        payment_amount: relatedOrder.total_order_price,
+        order: relatedOrder.id,
+      });
+      console.log('Response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error making POST request in /payments:', error);
+    }
+  }
+
   async getOneOrder(id: string): Promise<OrderModel | null> {
     const command = new GetItemCommand({
       TableName: this.tableName,
@@ -41,30 +59,22 @@ export class OrdersService {
       newOrder.id = String(crypto.randomUUID());
     }
 
+    const relatedPayment = await this.createRelatedPayment(newOrder);
+
+    if (relatedPayment.wompiTransactionId === PaymentStatus.APPROVED) {
+      newOrder.order_status = OrderStatus.COMPLETED;
+
+      // UPDATE STOCK HERE
+    } else {
+      newOrder.order_status = OrderStatus.FAILED;
+    }
+
     const command = new PutItemCommand({
       TableName: this.tableName,
       Item: marshall(newOrder),
     });
 
     await this.dynamoDBClient.send(command);
-
-    const createPayment = async () => {
-      try {
-        const response = await axios.post(`${this.apiAddress}/payments`, {
-          id: newOrder.payment_method.id,
-          tokenized_credit_card: newOrder.payment_method.tokenized_credit_card,
-          payment_status: newOrder.payment_method.payment_status,
-          customer_email: newOrder.payment_method.customer_email,
-          payment_amount: newOrder.total_order_price,
-          order: newOrder.id,
-        });
-        console.log('Response:', response.data);
-      } catch (error) {
-        console.error('Error making POST request in /payments:', error);
-      }
-    };
-
-    createPayment();
 
     return newOrder;
   }
