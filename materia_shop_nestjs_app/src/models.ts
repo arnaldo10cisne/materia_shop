@@ -64,4 +64,5 @@ export interface PaymentModel {
   customer_email: string;
   payment_amount: string;
   order: OrderModel;
+  wompiTransactionId?: string;
 }

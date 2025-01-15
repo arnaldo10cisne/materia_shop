@@ -88,7 +88,7 @@ export const getPaymentSourceId = async ({
   }
 };
 
-export const createTransactionInWompi = async ({
+export const getWompiTransactionId = async ({
   amount_in_cents,
   customer_email,
   reference,
@@ -119,7 +119,7 @@ export const createTransactionInWompi = async ({
       { headers },
     );
     console.log('Transaction created succesfully:', response.data);
-    return response.data;
+    return response.data.data.id;
   } catch (error) {
     console.error(
       'Error creating transaction:',

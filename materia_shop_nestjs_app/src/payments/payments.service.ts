@@ -8,7 +8,7 @@ import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { PaymentModel } from 'src/models';
 import {
   createIntegritySignature,
-  createTransactionInWompi,
+  getWompiTransactionId,
   getAcceptanceTokens,
   getPaymentSourceId,
 } from './utils/utilityFunctions';
@@ -34,13 +34,6 @@ export class PaymentsService {
       newPayment.id = crypto.randomUUID();
     }
 
-    const command = new PutItemCommand({
-      TableName: this.tableName,
-      Item: marshall(newPayment),
-    });
-
-    await this.dynamoDBClient.send(command);
-
     const integritySignature = await createIntegritySignature({
       amount_in_cents: Number(newPayment.payment_amount),
       payment_id: newPayment.id,
@@ -56,10 +49,7 @@ export class PaymentsService {
       customer_email: newPayment.customer_email,
     });
 
-    console.log('Amount in cents:', newPayment.payment_amount);
-    console.log('Le estoy pasando: ', Number(newPayment.payment_amount));
-
-    const response = await createTransactionInWompi({
+    const wompiTransactionId = await getWompiTransactionId({
       amount_in_cents: Number(newPayment.payment_amount),
       customer_email: newPayment.customer_email,
       reference: newPayment.id,
@@ -67,11 +57,14 @@ export class PaymentsService {
       integritySignature,
     });
 
-    console.log('RESPONSE HERE');
-    console.log(response);
-    console.log('RESPONSE UP');
+    newPayment.wompiTransactionId = wompiTransactionId;
 
-    //CALL WOMPI API
+    const command = new PutItemCommand({
+      TableName: this.tableName,
+      Item: marshall(newPayment),
+    });
+
+    await this.dynamoDBClient.send(command);
 
     return newPayment;
   }
