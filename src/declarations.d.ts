@@ -22,3 +22,8 @@ declare module "*.webp" {
   const webp: string;
   export default webp;
 }
+
+declare module "*.gif" {
+  const gif: string;
+  export default gif;
+}

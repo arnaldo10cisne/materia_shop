@@ -1,13 +1,13 @@
 export enum OrderStatus {
-  IN_PROGRESS = 'IN_PROGRESS',
+  PENDING = 'PENDING',
   COMPLETED = 'COMPLETED',
   FAILED = 'FAILED',
   CANCELLED = 'CANCELLED',
 }
 
 export enum PaymentStatus {
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
   FAILED = 'FAILED',
 }
 
@@ -30,22 +30,24 @@ export interface ProductModel {
   picture: string;
   price: number;
   stock_amount: number;
-  is_available: boolean;
 }
 
 export interface CartItem {
   id: string;
-  product: ProductModel;
+  product: string;
   amount: number;
   total_price?: number;
 }
 
 export interface OrderModel {
   id: string;
-  User: UserModel;
+  user_id: string; // ID de UserModel
+  address: string;
   creation_date: Date;
   content: CartItem[];
-  status: OrderStatus;
+  order_status: OrderStatus;
+  payment_method: PaymentModel; // ID de PaymentModel
+  total_order_price: number;
 }
 
 export interface CreditCardModel {
@@ -57,6 +59,10 @@ export interface CreditCardModel {
 export interface PaymentModel {
   id: string;
   credit_card: CreditCardModel;
-  status: PaymentStatus;
+  tokenized_credit_card: string;
+  payment_status: PaymentStatus;
+  customer_email: string;
+  payment_amount: string;
   order: OrderModel;
+  wompiTransactionId?: string;
 }

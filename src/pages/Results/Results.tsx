@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import styles from "./Results.module.scss";
 import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
 import { OrderStatus } from "../../utils/models.ts";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +16,15 @@ import {
   DELIVERY_CHOCOBO_IMAGE,
   FAT_CHOCOBO_IMAGE,
 } from "../../utils/constants.ts";
+import { clearCartContent } from "../../store/cartReducer.ts";
 
 export const Results = () => {
   const order = useSelector((state: RootState) => state.order);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickReturn = () => {
-    if (order.currentOrder?.status === OrderStatus.COMPLETED) {
+    if (order.currentOrder?.order_status === OrderStatus.COMPLETED) {
       navigate("/");
     } else {
       navigate("/summary");
@@ -30,12 +32,13 @@ export const Results = () => {
   };
 
   useEffect(() => {
-    if (order.currentOrder?.status === OrderStatus.COMPLETED) {
+    if (order.currentOrder?.order_status === OrderStatus.COMPLETED) {
       playChocoboDance();
+      dispatch(clearCartContent());
     } else {
       playChocoboCry();
     }
-  });
+  }, [order.currentOrder?.order_status, dispatch]);
 
   return (
     <div className={classNames(styles.Results)}>
@@ -45,13 +48,13 @@ export const Results = () => {
           sfxOnClick={playCancelCursorSfx}
           customStyles={styles.Return}
         >
-          {order.currentOrder?.status === OrderStatus.COMPLETED
+          {order.currentOrder?.order_status === OrderStatus.COMPLETED
             ? "Return to the Homepage"
             : "Return to Order Summary"}
         </SelectableOption>
       </BlueBox>
       <BlueBox customStyles={styles.ResultsBlueBox}>
-        {order.currentOrder?.status === OrderStatus.COMPLETED ? (
+        {order.currentOrder?.order_status === OrderStatus.COMPLETED ? (
           <div className={classNames(styles.InformationText)}>
             <p className={classNames(styles.InformationLine)}>
               Congratulations!
@@ -83,12 +86,12 @@ export const Results = () => {
 
         <img
           className={classNames(
-            order.currentOrder?.status === OrderStatus.COMPLETED
+            order.currentOrder?.order_status === OrderStatus.COMPLETED
               ? styles.chocoboDancing
               : styles.fatChocobo,
           )}
           src={
-            order.currentOrder?.status === OrderStatus.COMPLETED
+            order.currentOrder?.order_status === OrderStatus.COMPLETED
               ? DELIVERY_CHOCOBO_IMAGE
               : FAT_CHOCOBO_IMAGE
           }

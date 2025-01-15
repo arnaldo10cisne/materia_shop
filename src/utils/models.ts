@@ -1,13 +1,13 @@
 export enum OrderStatus {
-  IN_PROGRESS = "IN_PROGRESS",
+  PENDING = "PENDING",
   COMPLETED = "COMPLETED",
   FAILED = "FAILED",
   CANCELLED = "CANCELLED",
 }
 
 export enum PaymentStatus {
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
   FAILED = "FAILED",
 }
 
@@ -29,6 +29,7 @@ export interface UserModel {
   id: string;
   name: string;
   portrait: string;
+  email: string;
 }
 
 export interface ProductModel {
@@ -38,7 +39,6 @@ export interface ProductModel {
   picture: string;
   price: number;
   stock_amount: number;
-  is_available: boolean;
   materia_type: MateriaTypes;
 }
 
@@ -54,9 +54,9 @@ export interface OrderModel {
   address: string;
   creation_date: Date;
   content: CartItem[];
-  status: OrderStatus;
+  order_status: OrderStatus;
   payment_method: PaymentModel | null;
-  total_order_prince: number;
+  total_order_price: number;
 }
 
 export interface CreditCardModel {
@@ -70,8 +70,9 @@ export interface CreditCardModel {
 export interface CreditCardSensitiveDataModel {
   company: CreditCardCompany;
   number: string;
-  expiration_date: Date;
-  secret_code: number;
+  exp_month: string;
+  exp_year: string;
+  secret_code: string;
   holder_name: string;
 }
 
