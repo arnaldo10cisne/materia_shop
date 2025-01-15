@@ -27,18 +27,30 @@ export class ProductsService {
     return response.Item ? unmarshall(response.Item) : null;
   }
 
-  async updateProducts(updates: { id: string; stock_amount?: number }[]) {
+  async updateProductStock(
+    updates: {
+      id: string;
+      stock_variation: number;
+      variation: 'REDUCE' | 'INCREMENT';
+    }[],
+  ) {
+    console.log('DATOS RECIBIDOS: ', updates);
     const updatedItems = [];
 
     for (const update of updates) {
-      const { id, stock_amount } = update;
+      const { id, stock_variation, variation } = update;
+
+      const variationValue =
+        variation === 'REDUCE'
+          ? -Math.abs(stock_variation)
+          : Math.abs(stock_variation);
 
       const command = new UpdateItemCommand({
         TableName: this.table_name,
         Key: marshall({ id }),
-        UpdateExpression: 'SET stock_amount = :stock_amount',
+        UpdateExpression: 'ADD stock_amount :variationValue',
         ExpressionAttributeValues: marshall({
-          ':stock_amount': stock_amount ?? 0,
+          ':variationValue': variationValue,
         }),
         ReturnValues: 'ALL_NEW',
       });

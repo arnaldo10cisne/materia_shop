@@ -7,7 +7,7 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { OrderModel, OrderStatus, PaymentStatus } from 'src/models';
+import { CartItem, OrderModel, OrderStatus, PaymentStatus } from 'src/models';
 import axios from 'axios';
 import * as crypto from 'crypto';
 
@@ -54,6 +54,31 @@ export class OrdersService {
     return response.Item ? (unmarshall(response.Item) as OrderModel) : null;
   }
 
+  async updateStock(listOfItems: CartItem[]) {
+    const listOfUpdates: {
+      id: string;
+      stock_variation: number;
+      variation: 'REDUCE' | 'INCREMENT';
+    }[] = [];
+    for (const item of listOfItems) {
+      listOfUpdates.push({
+        id: item.product,
+        stock_variation: item.amount,
+        variation: 'REDUCE',
+      });
+    }
+
+    try {
+      const response = await axios.patch(
+        `${this.apiAddress}/products`,
+        listOfUpdates,
+      );
+      console.log('Stock updated:', response.data);
+    } catch (error) {
+      console.error('Error making PATCH request in /products:', error);
+    }
+  }
+
   async createOrder(newOrder: OrderModel): Promise<OrderModel> {
     if (!newOrder.id) {
       newOrder.id = String(crypto.randomUUID());
@@ -64,7 +89,7 @@ export class OrdersService {
     if (relatedPayment.wompiTransactionId === PaymentStatus.APPROVED) {
       newOrder.order_status = OrderStatus.COMPLETED;
 
-      // UPDATE STOCK HERE
+      await this.updateStock(newOrder.content);
     } else {
       newOrder.order_status = OrderStatus.FAILED;
     }

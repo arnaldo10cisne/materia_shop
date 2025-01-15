@@ -17,8 +17,13 @@ export class ProductsController {
 
   @Patch() // PATCH /products/
   async updateProducts(
-    @Body() updates: { id: string; stock_amount?: number }[],
+    @Body()
+    updates: {
+      id: string;
+      stock_variation: number;
+      variation: 'REDUCE' | 'INCREMENT';
+    }[],
   ) {
-    return this.productsService.updateProducts(updates);
+    return this.productsService.updateProductStock(updates);
   }
 }
