@@ -121,6 +121,8 @@ export class MateriaShop_Serverless_Stack extends cdk.Stack {
       },
     });
 
+    lambda_NestjsBackendProxy.addEnvironment("NESTJS_API_ADDRESS", api.url);
+
     new cdk.CfnOutput(this, resourceName("api-endpoint-url"), {
       value: api.url,
       description: `${projectName} api endpoint to make requests to /products and /payments`,
