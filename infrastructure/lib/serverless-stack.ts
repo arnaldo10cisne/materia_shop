@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import 'dotenv/config';
 
 interface MateriaShopServerlessStackProps extends cdk.StackProps {
   projectName: string;
@@ -93,15 +94,19 @@ export class MateriaShop_Serverless_Stack extends cdk.Stack {
           PAYMENTS_TABLE_NAME: payments_table.tableName,
           USERS_TABLE_NAME: users_table.tableName,
           ORDERS_TABLE_NAME: orders_table.tableName,
+          WOMPI_SANDBOX_API: process.env.WOMPI_SANDBOX_API!,
+          WOMPI_PUBLIC_KEY: process.env.WOMPI_PUBLIC_KEY!,
+          WOMPI_PRIVATE_KEY: process.env.WOMPI_PRIVATE_KEY!,
+          WOMPI_INTEGRITY_KEY: process.env.WOMPI_INTEGRITY_KEY!,
         },
         timeout: cdk.Duration.minutes(15),
       },
     );
 
-    products_table.grantReadData(lambda_NestjsBackendProxy);
-    payments_table.grantReadData(lambda_NestjsBackendProxy);
+    products_table.grantReadWriteData(lambda_NestjsBackendProxy);
+    payments_table.grantReadWriteData(lambda_NestjsBackendProxy);
     users_table.grantReadData(lambda_NestjsBackendProxy);
-    orders_table.grantReadData(lambda_NestjsBackendProxy);
+    orders_table.grantReadWriteData(lambda_NestjsBackendProxy);
 
     const api = new apigateway.LambdaRestApi(this, resourceName("api"), {
       handler: lambda_NestjsBackendProxy,
