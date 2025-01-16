@@ -7,7 +7,10 @@ import {
   PaymentStatus,
   CreditCardModel,
 } from "../utils/models.ts";
-import { calculateOrderPrice } from "../utils/utilityFunctions.ts";
+import {
+  calculateOrderPrice,
+  formatTimestampToReadableDate,
+} from "../utils/utilityFunctions.ts";
 
 interface OrderStateModel {
   currentOrder: OrderModel | null;
@@ -33,7 +36,7 @@ export const orderSlice = createSlice({
       state.currentOrder = {
         id: crypto.randomUUID(), // Generate unique ID
         user: action.payload.user,
-        creation_date: new Date(),
+        creation_date: formatTimestampToReadableDate(Date.now()),
         content: action.payload.content,
         order_status: OrderStatus.PENDING,
         payment_method: {
