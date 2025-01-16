@@ -28,49 +28,65 @@ export const enableScroll = () => {
 
 export const playMoveCursorSfx = () => {
   const sfx = new Audio(cursorMoveAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Move sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Move sfx:", err));
+  }
 };
 
 export const playAcceptCursorSfx = () => {
   const sfx = new Audio(cursorAcceptAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Accept sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Accept sfx:", err));
+  }
 };
 
 export const playCancelCursorSfx = () => {
   const sfx = new Audio(cursorCancelAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Cancel sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Cancel sfx:", err));
+  }
 };
 
 export const playBuzzerCursorSfx = () => {
   const sfx = new Audio(cursorBuzzerAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+  }
 };
 
 export const playPurchaseSfx = () => {
   const sfx = new Audio(purchaseAudio);
-  sfx.play().catch((err) => console.error("Error playing Purchase sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Purchase sfx:", err));
+  }
 };
 
 export const playChocoboDance = () => {
   const sfx = new Audio(chocoboDance);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing chocoboDance sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing chocoboDance sfx:", err));
+  }
 };
 
 export const playChocoboCry = () => {
   const sfx = new Audio(chocoboCry);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing chocoboCry sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing chocoboCry sfx:", err));
+  }
 };
 
 export const calculateOrderPrice = (

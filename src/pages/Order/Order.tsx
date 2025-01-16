@@ -20,6 +20,8 @@ import { CreditCardModel, UserModel } from "../../utils/models.ts";
 export const Order = () => {
   const order = useSelector((state: RootState) => state.order);
 
+  console.log("THE ORDER IS: ", order);
+
   const [address, setAddress] = useState<string>(
     order.currentOrder?.address || "",
   );

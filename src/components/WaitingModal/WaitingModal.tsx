@@ -6,12 +6,18 @@ import { CHOCOBO_WAITING, CHOCOBO_WALTZ } from "../../utils/constants.ts";
 
 export const WaitingModal = () => {
   useEffect(() => {
-    CHOCOBO_WALTZ.volume = 0.5;
-    CHOCOBO_WALTZ.play() // ADUST VOLUME
-      .catch((err) => console.error("Error playing chocoboWaltz song:", err));
+    if (CHOCOBO_WALTZ) {
+      CHOCOBO_WALTZ.volume = 0.5;
+      CHOCOBO_WALTZ.play() // ADUST VOLUME
+        ?.catch((err) =>
+          console.error("Error playing chocoboWaltz song:", err),
+        );
+    }
     return () => {
-      CHOCOBO_WALTZ.pause();
-      CHOCOBO_WALTZ.currentTime = 0;
+      if (CHOCOBO_WALTZ) {
+        CHOCOBO_WALTZ.pause();
+        CHOCOBO_WALTZ.currentTime = 0;
+      }
     };
   }, []);
 

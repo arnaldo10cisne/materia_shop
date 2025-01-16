@@ -40,7 +40,7 @@ export const CcInfoModal = ({
       !cardNumber ||
       !cvv ||
       !expirationDate ||
-      cardNumber.length < 12 ||
+      cardNumber.replace(/\s+/g, "").length < 16 ||
       cvv.length < 3 ||
       !/^\d{2}\/\d{2}$/.test(expirationDate)
     ) {
@@ -124,10 +124,8 @@ export const CcInfoModal = ({
   const handleCvvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
 
-    // Remueve todos los caracteres que no sean dígitos
     value = value.replace(/\D/g, "");
 
-    // Limita la longitud a 4 dígitos
     value = value.slice(0, 4);
 
     setCvv(value);
@@ -179,7 +177,7 @@ export const CcInfoModal = ({
                     );
                   })?.src
                 }
-                alt={`Credit Card Company`}
+                alt={`${detectCreditCardCompany(cardNumber)}`}
               />
             </div>
             <div
@@ -215,6 +213,7 @@ export const CcInfoModal = ({
                 onChange={(e) => handleExpirationDateChange(e)}
                 placeholder="MM/YY"
                 maxLength={5}
+                data-testid="expirationDate"
                 pattern="^(0[1-9]|1[0-2])\/\d{2}$"
               />
             </div>

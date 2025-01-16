@@ -10,6 +10,7 @@ export const LoadingChocobo = () => {
         src={CHOCOBO_WALKING}
         alt="loading"
         className={classNames(styles.WalkingChocobo)}
+        data-testid="loading-chocobo"
       />
       <p className={classNames(styles.LoadingText)}>...Loading...</p>
     </div>
