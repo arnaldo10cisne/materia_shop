@@ -10,11 +10,12 @@
   justify-content: center;
   align-items: center;
   top: 0px;
+  overflow-y: scroll;
 }
 
 .CartModal {
   width: 95%;
-  height: auto;
+  // height: auto;
 }
 
 .EmptyCartWarning {
@@ -23,13 +24,19 @@
 }
 
 .CartModalBlueBox {
-  padding-left: 45px;
+  padding-left: 30px;
   padding-right: 20px;
   padding-bottom: 20px;
 }
 
 .CloseModal {
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.productList {
+  max-height: 60vh;
+  overflow-y: scroll;
 }
 
 .ProductName {

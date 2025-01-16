@@ -36,21 +36,6 @@ export const createIntegritySignature = async ({
   return hash;
 };
 
-export const getAcceptanceTokens = async () => {
-  try {
-    const response = await axios.get(
-      `${WOMPI_SANDBOX_API}/merchants/${WOMPI_PUBLIC_KEY}`,
-    );
-    const returnValue = [
-      response.data.data.presigned_acceptance.acceptance_token,
-      response.data.data.presigned_personal_data_auth.acceptance_token,
-    ];
-    return returnValue;
-  } catch (error) {
-    console.error('Error fetching acceptance tokens:', error);
-  }
-};
-
 export const getPaymentSourceId = async ({
   tokenized_credit_card,
   acceptance_auth_token,

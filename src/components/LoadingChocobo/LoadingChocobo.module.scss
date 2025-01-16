@@ -1,0 +1,17 @@
+@import "../../utils/global";
+
+.LoadingChocobo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.WalkingChocobo {
+  width: 60px;
+}
+
+.LoadingText {
+  margin-top: 10px;
+  font-size: 25px;
+}

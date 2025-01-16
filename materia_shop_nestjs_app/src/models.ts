@@ -48,6 +48,8 @@ export interface OrderModel {
   order_status: OrderStatus;
   payment_method: PaymentModel; // ID de PaymentModel
   total_order_price: number;
+  acceptance_auth_token?: string;
+  acceptance_token?: string;
 }
 
 export interface CreditCardModel {
@@ -65,4 +67,6 @@ export interface PaymentModel {
   payment_amount: string;
   order: OrderModel;
   wompiTransactionId?: string;
+  acceptance_auth_token?: string;
+  acceptance_token?: string;
 }

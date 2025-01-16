@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Order.module.scss";
 import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
@@ -57,6 +57,10 @@ export const Order = () => {
   const handleAddressChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddress(e.target.value);
   };
+
+  useEffect(() => {
+    localStorage.setItem("creditCard", JSON.stringify(creditCard));
+  }, [creditCard]);
 
   return (
     <>

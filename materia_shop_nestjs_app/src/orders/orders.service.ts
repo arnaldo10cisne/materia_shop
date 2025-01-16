@@ -37,8 +37,10 @@ export class OrdersService {
         customer_email: relatedOrder.payment_method.customer_email,
         payment_amount: relatedOrder.total_order_price,
         order: relatedOrder.id,
+        acceptance_auth_token: relatedOrder.acceptance_auth_token,
+        acceptance_token: relatedOrder.acceptance_token,
       });
-      console.log('Response:', response.data);
+      console.log('createRelatedPayment Response:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error making POST request in /payments:', error);
@@ -84,6 +86,8 @@ export class OrdersService {
     if (!newOrder.id) {
       newOrder.id = String(crypto.randomUUID());
     }
+
+    console.log('ORDER: ', newOrder);
 
     const relatedPayment = await this.createRelatedPayment(newOrder);
 

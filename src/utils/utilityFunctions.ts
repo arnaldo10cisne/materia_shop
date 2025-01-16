@@ -111,7 +111,10 @@ const fetchData = async (url: string) => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(
+    // throw new Error(
+    //   `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
+    // );
+    console.error(
       `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
     );
   }
@@ -139,6 +142,8 @@ interface CreatedOrderModel {
   };
   total_order_price: number;
   address: string;
+  acceptance_auth_token: string;
+  acceptance_token: string;
 }
 
 export const createOrderInBackend = async ({
@@ -147,6 +152,8 @@ export const createOrderInBackend = async ({
   payment_method,
   total_order_price,
   address,
+  acceptance_auth_token,
+  acceptance_token,
 }: CreatedOrderModel): Promise<OrderModel | null> => {
   try {
     const response = await fetch(`${API_ADDRESS}/orders`, {
@@ -162,6 +169,8 @@ export const createOrderInBackend = async ({
         total_order_price,
         address,
         creation_date: formatTimestampToReadableDate(Date.now()),
+        acceptance_auth_token,
+        acceptance_token,
       }),
     });
 
@@ -213,6 +222,21 @@ export const getCreditCardToken = async (
     return String(data.data.id);
   } catch (error) {
     console.error("Error making POST request:", error);
-    throw error;
+    return "ERROR";
+    // throw error;
   }
+};
+
+export const getAcceptanceTokens = async () => {
+  const response = await fetchData(
+    `${WOMPI_SANDBOX_API}/merchants/${WOMPI_PUBLIC_KEY}`,
+  );
+  return {
+    acceptance_token: response.data.presigned_acceptance.acceptance_token,
+    acceptance_token_permalink: response.data.presigned_acceptance.permalink,
+    acceptance_auth_token:
+      response.data.presigned_personal_data_auth.acceptance_token,
+    acceptance_auth_token_permalink:
+      response.data.presigned_personal_data_auth.permalink,
+  };
 };

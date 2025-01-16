@@ -56,7 +56,7 @@ export const CcInfoModal = ({
 
     const sensitiveData: CreditCardSensitiveDataModel = {
       company,
-      number: cardNumber,
+      number: cardNumber.replace(/\s+/g, ""),
       exp_month: month,
       exp_year: year,
       secret_code: cvv,
@@ -93,6 +93,46 @@ export const CcInfoModal = ({
     return CreditCardCompany.OTHER;
   };
 
+  const handleExpirationDateChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    let value = e.target.value;
+    value = value.replace(/\D/g, "");
+    if (value.length === 0) {
+      setExpirationDate("");
+      return;
+    }
+    if (value.length <= 2) {
+      setExpirationDate(value);
+    } else {
+      const month = value.slice(0, 2);
+      const year = value.slice(2, 4);
+      setExpirationDate(`${month}/${year}`);
+    }
+  };
+
+  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, "");
+    value = value.slice(0, 16);
+    const formattedValue = value.replace(/(.{4})/g, "$1 ").trim();
+
+    setCardNumber(formattedValue);
+  };
+
+  const handleCvvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    // Remueve todos los caracteres que no sean dígitos
+    value = value.replace(/\D/g, "");
+
+    // Limita la longitud a 4 dígitos
+    value = value.slice(0, 4);
+
+    setCvv(value);
+  };
+
   return (
     <div className={classNames(styles.CcInfoModalContainer)}>
       <div className={classNames(styles.CcInfoModal)}>
@@ -104,68 +144,80 @@ export const CcInfoModal = ({
           >
             Close
           </SelectableOption>
-          <div className={styles.FormGroup}>
-            <label htmlFor="holderName">Credit Card Holder</label>
-            <input
-              className={classNames(styles.formInput)}
-              type="text"
-              id="holderName"
-              value={holderName}
-              onChange={(e) => setHolderName(e.target.value)}
-              placeholder="Credit Card Holder"
-            />
-          </div>
-          <div className={styles.FormGroup}>
-            <label htmlFor="cardNumber">Card Number</label>
-            <input
-              className={classNames(styles.formInput)}
-              type="text"
-              id="cardNumber"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value)}
-              placeholder="1234 5678 9012 3456"
-              maxLength={19}
-              pattern="[\d ]{16,19}"
-            />
-          </div>
-          <div className={classNames(styles.CreditCardLogoContainer)}>
-            <img
-              className={classNames(styles.CreditCardLogo)}
-              src={
-                CARD_COMPANY_LIST.find((element) => {
-                  return (
-                    element.company === detectCreditCardCompany(cardNumber)
-                  );
-                })?.src
-              }
-              alt={`Credit Card Company`}
-            />
-          </div>
-          <div className={styles.FormGroup}>
-            <label htmlFor="cvv">Security Code (CVV)</label>
-            <input
-              className={classNames(styles.formInput)}
-              type="password"
-              id="cvv"
-              value={cvv}
-              onChange={(e) => setCvv(e.target.value)}
-              placeholder="123"
-              maxLength={4}
-              pattern="\d{3,4}"
-            />
-          </div>
-          <div className={styles.FormGroup}>
-            <label htmlFor="expirationDate">Expiration Date (MM/YY)</label>
-            <input
-              className={classNames(styles.formInput)}
-              type="text"
-              id="expirationDate"
-              value={expirationDate}
-              onChange={(e) => setExpirationDate(e.target.value)}
-              placeholder="MM/YY"
-              maxLength={5}
-              pattern="^(0[1-9]|1[0-2])\/\d{2}$"
-            />
+          <div className={classNames(styles.form)}>
+            <div className={styles.FormGroup}>
+              <label htmlFor="holderName">Credit Card Holder</label>
+              <input
+                className={classNames(styles.formInput)}
+                type="text"
+                id="holderName"
+                value={holderName}
+                onChange={(e) => setHolderName(e.target.value)}
+                placeholder="Credit Card Holder"
+              />
+            </div>
+            <div className={styles.FormGroup}>
+              <label htmlFor="cardNumber">Card Number</label>
+              <input
+                className={classNames(styles.formInput)}
+                type="text"
+                id="cardNumber"
+                value={cardNumber}
+                onChange={(e) => handleCardNumberChange(e)}
+                placeholder="1234 5678 9012 3456"
+                maxLength={19}
+                pattern="[\d ]{16,19}"
+              />
+            </div>
+            <div className={classNames(styles.CreditCardLogoContainer)}>
+              <img
+                className={classNames(styles.CreditCardLogo)}
+                src={
+                  CARD_COMPANY_LIST.find((element) => {
+                    return (
+                      element.company === detectCreditCardCompany(cardNumber)
+                    );
+                  })?.src
+                }
+                alt={`Credit Card Company`}
+              />
+            </div>
+            <div
+              className={classNames(
+                styles.FormGroup,
+                styles.FormGroupHorizontal,
+              )}
+            >
+              <label htmlFor="cvv">CVV</label>
+              <input
+                className={classNames(styles.formInput, styles.cvv)}
+                type="password"
+                id="cvv"
+                value={cvv}
+                onChange={(e) => handleCvvChange(e)}
+                placeholder="1234"
+                maxLength={4}
+                pattern="\d{3,4}"
+              />
+            </div>
+            <div
+              className={classNames(
+                styles.FormGroup,
+                styles.FormGroupHorizontal,
+              )}
+            >
+              <label htmlFor="expirationDate">Expiration Date</label>
+              <input
+                className={classNames(styles.formInput, styles.expirationDate)}
+                type="text"
+                id="expirationDate"
+                value={expirationDate}
+                onChange={(e) => handleExpirationDateChange(e)}
+                placeholder="MM/YY"
+                maxLength={5}
+                pattern="^(0[1-9]|1[0-2])\/\d{2}$"
+              />
+            </div>
           </div>
           <SelectableOption
             onClickHandler={handleSubmit}

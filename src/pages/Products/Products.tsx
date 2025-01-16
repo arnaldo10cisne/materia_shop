@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
 import styles from "./Products.module.scss";
@@ -18,6 +18,7 @@ import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterP
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
 import { useQuery } from "react-query";
+import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);
@@ -33,12 +34,12 @@ export const Products = () => {
 
   const cartContent = useSelector((state: RootState) => state.cart.currentCart);
 
-  const {
-    data: productsList,
-    // isLoading,
-    // error,
-  } = useQuery<ProductModel[]>(["Products", "product_list"], () =>
-    getAllProducts(),
+  const { data: productsList, isLoading } = useQuery<ProductModel[]>(
+    ["Products", "product_list"],
+    () => getAllProducts(),
+    {
+      cacheTime: 0,
+    },
   );
 
   const handleClickReturn = () => {
@@ -48,6 +49,10 @@ export const Products = () => {
   const handleClickPayWithCreditCard = () => {
     navigate("/order");
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartContent));
+  }, [cartContent]);
 
   return (
     <>
@@ -106,38 +111,54 @@ export const Products = () => {
         </BlueBox>
 
         <BlueBox customStyles={styles.ProductListBlueBox}>
-          {productsList?.map((product: ProductModel) => {
-            return (
-              <>
-                <SelectableOption
-                  key={product.id}
-                  onClickHandler={() => {
-                    setProductInModal(product);
-                    setOpenProductModal(true);
-                    disableScroll();
-                  }}
-                  icon={MATERIA_LIST.find((materia: MateriaIconModel) => {
-                    return materia.type === product.materia_type;
-                  })}
-                  disabled={product.stock_amount <= 0}
-                  customStyles={styles.ProductItem}
-                >
-                  {product.name}
-                </SelectableOption>
-                <p
-                  className={classNames(
-                    styles.ProductStock,
-                    product.stock_amount <= 0 && styles.ProductStockEmpty,
-                  )}
-                >
-                  Stock: {product.stock_amount}
-                  {cartContent.some((item) => item.product === product)
-                    ? `  |||  In Cart:${cartContent.find((item) => item.product === product)?.amount}`
-                    : null}
-                </p>
-              </>
-            );
-          })}
+          {isLoading ? (
+            <LoadingChocobo />
+          ) : (
+            <>
+              {productsList?.map((product: ProductModel) => {
+                return (
+                  <>
+                    <SelectableOption
+                      key={product.id}
+                      onClickHandler={() => {
+                        setProductInModal(product);
+                        setOpenProductModal(true);
+                        disableScroll();
+                      }}
+                      icon={MATERIA_LIST.find((materia: MateriaIconModel) => {
+                        return materia.type === product.materia_type;
+                      })}
+                      disabled={product.stock_amount <= 0}
+                      customStyles={styles.ProductItem}
+                    >
+                      {product.name}
+                    </SelectableOption>
+                    <p
+                      className={classNames(
+                        styles.ProductStock,
+                        product.stock_amount <= 0 && styles.ProductStockEmpty,
+                      )}
+                    >
+                      Stock: {product.stock_amount}
+                      {cartContent.some(
+                        (item) => item.product.id === product.id,
+                      ) ? (
+                        <span className={classNames(styles.inCartAmount)}>
+                          {" "}
+                          - In Cart:{" "}
+                          {
+                            cartContent.find(
+                              (item) => item.product.id === product.id,
+                            )?.amount
+                          }
+                        </span>
+                      ) : null}
+                    </p>
+                  </>
+                );
+              })}
+            </>
+          )}
         </BlueBox>
 
         <BlueBox>
