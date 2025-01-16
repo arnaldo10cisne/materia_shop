@@ -22,8 +22,10 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Move to Nest Directory
-        run: cd materia_shop_nestjs_app
+      - name: Install dependencies
+        working-directory: ./materia_shop_nestjs_app
+        run: npm install
 
       - name: Run Tests
-        run: npm run test .
+        working-directory: ./materia_shop_nestjs_app
+        run: npm run test
