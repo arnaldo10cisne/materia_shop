@@ -28,7 +28,7 @@
 }
 
 .SummaryBlueBox {
-  padding: 20px 45px;
+  padding: 20px 20px;
 }
 
 .ProductName {
@@ -54,16 +54,20 @@
 }
 
 .orderNumber {
-  font-size: 30px;
+  font-size: 22px;
   color: $ligth-blue-text;
 }
 
 .shoppingCartlabel {
-  margin-top: 20px;
+  margin-top: 45px;
   margin-bottom: -20px;
 }
 
 .PaymentMethodLabel {
+  margin-top: 45px;
+}
+
+.AddressdLabel {
   margin-top: 20px;
 }
 
@@ -71,4 +75,36 @@
   color: $ligth-blue-text;
   font-size: 25px;
   margin-top: 10px;
+}
+
+.PersonalDataCheckboxes {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.checkbox {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.checkboxText {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.permalink {
+  font-size: 25px;
+  color: $ligth-blue-text;
+  font-weight: bolder;
+  &:hover {
+    color: blue;
+  }
 }

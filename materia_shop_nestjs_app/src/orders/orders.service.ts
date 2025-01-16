@@ -7,7 +7,13 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { CartItem, OrderModel, OrderStatus, PaymentStatus } from 'src/models';
+import {
+  CartItem,
+  OrderModel,
+  OrderStatus,
+  PaymentModel,
+  PaymentStatus,
+} from '../models';
 import axios from 'axios';
 import * as crypto from 'crypto';
 import 'dotenv/config';
@@ -37,8 +43,10 @@ export class OrdersService {
         customer_email: relatedOrder.payment_method.customer_email,
         payment_amount: relatedOrder.total_order_price,
         order: relatedOrder.id,
+        acceptance_auth_token: relatedOrder.acceptance_auth_token,
+        acceptance_token: relatedOrder.acceptance_token,
       });
-      console.log('Response:', response.data);
+      console.log('createRelatedPayment Response:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error making POST request in /payments:', error);
@@ -85,9 +93,13 @@ export class OrdersService {
       newOrder.id = String(crypto.randomUUID());
     }
 
-    const relatedPayment = await this.createRelatedPayment(newOrder);
+    console.log('ORDER: ', newOrder);
 
-    if (relatedPayment.wompiTransactionId === PaymentStatus.APPROVED) {
+    const relatedPayment: PaymentModel =
+      await this.createRelatedPayment(newOrder);
+    console.log('related payment: ', relatedPayment);
+
+    if (relatedPayment?.payment_status === PaymentStatus.APPROVED) {
       newOrder.order_status = OrderStatus.COMPLETED;
 
       await this.updateStock(newOrder.content);

@@ -6,10 +6,9 @@ import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
 import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
 import { RootState } from "../../store/store.ts";
 import { useDispatch, useSelector } from "react-redux";
-import { MATERIA_LIST } from "../../utils/constants.ts";
-import { MateriaIconModel } from "../../utils/models.ts";
-import { removeCartItem, clearCartContent } from "../../store/cartReducer.ts";
+import { clearCartContent } from "../../store/cartReducer.ts";
 import { PriceSummary } from "../PriceSummary/PriceSummary.tsx";
+import { ShoppingCartList } from "../ShoppingCartList/ShoppingCartList.tsx";
 
 interface CartModalProps {
   onClose: () => any;
@@ -38,63 +37,7 @@ export const CartModal = ({ onClose }: CartModalProps) => {
             <p className={classNames(styles.EmptyCartWarning)}>CART IS EMPTY</p>
           ) : (
             <>
-              {cartContent.map((cartItem) => {
-                return (
-                  <>
-                    <p className={classNames(styles.ProductName)}>
-                      <img
-                        className={classNames(styles.ProductIcon)}
-                        src={
-                          MATERIA_LIST.find((materia: MateriaIconModel) => {
-                            return (
-                              materia.type === cartItem.product.materia_type
-                            );
-                          })?.src
-                        }
-                        alt="materiaIcon"
-                      />
-                      {cartItem.product.name}
-                    </p>
-                    <div
-                      className={classNames(
-                        styles.CartItemInfoRow,
-                        styles.CartItemInfoLabelRow,
-                      )}
-                    >
-                      <p className={classNames(styles.CartItemInfoData)}>
-                        Unit Price * Units
-                      </p>
-                      <p className={classNames(styles.CartItemInfoData)}>
-                        Total Price
-                      </p>
-                    </div>
-                    <div className={classNames(styles.CartItemInfoRow)}>
-                      <p className={classNames(styles.CartItemInfoData)}>
-                        {cartItem.product.price} Gil * {cartItem.amount} units
-                      </p>
-                      <p className={classNames(styles.CartItemInfoData)}>
-                        {cartItem.total_price} Gil
-                      </p>
-                    </div>
-                    <SelectableOption
-                      onClickHandler={() => {
-                        dispatch(
-                          removeCartItem({
-                            product: cartItem.product,
-                            amount: cartItem.amount,
-                          }),
-                        );
-                      }}
-                      sfxOnClick={playCancelCursorSfx}
-                      customStyles={styles.RemoveItem}
-                    >
-                      <p className={classNames(styles.RemoveItem)}>
-                        Remove Item
-                      </p>
-                    </SelectableOption>
-                  </>
-                );
-              })}
+              <ShoppingCartList showRemoveButton={true} />
               <PriceSummary
                 cart={cartContent}
                 addCcFee={false}
