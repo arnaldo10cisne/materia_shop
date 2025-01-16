@@ -11,7 +11,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Steal.webp"
         },
         "price": { "N": "1200" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -26,7 +26,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Sense.webp"
         },
         "price": { "N": "1000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -41,7 +41,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Morph.webp"
         },
         "price": { "N": "1000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -56,7 +56,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Manipulate.webp"
         },
         "price": { "N": "10000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "COMMAND" }
       }
     },
@@ -71,7 +71,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Cover.webp"
         },
         "price": { "N": "2000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -86,7 +86,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Chocobo_Lure.webp"
         },
         "price": { "N": "3000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -101,7 +101,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII-Long-Range.png"
         },
         "price": { "N": "5000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "INDEPENDENT" }
       }
     },
@@ -116,7 +116,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Alexander.avif"
         },
         "price": { "N": "15000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -131,7 +131,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Fire.webp"
         },
         "price": { "N": "500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -146,7 +146,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ice.webp"
         },
         "price": { "N": "500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -161,7 +161,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Earth.webp"
         },
         "price": { "N": "1500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -176,7 +176,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Bolt.webp"
         },
         "price": { "N": "500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -191,7 +191,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Restore.webp"
         },
         "price": { "N": "750" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "MAGIC" }
       }
     },
@@ -206,7 +206,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_ChocoMog.avif"
         },
         "price": { "N": "800" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -221,7 +221,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Shiva.avif"
         },
         "price": { "N": "1000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -236,7 +236,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ifrit.avif"
         },
         "price": { "N": "1500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -251,7 +251,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Ramuh.avif"
         },
         "price": { "N": "2000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -266,7 +266,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Titan.avif"
         },
         "price": { "N": "2500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUMMON" }
       }
     },
@@ -281,7 +281,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Added_Effect.webp"
         },
         "price": { "N": "10000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUPPORT" }
       }
     },
@@ -296,7 +296,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_All.webp"
         },
         "price": { "N": "1500" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUPPORT" }
       }
     },
@@ -309,7 +309,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVII_Counter.jpg"
         },
         "price": { "N": "2000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUPPORT" }
       }
     },
@@ -324,7 +324,7 @@
           "S": "https://s3.us-east-1.amazonaws.com/materia.arnaldocisneros.com/images/FFVI_Elemental.png"
         },
         "price": { "N": "3000" },
-        "stock_amount": { "N": "5" },
+        "stock_amount": { "N": "50" },
         "materia_type": { "S": "SUPPORT" }
       }
     }
