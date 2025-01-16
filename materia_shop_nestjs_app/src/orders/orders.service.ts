@@ -7,7 +7,13 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { CartItem, OrderModel, OrderStatus, PaymentStatus } from 'src/models';
+import {
+  CartItem,
+  OrderModel,
+  OrderStatus,
+  PaymentModel,
+  PaymentStatus,
+} from '../models';
 import axios from 'axios';
 import * as crypto from 'crypto';
 import 'dotenv/config';
@@ -89,9 +95,11 @@ export class OrdersService {
 
     console.log('ORDER: ', newOrder);
 
-    const relatedPayment = await this.createRelatedPayment(newOrder);
+    const relatedPayment: PaymentModel =
+      await this.createRelatedPayment(newOrder);
+    console.log('related payment: ', relatedPayment);
 
-    if (relatedPayment.wompiTransactionId === PaymentStatus.APPROVED) {
+    if (relatedPayment?.payment_status === PaymentStatus.APPROVED) {
       newOrder.order_status = OrderStatus.COMPLETED;
 
       await this.updateStock(newOrder.content);
