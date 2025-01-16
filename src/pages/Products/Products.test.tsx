@@ -1,0 +1,304 @@
+import React from "react";
+import { screen, fireEvent } from "@testing-library/react";
+import { render } from "../../utils/test-utils/custom-render"; // Your custom render
+import { Products } from "./Products";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import {
+  disableScroll,
+  playCancelCursorSfx,
+} from "../../utils/utilityFunctions";
+import { RootState } from "../../store/store";
+import { MateriaTypes, ProductModel } from "../../utils/models";
+
+// Mocks
+jest.mock("react-query", () => ({
+  ...jest.requireActual("react-query"),
+  useQuery: jest.fn(),
+}));
+jest.mock("react-router-dom", () => {
+  const originalModule = jest.requireActual("react-router-dom");
+  return {
+    ...originalModule,
+    useNavigate: jest.fn(),
+  };
+});
+jest.mock("react-redux", () => {
+  const actual = jest.requireActual("react-redux");
+  return {
+    ...actual,
+    useSelector: jest.fn(),
+  };
+});
+jest.mock("../../utils/utilityFunctions", () => ({
+  ...jest.requireActual("../../utils/utilityFunctions"),
+  disableScroll: jest.fn(),
+  enableScroll: jest.fn(),
+  playCancelCursorSfx: jest.fn(),
+  getAllProducts: jest.fn(),
+}));
+
+describe("Products Component", () => {
+  const mockNavigate = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+    (useQuery as jest.Mock).mockImplementation((_, __, ___) => ({
+      data: [],
+      isLoading: false,
+    }));
+    (useSelector as jest.Mock).mockImplementation((selectorFn: any) => {
+      const mockState: Partial<RootState> = {
+        user: {
+          selectedUser: {
+            id: "1",
+            name: "Cloud Strife",
+            portrait: "cloud.png",
+            email: "cloud@example.com",
+          },
+        },
+        cart: {
+          currentCart: [],
+        },
+      };
+      return selectorFn(mockState);
+    });
+  });
+
+  test("renders 'Return' button and navigates to '/' when clicked", () => {
+    render(<Products />);
+
+    const returnButton = screen.getByText("Return");
+    expect(returnButton).toBeInTheDocument();
+
+    fireEvent.click(returnButton);
+    expect(mockNavigate).toHaveBeenCalledWith("/");
+    expect(playCancelCursorSfx).toHaveBeenCalledTimes(1);
+  });
+
+  test("enables 'Pay with Credit card' button if cart has items", () => {
+    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+      const mockState: Partial<RootState> = {
+        user: {
+          selectedUser: {
+            id: "1",
+            name: "Cloud",
+            portrait: "cloud.png",
+            email: "cloud@example.com",
+          },
+        },
+        cart: {
+          currentCart: [
+            {
+              product: {
+                id: "potion001",
+                name: "Potion",
+                price: 50,
+                stock_amount: 10,
+                materia_type: MateriaTypes.MAGIC,
+                description: "ItemDescription",
+                picture: "picture.png",
+              },
+              amount: 1,
+              total_price: 50,
+            },
+          ],
+        },
+      };
+      return selectorFn(mockState);
+    });
+
+    render(<Products />);
+
+    const payWithCcButton = screen.getByText("Pay with Credit card");
+    expect(payWithCcButton).not.toBeDisabled();
+
+    fireEvent.click(payWithCcButton);
+    expect(mockNavigate).toHaveBeenCalledWith("/order");
+  });
+
+  test("shows loading spinner when isLoading = true", () => {
+    (useQuery as jest.Mock).mockReturnValue({
+      data: undefined,
+      isLoading: true,
+    });
+
+    render(<Products />);
+
+    const loadingElement = screen.getByTestId("loading-chocobo");
+    expect(loadingElement).toBeInTheDocument();
+  });
+
+  test("displays products list when not loading", () => {
+    const mockProducts: ProductModel[] = [
+      {
+        id: "fire001",
+        name: "Fire Materia",
+        description: "Casts Fire",
+        picture: "fire.png",
+        price: 300,
+        stock_amount: 5,
+        materia_type: MateriaTypes.MAGIC,
+      },
+      {
+        id: "ice002",
+        name: "Ice Materia",
+        description: "Casts Ice",
+        picture: "ice.png",
+        price: 250,
+        stock_amount: 0,
+        materia_type: MateriaTypes.MAGIC,
+      },
+    ];
+    (useQuery as jest.Mock).mockReturnValue({
+      data: mockProducts,
+      isLoading: false,
+    });
+
+    render(<Products />);
+
+    expect(screen.getByText("Fire Materia")).toBeInTheDocument();
+    expect(screen.getByText("Ice Materia")).toBeInTheDocument();
+
+    expect(screen.getByText("Stock: 5")).toBeInTheDocument();
+    expect(screen.getByText("Stock: 0")).toBeInTheDocument();
+  });
+
+  test("clicking on a product with stock > 0 opens the ProductInfoModal", () => {
+    const mockProducts: ProductModel[] = [
+      {
+        id: "fire001",
+        name: "Fire Materia",
+        description: "Casts Fire",
+        picture: "fire.png",
+        price: 300,
+        stock_amount: 5,
+        materia_type: MateriaTypes.MAGIC,
+      },
+    ];
+    (useQuery as jest.Mock).mockReturnValue({
+      data: mockProducts,
+      isLoading: false,
+    });
+
+    render(<Products />);
+
+    // No modal initially
+    expect(screen.queryByText("Add to cart")).not.toBeInTheDocument();
+
+    // Click the product
+    const productButton = screen.getByText("Fire Materia");
+    fireEvent.click(productButton);
+
+    // Should show the ProductInfoModal
+    // "Add to cart", "Close", or some text from ProductInfoModal is expected
+    expect(screen.getByText("Add to cart")).toBeInTheDocument();
+
+    // Once open, disable scroll is triggered
+    expect(disableScroll).toHaveBeenCalledTimes(1);
+  });
+
+  test("clicking on a product with stock <= 0 is disabled (cannot open the modal)", () => {
+    const mockProducts: ProductModel[] = [
+      {
+        id: "ice002",
+        name: "Ice Materia",
+        description: "Casts Ice",
+        picture: "ice.png",
+        price: 250,
+        stock_amount: 0,
+        materia_type: MateriaTypes.MAGIC,
+      },
+    ];
+    (useQuery as jest.Mock).mockReturnValue({
+      data: mockProducts,
+      isLoading: false,
+    });
+
+    render(<Products />);
+
+    // The "Ice Materia" button should be disabled
+    const disabledProductButton = screen.getByText("Ice Materia");
+
+    // Click on it won't open the modal
+    fireEvent.click(disabledProductButton);
+    expect(screen.queryByText("Add to cart")).not.toBeInTheDocument();
+    expect(disableScroll).not.toHaveBeenCalled();
+  });
+
+  test("clicking 'Open Shopping Cart' opens the CartModal", () => {
+    render(<Products />);
+
+    const openCartButton = screen.getByText("Open Shopping Cart");
+    fireEvent.click(openCartButton);
+
+    // The CartModal is rendered if text from CartModal is present,
+    // "CART IS EMPTY" might appear if cart is empty.
+    expect(screen.getByText("CART IS EMPTY")).toBeInTheDocument();
+    expect(disableScroll).toHaveBeenCalledTimes(1);
+  });
+
+  test("updates local storage whenever cartContent changes", () => {
+    // We can spy on localStorage setItem
+    const setItemSpy = jest.spyOn(window.localStorage.__proto__, "setItem");
+
+    // Start with an empty cart
+    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+      return selectorFn({
+        user: { selectedUser: null },
+        cart: { currentCart: [] },
+      });
+    });
+    render(<Products />);
+    expect(setItemSpy).toHaveBeenLastCalledWith("cart", JSON.stringify([]));
+
+    // Rerender or switch the mock to simulate a change in cart content
+    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+      return selectorFn({
+        user: { selectedUser: null },
+        cart: {
+          currentCart: [
+            {
+              product: {
+                id: "thunder001",
+                name: "Thunder Materia",
+                description: "Casts Thunder",
+                picture: "thunder.png",
+                price: 300,
+                stock_amount: 2,
+                materia_type: MateriaTypes.MAGIC,
+              },
+              amount: 1,
+              total_price: 300,
+            },
+          ],
+        },
+      });
+    });
+
+    // Re-render the component to trigger the effect
+    render(<Products />);
+
+    // The second call should have the updated cart data
+    expect(setItemSpy).toHaveBeenLastCalledWith(
+      "cart",
+      JSON.stringify([
+        {
+          product: {
+            id: "thunder001",
+            name: "Thunder Materia",
+            description: "Casts Thunder",
+            picture: "thunder.png",
+            price: 300,
+            stock_amount: 2,
+            materia_type: MateriaTypes.MAGIC,
+          },
+          amount: 1,
+          total_price: 300,
+        },
+      ]),
+    );
+  });
+});

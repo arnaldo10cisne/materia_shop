@@ -35,4 +35,5 @@ new MateriaShop_CICD_Stack(app, "MateriaShop-CICDStack", {
   paymentsTableARN: serverlessStack.paymentsTableARN,
   usersTableARN: serverlessStack.usersTableARN,
   ordersTableARN: serverlessStack.ordersTableARN,
+  apiUrl: serverlessStack.apiUrl,
 });

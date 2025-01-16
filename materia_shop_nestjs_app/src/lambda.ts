@@ -23,9 +23,8 @@ const bootstrapServer = async () => {
       new ExpressAdapter(expressApp),
     );
     app.enableCors({
-      origin: 'http://localhost:3000',
+      origin: '*',
       methods: 'GET,HEAD,PUT,PATCH,POST',
-      credentials: true,
     });
     await app.init();
     cacheServer = createServer(expressApp, undefined);

@@ -16,17 +16,18 @@ import {
 import { clearCartContent } from "../../store/cartReducer.ts";
 import { clearCreditCard } from "../../store/creditCardReducer.ts";
 import { clearOrder } from "../../store/orderReducer.ts";
+import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
 
 export const UserSelection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {
-    data: characterList,
-    // isLoading,
-    // error,
-  } = useQuery<UserModel[]>(["UserSelection", "user_list"], () =>
-    getAllUsers(),
+  const { data: characterList, isLoading } = useQuery<UserModel[]>(
+    ["UserSelection", "user_list"],
+    () => getAllUsers(),
+    {
+      staleTime: Infinity,
+    },
   );
 
   const handleClickReturn = () => {
@@ -38,6 +39,8 @@ export const UserSelection = () => {
     dispatch(clearCartContent());
     dispatch(clearCreditCard());
     dispatch(clearOrder());
+    localStorage.clear();
+    localStorage.setItem("user", JSON.stringify(character));
     navigate("/");
   };
 
@@ -53,23 +56,29 @@ export const UserSelection = () => {
         </SelectableOption>
       </BlueBox>
       <BlueBox customStyles={styles.CharacterListBlueBox}>
-        {characterList?.map((character: UserModel) => {
-          return (
-            <SelectableOption
-              key={character.id}
-              onClickHandler={() => {
-                handleClickSelectCharacter(character);
-              }}
-              customStyles={styles.CharacterItem}
-            >
-              <CharacterPortrait
-                key={character.name}
-                character={character}
-                showName={true}
-              />
-            </SelectableOption>
-          );
-        })}
+        {isLoading ? (
+          <LoadingChocobo />
+        ) : (
+          <>
+            {characterList?.map((character: UserModel) => {
+              return (
+                <SelectableOption
+                  key={character.id}
+                  onClickHandler={() => {
+                    handleClickSelectCharacter(character);
+                  }}
+                  customStyles={styles.CharacterItem}
+                >
+                  <CharacterPortrait
+                    key={character.name}
+                    character={character}
+                    showName={true}
+                  />
+                </SelectableOption>
+              );
+            })}
+          </>
+        )}
       </BlueBox>
     </div>
   );

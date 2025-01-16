@@ -86,7 +86,7 @@ export const ProductInfoModal = ({
             <img
               className={classNames(styles.ProductPicture)}
               src={product.picture}
-              alt=""
+              alt={`${product.name}`}
             />
 
             <p className={classNames(styles.ProductName)}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./App.module.scss";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout.tsx";
@@ -10,8 +10,11 @@ import classNames from "classnames";
 import { Summary } from "./pages/Summary/Summary.tsx";
 import { Results } from "./pages/Results/Results.tsx";
 import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store/store.ts";
+import { setUser } from "./store/userReducer.ts";
+import { addOrUpdateCartItem } from "./store/cartReducer.ts";
+import { setCreditCard } from "./store/creditCardReducer.ts";
 
 interface ProtectedRouteProps {
   condition: boolean;
@@ -28,9 +31,26 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 };
 
 export function App() {
+  const dispatch = useDispatch();
   const selectedUser = useSelector(
     (state: RootState) => state.user.selectedUser,
   );
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      dispatch(setUser(JSON.parse(localStorage.getItem("user") as string)));
+    }
+    if (localStorage.getItem("cart")) {
+      JSON.parse(localStorage.getItem("cart") as string).forEach((cartItem) => {
+        dispatch(addOrUpdateCartItem(cartItem));
+      });
+    }
+    if (localStorage.getItem("creditCard")) {
+      dispatch(
+        setCreditCard(JSON.parse(localStorage.getItem("creditCard") as string)),
+      );
+    }
+  }, [dispatch]);
 
   return (
     <div className={classNames(styles.App)}>

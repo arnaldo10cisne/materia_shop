@@ -9,7 +9,6 @@ import { RootState } from "../../store/store";
 import {
   CartItem,
   CreditCardModel,
-  MateriaIconModel,
   OrderStatus,
   PaymentStatus,
   UserModel,
@@ -17,17 +16,22 @@ import {
 import { useNavigate } from "react-router-dom";
 import {
   createOrderInBackend,
+  getAcceptanceTokens,
   getCreditCardToken,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
-import { MATERIA_LIST } from "../../utils/constants.ts";
 import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
 import { PriceSummary } from "../../components/PriceSummary/PriceSummary.tsx";
 import { WaitingModal } from "../../components/WaitingModal/WaitingModal.tsx";
 import { updateOrderStatus } from "../../store/orderReducer.ts";
+import { ShoppingCartList } from "../../components/ShoppingCartList/ShoppingCartList.tsx";
+import { useQuery } from "react-query";
+import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
 
 export const Summary = () => {
   const [waitingForPayment, setWaitingForPayment] = useState(false);
+  const [hasAcceptedPolicies, setHasAcceptedPolicies] = useState(false);
+  const [hasAuthorizedData, setHasAuthorizedData] = useState(false);
   const order = useSelector((state: RootState) => state.order);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,12 +40,23 @@ export const Summary = () => {
     navigate("/order");
   };
 
+  const { data: acceptanceTokens, isLoading } = useQuery(
+    ["AcceptanceTokens", "acceptance_token"],
+    () => getAcceptanceTokens(),
+  );
+
   const handleClickMakePayment = async () => {
     setWaitingForPayment(true); // Open Waiting Modal
 
     const creditCardToken = await getCreditCardToken(
       order.currentOrder?.payment_method?.credit_card as CreditCardModel,
     );
+
+    if (creditCardToken === "ERROR") {
+      setWaitingForPayment(false); // Close Waiting Modal
+      navigate("/results");
+      return;
+    }
 
     const response = await createOrderInBackend({
       content: order.currentOrder?.content.map((cartItem: CartItem) => ({
@@ -59,6 +74,8 @@ export const Summary = () => {
       total_order_price:
         (order.currentOrder?.total_order_price as number) * 1000,
       address: order.currentOrder?.address as string,
+      acceptance_token: acceptanceTokens?.acceptance_token,
+      acceptance_auth_token: acceptanceTokens?.acceptance_auth_token,
     });
 
     setWaitingForPayment(false); // Close Waiting Modal
@@ -67,8 +84,6 @@ export const Summary = () => {
 
     navigate("/results");
   };
-
-  console.log(order);
 
   return (
     <>
@@ -91,84 +106,107 @@ export const Summary = () => {
           />
         </BlueBox>
         <BlueBox customStyles={styles.SummaryBlueBox}>
-          <div>
-            <p>Order number:</p>
-            <p className={classNames(styles.orderNumber)}>
-              {order.currentOrder?.id}
-            </p>
-          </div>
+          {isLoading ? (
+            <LoadingChocobo />
+          ) : (
+            <>
+              <div>
+                <p>Order number:</p>
+                <p className={classNames(styles.orderNumber)}>
+                  {order.currentOrder?.id}
+                </p>
+              </div>
 
-          <div>
-            <p className={classNames(styles.shoppingCartlabel)}>
-              Shopping Cart:
-            </p>
-            {order.currentOrder?.content.map((cartItem) => {
-              return (
-                <>
-                  <p className={classNames(styles.ProductName)}>
-                    <img
-                      className={classNames(styles.ProductIcon)}
-                      src={
-                        MATERIA_LIST.find((materia: MateriaIconModel) => {
-                          return materia.type === cartItem.product.materia_type;
-                        })?.src
-                      }
-                      alt="materiaIcon"
-                    />
-                    {cartItem.product.name}
-                  </p>
-                  <div
-                    className={classNames(
-                      styles.CartItemInfoRow,
-                      styles.CartItemInfoLabelRow,
-                    )}
+              <div>
+                <p className={classNames(styles.shoppingCartlabel)}>
+                  Shopping Cart:
+                </p>
+                <ShoppingCartList />
+              </div>
+
+              <PriceSummary
+                cart={order.currentOrder?.content as CartItem[]}
+                addCcFee={true}
+                includeDeliveryFee={true}
+              />
+
+              <div>
+                <p className={classNames(styles.PaymentMethodLabel)}>
+                  Payment Method:
+                </p>
+                <CreditCardInfo
+                  creditCard={
+                    order.currentOrder?.payment_method
+                      ?.credit_card as CreditCardModel
+                  }
+                />
+              </div>
+              <div>
+                <p className={classNames(styles.AddressdLabel)}>
+                  Delivery Address:
+                </p>
+                <p className={classNames(styles.address)}>
+                  {order.currentOrder?.address}
+                </p>
+              </div>
+              <div className={classNames(styles.PersonalDataCheckboxes)}>
+                <div className={classNames(styles.checkboxContainer)}>
+                  <input
+                    className={classNames(styles.checkbox)}
+                    type="checkbox"
+                    id="acceptPolicies"
+                    checked={hasAcceptedPolicies}
+                    onChange={(event) => {
+                      setHasAcceptedPolicies(event.target.checked);
+                    }}
+                  />
+                  <label
+                    htmlFor="acceptPolicies"
+                    className={classNames(styles.checkboxText)}
                   >
-                    <p className={classNames(styles.CartItemInfoData)}>
-                      Unit Price * Units
-                    </p>
-                    <p className={classNames(styles.CartItemInfoData)}>
-                      Total Price
-                    </p>
-                  </div>
-                  <div className={classNames(styles.CartItemInfoRow)}>
-                    <p className={classNames(styles.CartItemInfoData)}>
-                      {cartItem.product.price} Gil * {cartItem.amount} units
-                    </p>
-                    <p className={classNames(styles.CartItemInfoData)}>
-                      {cartItem.total_price} Gil
-                    </p>
-                  </div>
-                </>
-              );
-            })}
-          </div>
+                    I accept that I have read the{" "}
+                    <a
+                      className={classNames(styles.permalink)}
+                      href={acceptanceTokens?.acceptance_token_permalink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      regulations and the privacy policy
+                    </a>{" "}
+                    to make this payment.
+                  </label>
+                </div>
 
-          <PriceSummary
-            cart={order.currentOrder?.content as CartItem[]}
-            addCcFee={true}
-            includeDeliveryFee={true}
-          />
-
-          <div>
-            <p className={classNames(styles.PaymentMethodLabel)}>
-              Payment Method:
-            </p>
-            <CreditCardInfo
-              creditCard={
-                order.currentOrder?.payment_method
-                  ?.credit_card as CreditCardModel
-              }
-            />
-          </div>
-          <div>
-            <p className={classNames(styles.PaymentMethodLabel)}>
-              Delivery Address:
-            </p>
-            <p className={classNames(styles.address)}>
-              {order.currentOrder?.address}
-            </p>
-          </div>
+                <div className={classNames(styles.checkboxContainer)}>
+                  <input
+                    className={classNames(styles.checkbox)}
+                    type="checkbox"
+                    id="authorizeData"
+                    checked={hasAuthorizedData}
+                    onChange={(event) => {
+                      setHasAuthorizedData(event.target.checked);
+                    }}
+                  />
+                  <label
+                    htmlFor="authorizeData"
+                    className={classNames(styles.checkboxText)}
+                  >
+                    I accept the{" "}
+                    <a
+                      className={classNames(styles.permalink)}
+                      href={acceptanceTokens?.acceptance_auth_token_permalink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      authorization for the administration of personal data
+                    </a>
+                  </label>
+                </div>
+              </div>
+            </>
+          )}
         </BlueBox>
+
         <BlueBox>
           <SelectableOption
             onClickHandler={handleClickMakePayment}
@@ -176,7 +214,9 @@ export const Summary = () => {
             disabled={
               !order.currentOrder?.address ||
               order.currentOrder.content.length === 0 ||
-              !order.currentOrder.payment_method?.credit_card
+              !order.currentOrder.payment_method?.credit_card ||
+              !hasAcceptedPolicies ||
+              !hasAuthorizedData
             }
           >
             Continue with Payment

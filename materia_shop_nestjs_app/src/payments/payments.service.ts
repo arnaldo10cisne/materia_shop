@@ -5,11 +5,10 @@ import {
   PutItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { PaymentModel } from 'src/models';
+import { PaymentModel, PaymentStatus } from 'src/models';
 import {
   createIntegritySignature,
   getWompiTransactionId,
-  getAcceptanceTokens,
   getPaymentSourceId,
   WOMPI_SANDBOX_API,
 } from './utils/utilityFunctions';
@@ -57,18 +56,17 @@ export class PaymentsService {
       newPayment.id = crypto.randomUUID();
     }
 
+    console.log('PAYMENT: ', newPayment);
+
     const integritySignature = await createIntegritySignature({
       amount_in_cents: Number(newPayment.payment_amount),
       payment_id: newPayment.id,
     });
 
-    const [acceptance_token, acceptance_auth_token] =
-      await getAcceptanceTokens();
-
     const paymentSourceId = await getPaymentSourceId({
       tokenized_credit_card: newPayment.tokenized_credit_card,
-      acceptance_token: acceptance_token,
-      acceptance_auth_token: acceptance_auth_token,
+      acceptance_token: newPayment.acceptance_token,
+      acceptance_auth_token: newPayment.acceptance_auth_token,
       customer_email: newPayment.customer_email,
     });
 
@@ -83,7 +81,8 @@ export class PaymentsService {
     const wompiTransactionResult =
       await this.waitForTransactionResult(wompiTransactionId);
 
-    newPayment.wompiTransactionId = wompiTransactionResult;
+    newPayment.payment_status = wompiTransactionResult as PaymentStatus;
+    newPayment.wompiTransactionId = wompiTransactionId;
 
     const command = new PutItemCommand({
       TableName: this.tableName,

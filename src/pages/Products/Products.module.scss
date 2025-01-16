@@ -24,8 +24,7 @@
 }
 
 .ProductListBlueBox {
-  padding-left: 45px;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .ProductItem {
@@ -39,7 +38,7 @@
 }
 
 .ProductStock {
-  font-size: 30px;
+  font-size: 22px;
   color: $ligth-blue-text;
   margin-left: 45px;
 }
@@ -50,4 +49,9 @@
 
 .PayWithCreditCard {
   margin: 20px 45px;
+}
+
+.inCartAmount {
+  font-size: 22px;
+  color: yellow;
 }

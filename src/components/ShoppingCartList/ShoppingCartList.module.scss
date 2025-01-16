@@ -1,0 +1,33 @@
+@import "../../utils/global";
+
+.ShoppingCartList {
+  max-height: 60vh;
+  // overflow-y: scroll;
+}
+
+.ProductName {
+  margin-top: 20px;
+}
+
+.ProductIcon {
+  margin: auto 10px auto 0px;
+  @include small-mobile-icon-height;
+}
+
+.CartItemInfoRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CartItemInfoLabelRow p {
+  color: $ligth-blue-text;
+}
+
+.CartItemInfoData {
+  font-size: 25px;
+}
+
+.RemoveItem {
+  color: $danger-red-text;
+  font-size: 30px;
+}

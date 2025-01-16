@@ -28,49 +28,65 @@ export const enableScroll = () => {
 
 export const playMoveCursorSfx = () => {
   const sfx = new Audio(cursorMoveAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Move sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Move sfx:", err));
+  }
 };
 
 export const playAcceptCursorSfx = () => {
   const sfx = new Audio(cursorAcceptAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Accept sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Accept sfx:", err));
+  }
 };
 
 export const playCancelCursorSfx = () => {
   const sfx = new Audio(cursorCancelAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Cancel sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Cancel sfx:", err));
+  }
 };
 
 export const playBuzzerCursorSfx = () => {
   const sfx = new Audio(cursorBuzzerAudio);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+  }
 };
 
 export const playPurchaseSfx = () => {
   const sfx = new Audio(purchaseAudio);
-  sfx.play().catch((err) => console.error("Error playing Purchase sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Purchase sfx:", err));
+  }
 };
 
 export const playChocoboDance = () => {
   const sfx = new Audio(chocoboDance);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing chocoboDance sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing chocoboDance sfx:", err));
+  }
 };
 
 export const playChocoboCry = () => {
   const sfx = new Audio(chocoboCry);
-  sfx
-    .play()
-    .catch((err) => console.error("Error playing chocoboCry sfx:", err));
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing chocoboCry sfx:", err));
+  }
 };
 
 export const calculateOrderPrice = (
@@ -111,7 +127,10 @@ const fetchData = async (url: string) => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(
+    // throw new Error(
+    //   `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
+    // );
+    console.error(
       `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
     );
   }
@@ -139,6 +158,8 @@ interface CreatedOrderModel {
   };
   total_order_price: number;
   address: string;
+  acceptance_auth_token: string;
+  acceptance_token: string;
 }
 
 export const createOrderInBackend = async ({
@@ -147,6 +168,8 @@ export const createOrderInBackend = async ({
   payment_method,
   total_order_price,
   address,
+  acceptance_auth_token,
+  acceptance_token,
 }: CreatedOrderModel): Promise<OrderModel | null> => {
   try {
     const response = await fetch(`${API_ADDRESS}/orders`, {
@@ -162,6 +185,8 @@ export const createOrderInBackend = async ({
         total_order_price,
         address,
         creation_date: formatTimestampToReadableDate(Date.now()),
+        acceptance_auth_token,
+        acceptance_token,
       }),
     });
 
@@ -213,6 +238,21 @@ export const getCreditCardToken = async (
     return String(data.data.id);
   } catch (error) {
     console.error("Error making POST request:", error);
-    throw error;
+    return "ERROR";
+    // throw error;
   }
+};
+
+export const getAcceptanceTokens = async () => {
+  const response = await fetchData(
+    `${WOMPI_SANDBOX_API}/merchants/${WOMPI_PUBLIC_KEY}`,
+  );
+  return {
+    acceptance_token: response.data.presigned_acceptance.acceptance_token,
+    acceptance_token_permalink: response.data.presigned_acceptance.permalink,
+    acceptance_auth_token:
+      response.data.presigned_personal_data_auth.acceptance_token,
+    acceptance_auth_token_permalink:
+      response.data.presigned_personal_data_auth.permalink,
+  };
 };
