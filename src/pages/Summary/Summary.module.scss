@@ -48,6 +48,9 @@
 
 .ContinueWithPayment {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 30px 50px;
+  }
 }
 
 .SummaryBlueBox {
@@ -120,11 +123,17 @@
   align-items: center;
   margin-top: 10px;
   cursor: pointer;
+  @include responsive-tablet {
+    margin-top: 20px;
+  }
 }
 
 .checkbox {
   margin-right: 10px;
   cursor: pointer;
+  @include responsive-tablet {
+    margin-right: 30px;
+  }
 }
 
 .checkboxText {
@@ -141,5 +150,8 @@
   font-weight: bolder;
   &:hover {
     color: blue;
+  }
+  @include responsive-tablet {
+    font-size: 30px;
   }
 }
