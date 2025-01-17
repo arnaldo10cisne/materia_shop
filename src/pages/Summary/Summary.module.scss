@@ -8,15 +8,38 @@
   justify-content: center;
   align-items: center;
   width: 90%;
+  max-width: 1800px;
+  @include responsive-tablet {
+    width: 80%;
+  }
 }
 
 .Return {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 30px 50px;
+  }
+}
+
+.middleSection {
+  width: 100%;
+  @include responsive-small-desktop {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+  }
 }
 
 .UserBlueBox {
   padding-left: 45px;
   padding-bottom: 20px;
+  @include responsive-small-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-top: 100px;
+  }
 }
 
 .OrderSummary {
@@ -29,6 +52,9 @@
 
 .SummaryBlueBox {
   padding: 20px 20px;
+  @include responsive-small-desktop {
+    padding: 30px 100px;
+  }
 }
 
 .ProductName {
@@ -56,11 +82,14 @@
 .orderNumber {
   font-size: 22px;
   color: $ligth-blue-text;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .shoppingCartlabel {
   margin-top: 45px;
-  margin-bottom: -20px;
+  margin-bottom: 20px;
 }
 
 .PaymentMethodLabel {
@@ -98,6 +127,9 @@
 .checkboxText {
   font-size: 25px;
   cursor: pointer;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .permalink {

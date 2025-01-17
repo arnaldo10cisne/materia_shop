@@ -1,21 +1,21 @@
 import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
-@Controller('products') // myapp.api/products
+@Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Get() // GET /products/
+  @Get()
   findAllProducts() {
     return this.productsService.findAllProducts();
   }
 
-  @Get(':id') // GET /products/:id
+  @Get(':id')
   findOneProduct(@Param('id') id: string) {
     return this.productsService.findOneProduct(id);
   }
 
-  @Patch() // PATCH /products/
+  @Patch()
   async updateProducts(
     @Body()
     updates: {

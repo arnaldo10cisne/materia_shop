@@ -2,26 +2,26 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { OrderModel } from 'src/models';
 import { OrdersService } from './orders.service';
 
-@Controller('orders') // myapp.api/orders
+@Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Get() // GET /orders
+  @Get()
   getAllOrders() {
     return this.ordersService.getAllOrders();
   }
 
-  @Get(':id') // GET /orders/:id
+  @Get(':id')
   getOneOrder(@Param('id') id: OrderModel['id']) {
     return this.ordersService.getOneOrder(id);
   }
 
-  @Post() // POST /orders (Crear nueva orden)
+  @Post()
   createOrder(@Body() newOrder: OrderModel) {
     return this.ordersService.createOrder(newOrder);
   }
 
-  @Patch(':id') // PATCH /orders/:id
+  @Patch(':id')
   updateOrder(
     @Param('id') id: OrderModel['id'],
     @Body() updatedOrder: Partial<OrderModel>,

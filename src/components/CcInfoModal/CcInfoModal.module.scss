@@ -15,17 +15,26 @@
 .CcInfoModal {
   width: 95%;
   height: auto;
+  @include responsive-mobile {
+    width: 400px;
+  }
+  @include responsive-tablet {
+    width: 500px;
+  }
 }
 
 .CloseModal {
   margin-top: 20px;
-  // margin-left: 45px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  @include responsive-tablet {
+    margin-top: 30px;
+    margin-bottom: 70px;
+  }
 }
 
 .formInput {
@@ -33,11 +42,18 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   text-align: center;
+  @include responsive-tablet {
+    font-size: 25px;
+    padding: 3px 10px;
+  }
 }
 
 .expirationDate {
   width: 100px;
   margin-left: 20px;
+  @include responsive-tablet {
+    width: 130px;
+  }
 }
 
 .cvv {
@@ -54,8 +70,6 @@
 
 .FormGroupHorizontal {
   flex-direction: row;
-  // justify-content: start;
-  // align-items: start;
 }
 
 .ModalBlueBox {
@@ -64,7 +78,6 @@
 
 .SubmitButton {
   margin-top: 45px;
-  // margin-left: 45px;
   text-align: center;
 }
 

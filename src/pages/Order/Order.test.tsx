@@ -12,7 +12,6 @@ import {
 import { createOrder } from "../../store/orderReducer";
 import { OrderStatus } from "../../utils/models";
 
-// Mocks
 jest.mock("react-redux", () => {
   const originalModule = jest.requireActual("react-redux");
   return {

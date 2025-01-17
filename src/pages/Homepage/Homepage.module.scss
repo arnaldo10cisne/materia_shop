@@ -8,17 +8,31 @@
   justify-content: center;
   align-items: center;
   width: 90%;
+  @include responsive-tablet {
+    width: 80%;
+  }
+  @include responsive-small-desktop {
+    width: 500px;
+  }
 }
 
 .WelcomeBlueBox {
   padding: 20px 0px;
   padding-left: 45px;
+  @include responsive-tablet {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+  }
 }
 
 .HomepageBlueBox {
   padding-bottom: 40px;
   padding-left: 20px;
   padding-right: 20px;
+  @include responsive-tablet {
+    padding-left: 50px;
+  }
 }
 
 .SelectCharacter {
@@ -28,4 +42,8 @@
 .BuyMateria {
   margin-top: 20px;
   margin-bottom: 40px;
+  @include responsive-tablet {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
 }

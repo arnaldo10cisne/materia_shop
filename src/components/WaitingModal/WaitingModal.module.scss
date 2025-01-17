@@ -15,6 +15,12 @@
 .waitingModal {
   width: 95%;
   height: auto;
+  @include responsive-mobile {
+    width: 400px;
+  }
+  @include responsive-tablet {
+    width: 500px;
+  }
 }
 
 .MainContainer {

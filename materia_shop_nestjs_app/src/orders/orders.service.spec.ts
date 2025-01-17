@@ -156,7 +156,6 @@ describe('OrdersService', () => {
   describe('updateStock', () => {
     it('should patch products with the correct data', async () => {
       mockedAxios.patch.mockResolvedValueOnce({ data: { updated: true } });
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
       const mockCartItems = [
         { id: 'item-1', product: 'prod-1', amount: 2 },
@@ -171,9 +170,6 @@ describe('OrdersService', () => {
           { id: 'prod-2', stock_variation: 3, variation: 'REDUCE' },
         ],
       );
-      expect(consoleLogSpy).toHaveBeenCalledWith('Stock updated:', {
-        updated: true,
-      });
     });
 
     it('should log an error if the patch request fails', async () => {

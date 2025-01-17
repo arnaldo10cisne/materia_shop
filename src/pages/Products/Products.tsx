@@ -84,7 +84,7 @@ export const Products = () => {
         />
       ) : null}
       <div className={classNames(styles.Products)}>
-        <BlueBox>
+        <BlueBox customStyles={classNames(styles.ReturnBlueBox)}>
           <SelectableOption
             onClickHandler={handleClickReturn}
             sfxOnClick={playCancelCursorSfx}
@@ -93,73 +93,74 @@ export const Products = () => {
             Return
           </SelectableOption>
         </BlueBox>
+        <div className={classNames(styles.middleSection)}>
+          <BlueBox customStyles={styles.UserBlueBox}>
+            <p className={classNames(styles.BuyingMateriaFor)}>
+              Buying Materia for
+            </p>
+            <CharacterPortrait character={selectedUser} showName={true} />
+            <SelectableOption
+              onClickHandler={() => {
+                setOpenCartModal(true);
+                disableScroll();
+              }}
+              customStyles={styles.ShowCart}
+            >
+              Open Shopping Cart
+            </SelectableOption>
+          </BlueBox>
 
-        <BlueBox customStyles={styles.UserBlueBox}>
-          <p className={classNames(styles.BuyingMateriaFor)}>
-            Buying Materia for
-          </p>
-          <CharacterPortrait character={selectedUser} showName={true} />
-          <SelectableOption
-            onClickHandler={() => {
-              setOpenCartModal(true);
-              disableScroll();
-            }}
-            customStyles={styles.ShowCart}
-          >
-            Open Shopping Cart
-          </SelectableOption>
-        </BlueBox>
-
-        <BlueBox customStyles={styles.ProductListBlueBox}>
-          {isLoading ? (
-            <LoadingChocobo />
-          ) : (
-            <>
-              {productsList?.map((product: ProductModel) => {
-                return (
-                  <>
-                    <SelectableOption
-                      key={product.id}
-                      onClickHandler={() => {
-                        setProductInModal(product);
-                        setOpenProductModal(true);
-                        disableScroll();
-                      }}
-                      icon={MATERIA_LIST.find((materia: MateriaIconModel) => {
-                        return materia.type === product.materia_type;
-                      })}
-                      disabled={product.stock_amount <= 0}
-                      customStyles={styles.ProductItem}
-                    >
-                      {product.name}
-                    </SelectableOption>
-                    <p
-                      className={classNames(
-                        styles.ProductStock,
-                        product.stock_amount <= 0 && styles.ProductStockEmpty,
-                      )}
-                    >
-                      Stock: {product.stock_amount}
-                      {cartContent.some(
-                        (item) => item.product.id === product.id,
-                      ) ? (
-                        <span className={classNames(styles.inCartAmount)}>
-                          {" "}
-                          - In Cart:{" "}
-                          {
-                            cartContent.find(
-                              (item) => item.product.id === product.id,
-                            )?.amount
-                          }
-                        </span>
-                      ) : null}
-                    </p>
-                  </>
-                );
-              })}
-            </>
-          )}
-        </BlueBox>
+          <BlueBox customStyles={styles.ProductListBlueBox}>
+            {isLoading ? (
+              <LoadingChocobo />
+            ) : (
+              <div className={classNames(styles.ProductList)}>
+                {productsList?.map((product: ProductModel) => {
+                  return (
+                    <div>
+                      <SelectableOption
+                        key={product.id}
+                        onClickHandler={() => {
+                          setProductInModal(product);
+                          setOpenProductModal(true);
+                          disableScroll();
+                        }}
+                        icon={MATERIA_LIST.find((materia: MateriaIconModel) => {
+                          return materia.type === product.materia_type;
+                        })}
+                        disabled={product.stock_amount <= 0}
+                        customStyles={styles.ProductItem}
+                      >
+                        {product.name}
+                      </SelectableOption>
+                      <p
+                        className={classNames(
+                          styles.ProductStock,
+                          product.stock_amount <= 0 && styles.ProductStockEmpty,
+                        )}
+                      >
+                        Stock: {product.stock_amount}
+                        {cartContent.some(
+                          (item) => item.product.id === product.id,
+                        ) ? (
+                          <span className={classNames(styles.inCartAmount)}>
+                            {" "}
+                            - In Cart:{" "}
+                            {
+                              cartContent.find(
+                                (item) => item.product.id === product.id,
+                              )?.amount
+                            }
+                          </span>
+                        ) : null}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </BlueBox>
+        </div>
 
         <BlueBox>
           <SelectableOption

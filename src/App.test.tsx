@@ -13,7 +13,6 @@ describe("Hero", () => {
     expect(screen.getByText("Welcome to the Materia Shop")).toBeInTheDocument();
     expect(screen.getByText("Select Character")).toBeInTheDocument();
     expect(screen.getByText("Buy Materia")).toBeInTheDocument();
-    // expect(screen.getByText("Welcome to the Materia Shop")).toBeInTheDocument();
   });
 
   test("BUY MATERIA disabled if no character if selected", () => {

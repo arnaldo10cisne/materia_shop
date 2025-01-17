@@ -1,6 +1,6 @@
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
-import { render } from "../../utils/test-utils/custom-render"; // Your custom render
+import { render } from "../../utils/test-utils/custom-render";
 import { Products } from "./Products";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -12,7 +12,6 @@ import {
 import { RootState } from "../../store/store";
 import { MateriaTypes, ProductModel } from "../../utils/models";
 
-// Mocks
 jest.mock("react-query", () => ({
   ...jest.requireActual("react-query"),
   useQuery: jest.fn(),
@@ -185,18 +184,13 @@ describe("Products Component", () => {
 
     render(<Products />);
 
-    // No modal initially
     expect(screen.queryByText("Add to cart")).not.toBeInTheDocument();
 
-    // Click the product
     const productButton = screen.getByText("Fire Materia");
     fireEvent.click(productButton);
 
-    // Should show the ProductInfoModal
-    // "Add to cart", "Close", or some text from ProductInfoModal is expected
     expect(screen.getByText("Add to cart")).toBeInTheDocument();
 
-    // Once open, disable scroll is triggered
     expect(disableScroll).toHaveBeenCalledTimes(1);
   });
 
@@ -219,10 +213,8 @@ describe("Products Component", () => {
 
     render(<Products />);
 
-    // The "Ice Materia" button should be disabled
     const disabledProductButton = screen.getByText("Ice Materia");
 
-    // Click on it won't open the modal
     fireEvent.click(disabledProductButton);
     expect(screen.queryByText("Add to cart")).not.toBeInTheDocument();
     expect(disableScroll).not.toHaveBeenCalled();
@@ -234,17 +226,13 @@ describe("Products Component", () => {
     const openCartButton = screen.getByText("Open Shopping Cart");
     fireEvent.click(openCartButton);
 
-    // The CartModal is rendered if text from CartModal is present,
-    // "CART IS EMPTY" might appear if cart is empty.
     expect(screen.getByText("CART IS EMPTY")).toBeInTheDocument();
     expect(disableScroll).toHaveBeenCalledTimes(1);
   });
 
   test("updates local storage whenever cartContent changes", () => {
-    // We can spy on localStorage setItem
     const setItemSpy = jest.spyOn(window.localStorage.__proto__, "setItem");
 
-    // Start with an empty cart
     (useSelector as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         user: { selectedUser: null },
@@ -254,7 +242,6 @@ describe("Products Component", () => {
     render(<Products />);
     expect(setItemSpy).toHaveBeenLastCalledWith("cart", JSON.stringify([]));
 
-    // Rerender or switch the mock to simulate a change in cart content
     (useSelector as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         user: { selectedUser: null },
@@ -278,10 +265,8 @@ describe("Products Component", () => {
       });
     });
 
-    // Re-render the component to trigger the effect
     render(<Products />);
 
-    // The second call should have the updated cart data
     expect(setItemSpy).toHaveBeenLastCalledWith(
       "cart",
       JSON.stringify([

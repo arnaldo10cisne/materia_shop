@@ -46,7 +46,6 @@ export class OrdersService {
         acceptance_auth_token: relatedOrder.acceptance_auth_token,
         acceptance_token: relatedOrder.acceptance_token,
       });
-      console.log('createRelatedPayment Response:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error making POST request in /payments:', error);
@@ -78,11 +77,7 @@ export class OrdersService {
     }
 
     try {
-      const response = await axios.patch(
-        `${this.apiAddress}/products`,
-        listOfUpdates,
-      );
-      console.log('Stock updated:', response.data);
+      await axios.patch(`${this.apiAddress}/products`, listOfUpdates);
     } catch (error) {
       console.error('Error making PATCH request in /products:', error);
     }
@@ -93,11 +88,8 @@ export class OrdersService {
       newOrder.id = String(crypto.randomUUID());
     }
 
-    console.log('ORDER: ', newOrder);
-
     const relatedPayment: PaymentModel =
       await this.createRelatedPayment(newOrder);
-    console.log('related payment: ', relatedPayment);
 
     if (relatedPayment?.payment_status === PaymentStatus.APPROVED) {
       newOrder.order_status = OrderStatus.COMPLETED;

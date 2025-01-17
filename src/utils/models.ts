@@ -52,7 +52,7 @@ export interface OrderModel {
   id: string;
   user: UserModel;
   address: string;
-  creation_date: Date;
+  creation_date: string;
   content: CartItem[];
   order_status: OrderStatus;
   payment_method: PaymentModel | null;

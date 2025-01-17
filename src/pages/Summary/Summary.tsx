@@ -46,14 +46,14 @@ export const Summary = () => {
   );
 
   const handleClickMakePayment = async () => {
-    setWaitingForPayment(true); // Open Waiting Modal
+    setWaitingForPayment(true);
 
     const creditCardToken = await getCreditCardToken(
       order.currentOrder?.payment_method?.credit_card as CreditCardModel,
     );
 
     if (creditCardToken === "ERROR") {
-      setWaitingForPayment(false); // Close Waiting Modal
+      setWaitingForPayment(false);
       navigate("/results");
       return;
     }
@@ -78,7 +78,7 @@ export const Summary = () => {
       acceptance_auth_token: acceptanceTokens?.acceptance_auth_token,
     });
 
-    setWaitingForPayment(false); // Close Waiting Modal
+    setWaitingForPayment(false);
 
     dispatch(updateOrderStatus(response?.order_status as OrderStatus));
 
@@ -98,114 +98,117 @@ export const Summary = () => {
             Return to Payment Details
           </SelectableOption>
         </BlueBox>
-        <BlueBox customStyles={styles.UserBlueBox}>
-          <p className={classNames(styles.OrderSummary)}>Order Summary for</p>
-          <CharacterPortrait
-            character={order.currentOrder?.user as UserModel}
-            showName={true}
-          />
-        </BlueBox>
-        <BlueBox customStyles={styles.SummaryBlueBox}>
-          {isLoading ? (
-            <LoadingChocobo />
-          ) : (
-            <>
-              <div>
-                <p>Order number:</p>
-                <p className={classNames(styles.orderNumber)}>
-                  {order.currentOrder?.id}
-                </p>
-              </div>
 
-              <div>
-                <p className={classNames(styles.shoppingCartlabel)}>
-                  Shopping Cart:
-                </p>
-                <ShoppingCartList />
-              </div>
+        <div className={classNames(styles.middleSection)}>
+          <BlueBox customStyles={styles.UserBlueBox}>
+            <p className={classNames(styles.OrderSummary)}>Order Summary for</p>
+            <CharacterPortrait
+              character={order.currentOrder?.user as UserModel}
+              showName={true}
+            />
+          </BlueBox>
+          <BlueBox customStyles={styles.SummaryBlueBox}>
+            {isLoading ? (
+              <LoadingChocobo />
+            ) : (
+              <>
+                <div>
+                  <p>Order number:</p>
+                  <p className={classNames(styles.orderNumber)}>
+                    {order.currentOrder?.id}
+                  </p>
+                </div>
 
-              <PriceSummary
-                cart={order.currentOrder?.content as CartItem[]}
-                addCcFee={true}
-                includeDeliveryFee={true}
-              />
+                <div>
+                  <p className={classNames(styles.shoppingCartlabel)}>
+                    Shopping Cart:
+                  </p>
+                  <ShoppingCartList />
+                </div>
 
-              <div>
-                <p className={classNames(styles.PaymentMethodLabel)}>
-                  Payment Method:
-                </p>
-                <CreditCardInfo
-                  creditCard={
-                    order.currentOrder?.payment_method
-                      ?.credit_card as CreditCardModel
-                  }
+                <PriceSummary
+                  cart={order.currentOrder?.content as CartItem[]}
+                  addCcFee={true}
+                  includeDeliveryFee={true}
                 />
-              </div>
-              <div>
-                <p className={classNames(styles.AddressdLabel)}>
-                  Delivery Address:
-                </p>
-                <p className={classNames(styles.address)}>
-                  {order.currentOrder?.address}
-                </p>
-              </div>
-              <div className={classNames(styles.PersonalDataCheckboxes)}>
-                <div className={classNames(styles.checkboxContainer)}>
-                  <input
-                    className={classNames(styles.checkbox)}
-                    type="checkbox"
-                    id="acceptPolicies"
-                    checked={hasAcceptedPolicies}
-                    onChange={(event) => {
-                      setHasAcceptedPolicies(event.target.checked);
-                    }}
-                  />
-                  <label
-                    htmlFor="acceptPolicies"
-                    className={classNames(styles.checkboxText)}
-                  >
-                    I accept that I have read the{" "}
-                    <a
-                      className={classNames(styles.permalink)}
-                      href={acceptanceTokens?.acceptance_token_permalink}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      regulations and the privacy policy
-                    </a>{" "}
-                    to make this payment.
-                  </label>
-                </div>
 
-                <div className={classNames(styles.checkboxContainer)}>
-                  <input
-                    className={classNames(styles.checkbox)}
-                    type="checkbox"
-                    id="authorizeData"
-                    checked={hasAuthorizedData}
-                    onChange={(event) => {
-                      setHasAuthorizedData(event.target.checked);
-                    }}
+                <div>
+                  <p className={classNames(styles.PaymentMethodLabel)}>
+                    Payment Method:
+                  </p>
+                  <CreditCardInfo
+                    creditCard={
+                      order.currentOrder?.payment_method
+                        ?.credit_card as CreditCardModel
+                    }
                   />
-                  <label
-                    htmlFor="authorizeData"
-                    className={classNames(styles.checkboxText)}
-                  >
-                    I accept the{" "}
-                    <a
-                      className={classNames(styles.permalink)}
-                      href={acceptanceTokens?.acceptance_auth_token_permalink}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      authorization for the administration of personal data
-                    </a>
-                  </label>
                 </div>
-              </div>
-            </>
-          )}
-        </BlueBox>
+                <div>
+                  <p className={classNames(styles.AddressdLabel)}>
+                    Delivery Address:
+                  </p>
+                  <p className={classNames(styles.address)}>
+                    {order.currentOrder?.address}
+                  </p>
+                </div>
+                <div className={classNames(styles.PersonalDataCheckboxes)}>
+                  <div className={classNames(styles.checkboxContainer)}>
+                    <input
+                      className={classNames(styles.checkbox)}
+                      type="checkbox"
+                      id="acceptPolicies"
+                      checked={hasAcceptedPolicies}
+                      onChange={(event) => {
+                        setHasAcceptedPolicies(event.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="acceptPolicies"
+                      className={classNames(styles.checkboxText)}
+                    >
+                      I accept that I have read the{" "}
+                      <a
+                        className={classNames(styles.permalink)}
+                        href={acceptanceTokens?.acceptance_token_permalink}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        regulations and the privacy policy
+                      </a>{" "}
+                      to make this payment.
+                    </label>
+                  </div>
+
+                  <div className={classNames(styles.checkboxContainer)}>
+                    <input
+                      className={classNames(styles.checkbox)}
+                      type="checkbox"
+                      id="authorizeData"
+                      checked={hasAuthorizedData}
+                      onChange={(event) => {
+                        setHasAuthorizedData(event.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="authorizeData"
+                      className={classNames(styles.checkboxText)}
+                    >
+                      I accept the{" "}
+                      <a
+                        className={classNames(styles.permalink)}
+                        href={acceptanceTokens?.acceptance_auth_token_permalink}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        authorization for the administration of personal data
+                      </a>
+                    </label>
+                  </div>
+                </div>
+              </>
+            )}
+          </BlueBox>
+        </div>
 
         <BlueBox>
           <SelectableOption

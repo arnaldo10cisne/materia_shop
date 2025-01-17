@@ -8,7 +8,6 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
 
-// 1) Mock DynamoDB so no real AWS calls are made
 jest.mock('@aws-sdk/client-dynamodb', () => {
   const originalModule = jest.requireActual('@aws-sdk/client-dynamodb');
   return {
@@ -34,7 +33,6 @@ describe('ProductsService', () => {
 
     service = module.get<ProductsService>(ProductsService);
 
-    // Access the mocked DynamoDBClient instance from the service
     dynamoDBClientMock = (service as any).dynamoDBClient;
   });
 
@@ -88,7 +86,6 @@ describe('ProductsService', () => {
 
   describe('updateProductStock', () => {
     it('should update the stock for each product and return the updated items', async () => {
-      // Suppose we have two updates
       const updates: {
         id: string;
         stock_variation: number;
@@ -98,12 +95,10 @@ describe('ProductsService', () => {
         { id: 'prod-2', stock_variation: 2, variation: 'REDUCE' },
       ];
 
-      // We'll mock the first item response
       (dynamoDBClientMock.send as jest.Mock)
         .mockResolvedValueOnce({
           Attributes: marshall({ id: 'prod-1', stock_amount: 15 }),
         })
-        // then the second item response
         .mockResolvedValueOnce({
           Attributes: marshall({ id: 'prod-2', stock_amount: 8 }),
         });
@@ -116,21 +111,6 @@ describe('ProductsService', () => {
       expect(result).toHaveLength(2);
       expect(result[0]).toMatchObject({ id: 'prod-1', stock_amount: 15 });
       expect(result[1]).toMatchObject({ id: 'prod-2', stock_amount: 8 });
-    });
-
-    it('should log the received data', async () => {
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({}); // minimal default
-
-      const updates: {
-        id: string;
-        stock_variation: number;
-        variation: 'INCREMENT' | 'REDUCE';
-      }[] = [{ id: 'any-id', stock_variation: 1, variation: 'REDUCE' }];
-      await service.updateProductStock(updates);
-
-      expect(consoleLogSpy).toHaveBeenCalledWith('DATOS RECIBIDOS: ', updates);
     });
   });
 });

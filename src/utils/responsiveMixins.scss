@@ -1,43 +1,41 @@
 @import "./variables";
 
-// Styles to be applied between 0 and 667px
-// @mixin responsive-small-mobile {
-//   @media (max-width: $small-mobile-styles-applied) {
-//     @content;
-//   }
-// }
-
 // Styles to be applied between 667px and 740px
 @mixin responsive-mobile {
-  @media (min-width: $small-mobile-styles-applied) and (max-width: $mobile-styles-applied) {
+  @media (min-width: $small-mobile-styles-applied) {
+    //and (max-width: $mobile-styles-applied) {
     @content;
   }
-}
+} //DONE
 
 // Styles to be applied between 740px and 920px
 @mixin responsive-tablet {
-  @media (min-width: $mobile-styles-applied) and (max-width: $tablet-styles-applied) {
+  @media (min-width: $mobile-styles-applied) {
+    //and (max-width: $tablet-styles-applied) {
     @content;
   }
 }
 
 // Styles to be applied between 920px and 1400px
 @mixin responsive-small-desktop {
-  @media (min-width: $tablet-styles-applied) and (max-width: $small-desktop-styles-applied) {
+  @media (min-width: $tablet-styles-applied) {
+    //and (max-width: $small-desktop-styles-applied) {
     @content;
   }
 }
 
 // Styles to be applied between 1400px and 1800px
 @mixin responsive-desktop {
-  @media (min-width: $small-desktop-styles-applied) and (max-width: $desktop-styles-applied) {
+  @media (min-width: $small-desktop-styles-applied) {
+    //and (max-width: $desktop-styles-applied) {
     @content;
   }
 }
 
 // Styles to be applied between 1800px and 3000px
 @mixin responsive-large-desktop {
-  @media (min-width: $desktop-styles-applied) and (max-width: $screen-4k-styles-applied) {
+  @media (min-width: $desktop-styles-applied) {
+    // and (max-width: $screen-4k-styles-applied) {
     @content;
   }
 }
