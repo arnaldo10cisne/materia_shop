@@ -7,7 +7,7 @@ import { CHOCOBO_WAITING, CHOCOBO_WALTZ } from "../../utils/constants.ts";
 export const WaitingModal = () => {
   useEffect(() => {
     if (CHOCOBO_WALTZ) {
-      CHOCOBO_WALTZ.volume = 0.5;
+      CHOCOBO_WALTZ.volume = 0.2;
       CHOCOBO_WALTZ.play()?.catch((err) =>
         console.error("Error playing chocoboWaltz song:", err),
       );
