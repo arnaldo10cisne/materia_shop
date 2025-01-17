@@ -2,9 +2,14 @@
 
 .Header {
   height: $header-height;
+  // padding: 10px 0px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  border: solid white 1px;
+  background-color: rgb(24, 24, 24);
   margin-bottom: 30px;
+}
+
+.meteor {
+  height: 50px;
 }
