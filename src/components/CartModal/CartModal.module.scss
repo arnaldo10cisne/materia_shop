@@ -15,7 +15,13 @@
 
 .CartModal {
   width: 95%;
-  // height: auto;
+  @include responsive-mobile {
+    width: 400px;
+  }
+  @include responsive-small-desktop {
+    align-self: flex-start;
+    margin-top: 220px;
+  }
 }
 
 .EmptyCartWarning {
@@ -71,5 +77,4 @@
 }
 .EmptyCart {
   color: $danger-red-text;
-  // margin-top: 30px;
 }

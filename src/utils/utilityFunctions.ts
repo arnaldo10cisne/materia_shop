@@ -28,6 +28,7 @@ export const enableScroll = () => {
 
 export const playMoveCursorSfx = () => {
   const sfx = new Audio(cursorMoveAudio);
+  sfx.volume = 0.2;
   if (sfx) {
     sfx
       .play()
@@ -37,6 +38,7 @@ export const playMoveCursorSfx = () => {
 
 export const playAcceptCursorSfx = () => {
   const sfx = new Audio(cursorAcceptAudio);
+  sfx.volume = 0.2;
   if (sfx) {
     sfx
       .play()
@@ -46,6 +48,7 @@ export const playAcceptCursorSfx = () => {
 
 export const playCancelCursorSfx = () => {
   const sfx = new Audio(cursorCancelAudio);
+  sfx.volume = 0.2;
   if (sfx) {
     sfx
       .play()
@@ -55,6 +58,7 @@ export const playCancelCursorSfx = () => {
 
 export const playBuzzerCursorSfx = () => {
   const sfx = new Audio(cursorBuzzerAudio);
+  sfx.volume = 0.2;
   if (sfx) {
     sfx
       .play()
@@ -64,6 +68,7 @@ export const playBuzzerCursorSfx = () => {
 
 export const playPurchaseSfx = () => {
   const sfx = new Audio(purchaseAudio);
+  sfx.volume = 0.2;
   if (sfx) {
     sfx
       .play()
@@ -73,6 +78,7 @@ export const playPurchaseSfx = () => {
 
 export const playChocoboDance = () => {
   const sfx = new Audio(chocoboDance);
+  sfx.volume = 0.2;
   if (sfx) {
     sfx
       .play()
@@ -82,6 +88,7 @@ export const playChocoboDance = () => {
 
 export const playChocoboCry = () => {
   const sfx = new Audio(chocoboCry);
+  sfx.volume = 0.5;
   if (sfx) {
     sfx
       .play()
@@ -127,9 +134,6 @@ const fetchData = async (url: string) => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    // throw new Error(
-    //   `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
-    // );
     console.error(
       `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
     );
@@ -199,7 +203,6 @@ export const createOrderInBackend = async ({
     }
 
     const data = await response.json();
-    console.log("Response:", data);
     return data;
   } catch (error) {
     console.error("Error making POST request:", error);
@@ -239,7 +242,6 @@ export const getCreditCardToken = async (
   } catch (error) {
     console.error("Error making POST request:", error);
     return "ERROR";
-    // throw error;
   }
 };
 

@@ -29,7 +29,6 @@ jest.mock("../../utils/utilityFunctions", () => ({
 describe("ShoppingCartList Component", () => {
   const mockDispatch = jest.fn();
 
-  // Sample cart item(s) to test
   const mockCartItems: CartItem[] = [
     {
       product: {
@@ -64,7 +63,7 @@ describe("ShoppingCartList Component", () => {
     (useSelector as jest.Mock).mockImplementation((selectorFn) =>
       selectorFn({
         cart: {
-          currentCart: mockCartItems, // Default mock
+          currentCart: mockCartItems,
         },
       }),
     );
@@ -74,11 +73,9 @@ describe("ShoppingCartList Component", () => {
   test("renders cart items from Redux store", () => {
     render(<ShoppingCartList />);
 
-    // Check if product names are rendered
     expect(screen.getByText("Fire Materia")).toBeInTheDocument();
     expect(screen.getByText("Ice Materia")).toBeInTheDocument();
 
-    // Check the correct pricing info is displayed
     expect(screen.getByText("500 Gil * 2 units")).toBeInTheDocument();
     expect(screen.getByText("1000 Gil")).toBeInTheDocument();
 
@@ -89,7 +86,6 @@ describe("ShoppingCartList Component", () => {
   test("does not render remove button by default", () => {
     render(<ShoppingCartList />);
 
-    // 'Remove Item' button should not be in the document by default
     const removeButtons = screen.queryAllByText(/Remove Item/i);
     expect(removeButtons).toHaveLength(0);
   });
@@ -97,7 +93,6 @@ describe("ShoppingCartList Component", () => {
   test("renders remove button if showRemoveButton is true", () => {
     render(<ShoppingCartList showRemoveButton={true} />);
 
-    // Now the remove buttons should be visible
     const removeButtons = screen.getAllByText(/Remove Item/i);
     expect(removeButtons).toHaveLength(mockCartItems.length);
   });
@@ -107,17 +102,14 @@ describe("ShoppingCartList Component", () => {
 
     const removeButtons = screen.getAllByText(/Remove Item/i);
 
-    // Simulate a click on the first remove button
     fireEvent.click(removeButtons[0]);
 
-    // Verify dispatch is called with the correct payload
     expect(removeCartItem).toHaveBeenCalledWith({
       product: mockCartItems[0].product,
       amount: mockCartItems[0].amount,
     });
     expect(mockDispatch).toHaveBeenCalledTimes(1);
 
-    // Verify that SFX is played
     expect(playCancelCursorSfx).toHaveBeenCalled();
   });
 
@@ -131,11 +123,9 @@ describe("ShoppingCartList Component", () => {
     );
 
     render(<ShoppingCartList showRemoveButton={true} />);
-    // Nothing should be in the document that matches these product names
     expect(screen.queryByText("Fire Materia")).not.toBeInTheDocument();
     expect(screen.queryByText("Ice Materia")).not.toBeInTheDocument();
 
-    // No remove buttons either
     const removeButtons = screen.queryAllByText(/Remove Item/i);
     expect(removeButtons).toHaveLength(0);
   });

@@ -7,7 +7,6 @@ import { App } from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 
-// Create a client
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(

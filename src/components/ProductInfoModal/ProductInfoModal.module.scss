@@ -15,6 +15,9 @@
 .ProductInfoModal {
   width: 95%;
   height: auto;
+  @include responsive-tablet {
+    width: 700px;
+  }
 }
 
 .CloseModal {
@@ -41,22 +44,35 @@
 .ProductName {
   margin: 20px 0px;
   font-size: 35px;
+  @include responsive-tablet {
+    font-size: 40px;
+  }
 }
 
 .ProductDescription {
   text-align: center;
   font-size: 25px;
   width: 80%;
+  @include responsive-tablet {
+    font-size: 35px;
+    margin: 20px 0px;
+  }
 }
 
 .ProductPrice {
   margin-top: 20px;
   font-size: 25px;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .ProductStock {
   margin-top: 20px;
   font-size: 25px;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .AddToCartController {
@@ -75,10 +91,17 @@
 .CartAmount {
   color: $ligth-blue-text;
   margin: 20px 45px;
+  @include responsive-tablet {
+    font-size: 40px;
+    margin: 30px 80px;
+  }
 }
 
 .TotalPrice {
   font-size: 25px;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .AddToCart {

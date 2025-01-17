@@ -8,27 +8,82 @@
   justify-content: center;
   align-items: center;
   width: 90%;
+  max-width: 1800px;
+  @include responsive-tablet {
+    width: 80%;
+  }
+  @include responsive-small-desktop {
+    width: 95%;
+  }
 }
-
+.ReturnBlueBox {
+  @include responsive-tablet {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+  }
+}
 .Return {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 0px;
+  }
+}
+
+.middleSection {
+  width: 100%;
+  @include responsive-small-desktop {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+  }
 }
 
 .UserBlueBox {
   padding-left: 45px;
+  @include responsive-small-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-top: 100px;
+  }
 }
 
 .BuyingMateriaFor,
 .ShowCart {
   margin: 20px 0px;
+  @include responsive-tablet {
+    margin: 30px 0px;
+  }
+  @include responsive-small-desktop {
+    margin: 60px 0px;
+  }
 }
 
 .ProductListBlueBox {
   padding: 20px;
+  @include responsive-mobile {
+    padding: 50px;
+  }
+  @include responsive-small-desktop {
+    max-height: 800px;
+    overflow-y: scroll;
+  }
+}
+
+.ProductList {
+  @include responsive-mobile {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .ProductItem {
   margin-top: 20px;
+  @include responsive-mobile {
+    width: 240px;
+  }
 }
 
 .ProductInfo {

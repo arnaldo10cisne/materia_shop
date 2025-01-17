@@ -1,4 +1,3 @@
-// UserSelection.test.tsx
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";

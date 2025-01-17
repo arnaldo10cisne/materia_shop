@@ -79,7 +79,7 @@ export const Order = () => {
         />
       ) : null}
       <div className={classNames(styles.Order)}>
-        <BlueBox>
+        <BlueBox customStyles={classNames(styles.ReturnBlueBox)}>
           <SelectableOption
             onClickHandler={handleClickReturn}
             sfxOnClick={playCancelCursorSfx}
@@ -88,51 +88,52 @@ export const Order = () => {
             Return to Materia List
           </SelectableOption>
         </BlueBox>
-
-        <BlueBox customStyles={styles.UserBlueBox}>
-          <p className={classNames(styles.CreatingOrderFor)}>
-            Creating Order for
-          </p>
-          <CharacterPortrait character={selectedUser} showName={true} />
-        </BlueBox>
-
-        <BlueBox customStyles={styles.OrderDataBlueBox}>
-          <label htmlFor="delivery-address">Delivery Address</label>
-          <textarea
-            className={classNames(styles.addressTextArea)}
-            name="deliveryAddress"
-            id="delivery-address"
-            value={address}
-            onChange={handleAddressChange}
-            maxLength={200}
-          ></textarea>
-          <p
-            className={classNames(
-              styles.RemainingCharacters,
-              address.length >= 170 && styles.RemainingCharactersWarning,
-            )}
-          >
-            {200 - address.length} characters remaining
-          </p>
-
-          <SelectableOption
-            onClickHandler={() => {
-              setOpenCcInfoModal(true);
-              disableScroll();
-            }}
-            customStyles={styles.EnterCreditCardInfo}
-          >
-            Enter Credit Card Information
-          </SelectableOption>
-
-          {creditCard !== null ? (
-            <CreditCardInfo creditCard={creditCard} />
-          ) : (
-            <p className={classNames(styles.PleaseEnterCC)}>
-              Please Enter Credit Card Information
+        <div className={classNames(styles.middleSection)}>
+          <BlueBox customStyles={styles.UserBlueBox}>
+            <p className={classNames(styles.CreatingOrderFor)}>
+              Creating Order for
             </p>
-          )}
-        </BlueBox>
+            <CharacterPortrait character={selectedUser} showName={true} />
+          </BlueBox>
+
+          <BlueBox customStyles={styles.OrderDataBlueBox}>
+            <label htmlFor="delivery-address">Delivery Address</label>
+            <textarea
+              className={classNames(styles.addressTextArea)}
+              name="deliveryAddress"
+              id="delivery-address"
+              value={address}
+              onChange={handleAddressChange}
+              maxLength={200}
+            ></textarea>
+            <p
+              className={classNames(
+                styles.RemainingCharacters,
+                address.length >= 170 && styles.RemainingCharactersWarning,
+              )}
+            >
+              {200 - address.length} characters remaining
+            </p>
+
+            <SelectableOption
+              onClickHandler={() => {
+                setOpenCcInfoModal(true);
+                disableScroll();
+              }}
+              customStyles={styles.EnterCreditCardInfo}
+            >
+              Enter Credit Card Information
+            </SelectableOption>
+
+            {creditCard !== null ? (
+              <CreditCardInfo creditCard={creditCard} />
+            ) : (
+              <p className={classNames(styles.PleaseEnterCC)}>
+                Please Enter Credit Card Information
+              </p>
+            )}
+          </BlueBox>
+        </div>
 
         <BlueBox>
           <SelectableOption

@@ -131,11 +131,9 @@ describe("SelectableOption Component", () => {
 
     const optionElement = screen.getByText(defaultText);
 
-    // Mouse Enter => image appears
     fireEvent.mouseEnter(optionElement);
     expect(screen.getByAltText("cursor_pointer")).toBeInTheDocument();
 
-    // Mouse Leave => image disappears
     fireEvent.mouseLeave(optionElement);
     const cursorImage = screen.queryByAltText("cursor_pointer");
     expect(cursorImage).not.toBeInTheDocument();

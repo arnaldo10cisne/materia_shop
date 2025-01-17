@@ -9,6 +9,9 @@
   font-size: $reactor7_font_size_default;
   font-family: $reactor7_font;
   font-weight: 500;
+  @include responsive-tablet {
+    font-size: 35px;
+  }
 }
 
 a {

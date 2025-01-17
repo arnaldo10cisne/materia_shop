@@ -8,7 +8,6 @@ describe('PaymentsController', () => {
   let service: PaymentsService;
 
   beforeEach(async () => {
-    // Create a mock for PaymentsService methods
     const mockPaymentsService = {
       getOnePayment: jest.fn(),
       createPayment: jest.fn(),

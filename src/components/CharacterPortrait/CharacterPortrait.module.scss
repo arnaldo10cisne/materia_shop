@@ -12,6 +12,11 @@
   overflow: hidden;
   position: relative;
   background-color: white;
+  @include responsive-tablet {
+    height: 120px;
+    width: 120px;
+    min-width: 120px;
+  }
 }
 
 .CharacterPortraitImage {
@@ -26,4 +31,12 @@
 .CharacterPortraitName {
   margin-left: 15px;
   font-size: 25px;
+  font-style: italic;
+  @include responsive-tablet {
+    font-size: 35px;
+    margin-left: 35px;
+  }
+  @include responsive-small-desktop {
+    margin-left: 20px;
+  }
 }

@@ -12,7 +12,6 @@ import {
 import { clearCartContent } from "../../store/cartReducer";
 import { OrderStatus } from "../../utils/models";
 
-// Mock Redux
 jest.mock("react-redux", () => {
   const originalModule = jest.requireActual("react-redux");
   return {
@@ -22,7 +21,6 @@ jest.mock("react-redux", () => {
   };
 });
 
-// Mock react-router-dom
 jest.mock("react-router-dom", () => {
   const originalModule = jest.requireActual("react-router-dom");
   return {
@@ -31,7 +29,6 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-// Mock utility functions
 jest.mock("../../utils/utilityFunctions", () => ({
   ...jest.requireActual("../../utils/utilityFunctions"),
   playCancelCursorSfx: jest.fn(),
@@ -39,7 +36,6 @@ jest.mock("../../utils/utilityFunctions", () => ({
   playChocoboDance: jest.fn(),
 }));
 
-// Mock clearCartContent
 jest.mock("../../store/cartReducer", () => ({
   ...jest.requireActual("../../store/cartReducer"),
   clearCartContent: jest.fn(),

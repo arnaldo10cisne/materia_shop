@@ -22,9 +22,11 @@ export const Results = () => {
   const order = useSelector((state: RootState) => state.order);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const orderCompleted =
+    order.currentOrder?.order_status === OrderStatus.COMPLETED;
 
   const handleClickReturn = () => {
-    if (order.currentOrder?.order_status === OrderStatus.COMPLETED) {
+    if (orderCompleted) {
       navigate("/");
     } else {
       navigate("/summary");
@@ -32,13 +34,13 @@ export const Results = () => {
   };
 
   useEffect(() => {
-    if (order.currentOrder?.order_status === OrderStatus.COMPLETED) {
+    if (orderCompleted) {
       playChocoboDance();
       dispatch(clearCartContent());
     } else {
       playChocoboCry();
     }
-  }, [order.currentOrder?.order_status, dispatch]);
+  }, [orderCompleted, dispatch]);
 
   return (
     <div className={classNames(styles.Results)}>
@@ -48,13 +50,13 @@ export const Results = () => {
           sfxOnClick={playCancelCursorSfx}
           customStyles={styles.Return}
         >
-          {order.currentOrder?.order_status === OrderStatus.COMPLETED
+          {orderCompleted
             ? "Return to the Homepage"
             : "Return to Order Summary"}
         </SelectableOption>
       </BlueBox>
       <BlueBox customStyles={styles.ResultsBlueBox}>
-        {order.currentOrder?.order_status === OrderStatus.COMPLETED ? (
+        {orderCompleted ? (
           <div className={classNames(styles.InformationText)}>
             <p className={classNames(styles.InformationLine)}>
               Congratulations!
@@ -86,15 +88,9 @@ export const Results = () => {
 
         <img
           className={classNames(
-            order.currentOrder?.order_status === OrderStatus.COMPLETED
-              ? styles.chocoboDancing
-              : styles.fatChocobo,
+            orderCompleted ? styles.chocoboDancing : styles.fatChocobo,
           )}
-          src={
-            order.currentOrder?.order_status === OrderStatus.COMPLETED
-              ? DELIVERY_CHOCOBO_IMAGE
-              : FAT_CHOCOBO_IMAGE
-          }
+          src={orderCompleted ? DELIVERY_CHOCOBO_IMAGE : FAT_CHOCOBO_IMAGE}
           alt="chocobo"
         />
       </BlueBox>

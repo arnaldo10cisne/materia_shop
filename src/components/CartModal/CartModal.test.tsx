@@ -1,13 +1,12 @@
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
-import { render } from "../../utils/test-utils/custom-render"; // Your custom render
+import { render } from "../../utils/test-utils/custom-render";
 import { CartModal } from "./CartModal";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCartContent } from "../../store/cartReducer";
 import { playCancelCursorSfx } from "../../utils/utilityFunctions";
 import { RootState } from "../../store/store";
 
-// Mocks
 jest.mock("react-redux", () => {
   const original = jest.requireActual("react-redux");
   return {

@@ -8,10 +8,9 @@ export const WaitingModal = () => {
   useEffect(() => {
     if (CHOCOBO_WALTZ) {
       CHOCOBO_WALTZ.volume = 0.5;
-      CHOCOBO_WALTZ.play() // ADUST VOLUME
-        ?.catch((err) =>
-          console.error("Error playing chocoboWaltz song:", err),
-        );
+      CHOCOBO_WALTZ.play()?.catch((err) =>
+        console.error("Error playing chocoboWaltz song:", err),
+      );
     }
     return () => {
       if (CHOCOBO_WALTZ) {

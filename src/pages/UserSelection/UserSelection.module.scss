@@ -8,6 +8,20 @@
   justify-content: center;
   align-items: center;
   width: 90%;
+  @include responsive-tablet {
+    width: 80%;
+  }
+  @include responsive-small-desktop {
+    width: 820px;
+  }
+}
+
+.ReturnBlueBox {
+  @include responsive-tablet {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+  }
 }
 
 .Return {
@@ -18,7 +32,21 @@
   padding-bottom: 20px;
 }
 
+.userList {
+  @include responsive-small-desktop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+  }
+}
+
 .CharacterItem {
   margin-top: 40px;
   margin-left: 40px;
+  @include responsive-small-desktop {
+    margin-left: 0px;
+    width: 350px;
+  }
 }

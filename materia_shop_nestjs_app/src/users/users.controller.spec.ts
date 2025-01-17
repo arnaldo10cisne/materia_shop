@@ -8,7 +8,6 @@ describe('UsersController', () => {
   let service: UsersService;
 
   beforeEach(async () => {
-    // Create a mock service
     const mockUsersService = {
       findAllUsers: jest.fn(),
       findOneUser: jest.fn(),
