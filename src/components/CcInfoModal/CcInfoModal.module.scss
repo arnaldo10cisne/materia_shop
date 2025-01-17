@@ -97,3 +97,19 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.MakeShinraPay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.MakeShinraPayText {
+  color: $danger-red-text;
+  margin: 0 10px;
+}
+
+.shinraLogo {
+  height: 50px;
+}

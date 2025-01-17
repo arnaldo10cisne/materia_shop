@@ -44,7 +44,7 @@ describe("WaitingModal", () => {
   it("plays the chocobo waltz on mount and pauses/resets it on unmount", () => {
     const { unmount } = render(<WaitingModal />);
 
-    expect(CHOCOBO_WALTZ.volume).toBe(0.5);
+    expect(CHOCOBO_WALTZ.volume).toBe(0.2);
     expect(CHOCOBO_WALTZ.play).toHaveBeenCalledTimes(1);
 
     unmount();

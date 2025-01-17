@@ -14,7 +14,7 @@ import {
 } from "../../utils/models.ts";
 import { useDispatch } from "react-redux";
 import { setCreditCard } from "../../store/creditCardReducer.ts";
-import { CARD_COMPANY_LIST } from "../../utils/constants.ts";
+import { CARD_COMPANY_LIST, SHINRA } from "../../utils/constants.ts";
 
 interface CcInfoModalProps {
   onClose: () => any;
@@ -131,6 +131,13 @@ export const CcInfoModal = ({
     setCvv(value);
   };
 
+  const handleMakeShinraPay = () => {
+    setHolderName("Rufus Shinra");
+    setCardNumber("4242 4242 4242 4242");
+    setCvv("123");
+    setExpirationDate("02/28");
+  };
+
   return (
     <div className={classNames(styles.CcInfoModalContainer)}>
       <div className={classNames(styles.CcInfoModal)}>
@@ -224,6 +231,27 @@ export const CcInfoModal = ({
             customStyles={styles.SubmitButton}
           >
             Save Credit Card
+          </SelectableOption>
+          <SelectableOption
+            onClickHandler={handleMakeShinraPay}
+            sfxOnClick={playAcceptCursorSfx}
+            customStyles={styles.SubmitButton}
+          >
+            <div className={classNames(styles.MakeShinraPay)}>
+              <img
+                src={SHINRA}
+                alt="shinra"
+                className={classNames(styles.shinraLogo)}
+              />
+              <p className={classNames(styles.MakeShinraPayText)}>
+                Make Shinra pay for you
+              </p>
+              <img
+                src={SHINRA}
+                alt="shinra"
+                className={classNames(styles.shinraLogo)}
+              />
+            </div>
           </SelectableOption>
         </BlueBox>
       </div>

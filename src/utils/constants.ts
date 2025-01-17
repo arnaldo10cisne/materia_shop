@@ -14,6 +14,8 @@ import deliveryChocobo from "../assets/images/delivery_chocobo.gif";
 import fatChocobo from "../assets/images/fat_chocobo.gif";
 import chocoboWaiting from "../assets/images/chocobo_waiting.gif";
 import chocoboWalking from "../assets/images/chocobo_walking.gif";
+import meteor from "../assets/images/meteor_nb.png";
+import shinra from "../assets/images/shinra_logo.png";
 import chocoboWaltz from "../assets/music/WaltzDeChocobo.mp3";
 import {
   CreditCardCompany,
@@ -33,6 +35,8 @@ export const DELIVERY_CHOCOBO_IMAGE = deliveryChocobo;
 export const FAT_CHOCOBO_IMAGE = fatChocobo;
 export const CHOCOBO_WAITING = chocoboWaiting;
 export const CHOCOBO_WALKING = chocoboWalking;
+export const METEOR = meteor;
+export const SHINRA = shinra;
 export const CHOCOBO_WALTZ = new Audio(chocoboWaltz);
 
 export const CHECKBOX_ON = checkboxOn;
@@ -58,6 +62,11 @@ export const CARD_COMPANY_LIST: CreditCardIconModel[] = [
   VISA_CARD,
   OTHER_CARD,
 ];
+
+export const SHINRA_LOGO: MateriaIconModel = {
+  type: MateriaTypes.MAGIC,
+  src: SHINRA,
+};
 
 export const MAGIC_MATERIA: MateriaIconModel = {
   type: MateriaTypes.MAGIC,
