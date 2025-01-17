@@ -13,3 +13,17 @@
 .meteor {
   height: 50px;
 }
+
+.aboutProject {
+  font-size: 22px;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
+}
+
+.aboutDeveloper {
+  font-size: 22px;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
+}
