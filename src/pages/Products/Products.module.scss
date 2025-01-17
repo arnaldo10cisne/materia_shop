@@ -104,6 +104,9 @@
 
 .PayWithCreditCard {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 30px 50px;
+  }
 }
 
 .inCartAmount {

@@ -136,7 +136,7 @@ export const Order = () => {
         <BlueBox>
           <SelectableOption
             onClickHandler={handleClickViewSummary}
-            customStyles={styles.ContinueWithPayment}
+            customStyles={styles.ViewSummary}
             disabled={!address || creditCard === null}
           >
             View Summary

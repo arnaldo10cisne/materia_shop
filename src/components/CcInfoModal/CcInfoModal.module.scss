@@ -24,7 +24,9 @@
 }
 
 .CloseModal {
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  margin-left: 25px;
 }
 
 .form {
@@ -74,11 +76,21 @@
 
 .ModalBlueBox {
   padding: 20px 20px;
+  padding-top: 0px;
 }
 
 .SubmitButton {
   margin-top: 45px;
   text-align: center;
+  margin-left: 25px;
+}
+
+.SaveCreditCard {
+  color: $ligth-blue-text;
+}
+
+.ShinraButton {
+  margin-top: 45px;
 }
 
 .CreditCardLogoContainer {
@@ -103,11 +115,23 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  text-align: center;
+}
+
+.shinraExplanation {
+  font-size: 22px;
+  @include responsive-tablet {
+    font-size: 25px;
+  }
 }
 
 .MakeShinraPayText {
   color: $danger-red-text;
+  font-size: 25px;
   margin: 0 10px;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .shinraLogo {

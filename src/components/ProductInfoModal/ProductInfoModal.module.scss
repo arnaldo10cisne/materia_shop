@@ -20,8 +20,14 @@
   }
 }
 
+.ModalBlueBox {
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
 .CloseModal {
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 40px;
   margin-left: 45px;
 }
 

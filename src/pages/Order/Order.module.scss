@@ -46,8 +46,11 @@
   margin: 20px 0px;
 }
 
-.ContinueWithPayment {
+.ViewSummary {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 30px 50px;
+  }
 }
 
 .addressTextArea {

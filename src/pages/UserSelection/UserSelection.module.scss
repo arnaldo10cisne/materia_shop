@@ -16,16 +16,11 @@
   }
 }
 
-.ReturnBlueBox {
-  @include responsive-tablet {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 50px;
-  }
-}
-
 .Return {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 30px 50px;
+  }
 }
 
 .CharacterListBlueBox {

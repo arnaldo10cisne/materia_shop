@@ -74,7 +74,7 @@ export const ProductInfoModal = ({
   return (
     <div className={classNames(styles.ProductInfoModalContainer)}>
       <div className={classNames(styles.ProductInfoModal)}>
-        <BlueBox>
+        <BlueBox customStyles={styles.ModalBlueBox}>
           <SelectableOption
             onClickHandler={handleCloseButtonClick}
             sfxOnClick={playCancelCursorSfx}

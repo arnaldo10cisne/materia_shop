@@ -230,12 +230,14 @@ export const CcInfoModal = ({
             sfxOnClick={playAcceptCursorSfx}
             customStyles={styles.SubmitButton}
           >
-            Save Credit Card
+            <p className={classNames(styles.SaveCreditCard)}>
+              Save Credit Card
+            </p>
           </SelectableOption>
           <SelectableOption
             onClickHandler={handleMakeShinraPay}
             sfxOnClick={playAcceptCursorSfx}
-            customStyles={styles.SubmitButton}
+            customStyles={styles.ShinraButton}
           >
             <div className={classNames(styles.MakeShinraPay)}>
               <img
@@ -244,8 +246,12 @@ export const CcInfoModal = ({
                 className={classNames(styles.shinraLogo)}
               />
               <p className={classNames(styles.MakeShinraPayText)}>
-                Make Shinra pay for you
+                Make Shinra pay for you <br />
+                <span className={classNames(styles.shinraExplanation)}>
+                  Input valid fake credit card
+                </span>
               </p>
+
               <img
                 src={SHINRA}
                 alt="shinra"
