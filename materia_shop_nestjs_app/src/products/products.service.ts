@@ -35,7 +35,6 @@ export class ProductsService {
       variation: 'REDUCE' | 'INCREMENT';
     }[],
   ) {
-    console.log('DATOS RECIBIDOS: ', updates);
     const updatedItems = [];
 
     for (const update of updates) {

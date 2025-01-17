@@ -86,7 +86,6 @@ describe("PriceSummary Component", () => {
       <PriceSummary cart={cart} addCcFee={false} includeDeliveryFee={false} />,
     );
 
-    // Should not see 'Delivery Fee:' text
     const deliveryFeeLabel = screen.queryByText("Delivery Fee:");
     expect(deliveryFeeLabel).toBeNull();
 

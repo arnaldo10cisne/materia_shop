@@ -34,13 +34,13 @@ export const orderSlice = createSlice({
       }>,
     ) => {
       state.currentOrder = {
-        id: crypto.randomUUID(), // Generate unique ID
+        id: crypto.randomUUID(),
         user: action.payload.user,
         creation_date: formatTimestampToReadableDate(Date.now()),
         content: action.payload.content,
         order_status: OrderStatus.PENDING,
         payment_method: {
-          id: crypto.randomUUID(), // Generate unique ID
+          id: crypto.randomUUID(),
           credit_card: action.payload.credit_card,
           status: PaymentStatus.PENDING,
         },

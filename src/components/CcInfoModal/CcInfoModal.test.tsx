@@ -63,13 +63,11 @@ describe("CcInfoModal", () => {
   test("renders correctly and displays form elements", () => {
     renderComponent();
 
-    // Check for all labels
     expect(screen.getByLabelText("Credit Card Holder")).toBeInTheDocument();
     expect(screen.getByLabelText("Card Number")).toBeInTheDocument();
     expect(screen.getByLabelText("CVV")).toBeInTheDocument();
     expect(screen.getByLabelText("Expiration Date")).toBeInTheDocument();
 
-    // Check for placeholders
     expect(
       screen.getByPlaceholderText("Credit Card Holder"),
     ).toBeInTheDocument();
@@ -79,7 +77,6 @@ describe("CcInfoModal", () => {
     expect(screen.getByPlaceholderText("1234")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("MM/YY")).toBeInTheDocument();
 
-    // Check for buttons
     expect(screen.getByText("Close")).toBeInTheDocument();
     expect(screen.getByText("Save Credit Card")).toBeInTheDocument();
   });
@@ -100,7 +97,6 @@ describe("CcInfoModal", () => {
     const saveButton = screen.getByText("Save Credit Card");
     fireEvent.click(saveButton);
 
-    // Should display alert because form is incomplete
     expect(alertSpy).toHaveBeenCalledWith("Please fill up the form correctly.");
     expect(mockDispatch).not.toHaveBeenCalled();
     expect(mockOnSubmitCreditCard).not.toHaveBeenCalled();
@@ -113,18 +109,15 @@ describe("CcInfoModal", () => {
       /Card Number/i,
     ) as HTMLInputElement;
 
-    // Type 16 digits
     fireEvent.change(cardNumberInput, {
       target: { value: "1234567890123456" },
     });
-    // Should auto-format to "1234 5678 9012 3456"
     expect(cardNumberInput.value).toBe("1234 5678 9012 3456");
 
-    // If we type more than 16 digits, it should ignore the extras
     fireEvent.change(cardNumberInput, {
       target: { value: "1234567890123456789" },
     });
-    expect(cardNumberInput.value).toBe("1234 5678 9012 3456"); // still 16 digits only
+    expect(cardNumberInput.value).toBe("1234 5678 9012 3456");
   });
 
   test("maintains CVV limit of 4 digits", () => {
@@ -142,7 +135,6 @@ describe("CcInfoModal", () => {
       /Expiration Date/i,
     ) as HTMLInputElement;
 
-    // Type month
     fireEvent.change(expInput, { target: { value: "1" } });
     expect(expInput.value).toBe("1");
 
@@ -150,11 +142,9 @@ describe("CcInfoModal", () => {
     expect(expInput.value).toBe("12");
 
     fireEvent.change(expInput, { target: { value: "123" } });
-    // Should become "12/3"
     expect(expInput.value).toBe("12/3");
 
     fireEvent.change(expInput, { target: { value: "1234" } });
-    // Should become "12/34"
     expect(expInput.value).toBe("12/34");
   });
 

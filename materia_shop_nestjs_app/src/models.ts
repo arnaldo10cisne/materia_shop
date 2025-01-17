@@ -41,12 +41,12 @@ export interface CartItem {
 
 export interface OrderModel {
   id: string;
-  user_id: string; // ID de UserModel
+  user_id: string;
   address: string;
   creation_date: string;
   content: CartItem[];
   order_status: OrderStatus;
-  payment_method: PaymentModel; // ID de PaymentModel
+  payment_method: PaymentModel;
   total_order_price: number;
   acceptance_auth_token?: string;
   acceptance_token?: string;

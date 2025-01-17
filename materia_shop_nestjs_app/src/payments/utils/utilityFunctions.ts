@@ -61,7 +61,6 @@ export const getPaymentSourceId = async ({
       transactionBody,
       { headers },
     );
-    console.log('Payment source created succesfully:', response.data);
     return response.data.data.id;
   } catch (error) {
     console.error(
@@ -102,7 +101,6 @@ export const getWompiTransactionId = async ({
       transactionBody,
       { headers },
     );
-    console.log('Transaction created succesfully:', response.data);
     return response.data.data.id;
   } catch (error) {
     console.error(

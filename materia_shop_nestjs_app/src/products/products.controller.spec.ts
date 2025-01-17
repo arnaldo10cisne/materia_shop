@@ -7,7 +7,6 @@ describe('ProductsController', () => {
   let service: ProductsService;
 
   beforeEach(async () => {
-    // Create a mock of the service
     const mockProductsService = {
       findAllProducts: jest.fn(),
       findOneProduct: jest.fn(),

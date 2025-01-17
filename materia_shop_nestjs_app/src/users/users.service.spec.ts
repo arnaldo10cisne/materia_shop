@@ -6,7 +6,6 @@ import {
   GetItemCommand,
 } from '@aws-sdk/client-dynamodb';
 
-// 1) Mock DynamoDB so no real AWS calls occur
 jest.mock('@aws-sdk/client-dynamodb', () => {
   const originalModule = jest.requireActual('@aws-sdk/client-dynamodb');
   return {
@@ -24,7 +23,6 @@ describe('UsersService', () => {
   let dynamoDBClientMock: jest.Mocked<DynamoDBClient>;
 
   beforeEach(async () => {
-    // Provide an environment variable if needed
     process.env.USERS_TABLE_NAME = 'MockUsersTable';
 
     const module: TestingModule = await Test.createTestingModule({
@@ -33,7 +31,6 @@ describe('UsersService', () => {
 
     service = module.get<UsersService>(UsersService);
 
-    // Extract the mocked DynamoDBClient from the service
     dynamoDBClientMock = (service as any).dynamoDBClient;
   });
 

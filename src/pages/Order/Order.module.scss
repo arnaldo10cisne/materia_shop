@@ -8,15 +8,38 @@
   justify-content: center;
   align-items: center;
   width: 90%;
+  max-width: 1800px;
+  @include responsive-tablet {
+    width: 80%;
+  }
 }
 
 .Return {
   margin: 20px 45px;
+  @include responsive-tablet {
+    margin: 30px 50px;
+  }
+}
+
+.middleSection {
+  width: 100%;
+  @include responsive-small-desktop {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+  }
 }
 
 .UserBlueBox {
   padding-left: 45px;
   padding-bottom: 20px;
+  @include responsive-small-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-top: 100px;
+  }
 }
 
 .CreatingOrderFor {
@@ -41,6 +64,10 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   padding: 10px;
+  @include responsive-tablet {
+    font-size: 20px;
+    height: 150px;
+  }
 }
 
 .OrderDataBlueBox {
@@ -48,11 +75,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @include responsive-small-desktop {
+    padding: 100px 20px;
+  }
 }
 
 .EnterCreditCardInfo {
   margin-top: 20px;
   text-align: center;
+  @include responsive-tablet {
+    margin-top: 50px;
+  }
 }
 
 .PleaseEnterCC {
@@ -65,6 +98,9 @@
 .RemainingCharacters {
   font-size: 23px;
   color: $ligth-blue-text;
+  @include responsive-tablet {
+    font-size: 30px;
+  }
 }
 
 .RemainingCharactersWarning {

@@ -46,7 +46,7 @@ export const UserSelection = () => {
 
   return (
     <div className={classNames(styles.UserSelection)}>
-      <BlueBox>
+      <BlueBox customStyles={classNames(styles.ReturnBlueBox)}>
         <SelectableOption
           onClickHandler={handleClickReturn}
           sfxOnClick={playCancelCursorSfx}
@@ -59,7 +59,7 @@ export const UserSelection = () => {
         {isLoading ? (
           <LoadingChocobo />
         ) : (
-          <>
+          <div className={classNames(styles.userList)}>
             {characterList?.map((character: UserModel) => {
               return (
                 <SelectableOption
@@ -77,7 +77,7 @@ export const UserSelection = () => {
                 </SelectableOption>
               );
             })}
-          </>
+          </div>
         )}
       </BlueBox>
     </div>

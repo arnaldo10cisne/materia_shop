@@ -56,8 +56,6 @@ export class PaymentsService {
       newPayment.id = crypto.randomUUID();
     }
 
-    console.log('PAYMENT: ', newPayment);
-
     const integritySignature = await createIntegritySignature({
       amount_in_cents: Number(newPayment.payment_amount),
       payment_id: newPayment.id,

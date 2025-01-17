@@ -8,14 +8,12 @@ import {
 import { PaymentModel, PaymentStatus } from '../models';
 import axios from 'axios';
 
-// Utility functions to mock:
 import {
   createIntegritySignature,
   getPaymentSourceId,
   getWompiTransactionId,
 } from './utils/utilityFunctions';
 
-// 1) Mock the AWS SDK client so no real calls occur
 jest.mock('@aws-sdk/client-dynamodb', () => {
   const originalModule = jest.requireActual('@aws-sdk/client-dynamodb');
   return {
@@ -28,11 +26,9 @@ jest.mock('@aws-sdk/client-dynamodb', () => {
   };
 });
 
-// 2) Mock axios so no real HTTP calls occur
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-// 3) Mock the utility functions
 jest.mock('./utils/utilityFunctions', () => ({
   createIntegritySignature: jest.fn(),
   getPaymentSourceId: jest.fn(),
@@ -45,7 +41,7 @@ describe('PaymentsService', () => {
   let dynamoDBClientMock: jest.Mocked<DynamoDBClient>;
 
   beforeEach(async () => {
-    process.env.PAYMENTS_TABLE_NAME = 'MockPaymentsTable'; // or any test value
+    process.env.PAYMENTS_TABLE_NAME = 'MockPaymentsTable';
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [PaymentsService],
@@ -53,7 +49,6 @@ describe('PaymentsService', () => {
 
     service = module.get<PaymentsService>(PaymentsService);
 
-    // Extract the mocked DynamoDBClient from the service
     dynamoDBClientMock = (service as any).dynamoDBClient;
   });
 
@@ -90,7 +85,6 @@ describe('PaymentsService', () => {
 
   describe('waitForTransactionResult', () => {
     it('should keep polling until the transaction status is not PENDING', async () => {
-      // First response is PENDING, second is APPROVED
       mockedAxios.get
         .mockResolvedValueOnce({ data: { data: { status: 'PENDING' } } })
         .mockResolvedValueOnce({ data: { data: { status: 'APPROVED' } } });
@@ -110,18 +104,15 @@ describe('PaymentsService', () => {
 
   describe('createPayment', () => {
     beforeEach(() => {
-      // Make sure these mocks return something by default
       (createIntegritySignature as jest.Mock).mockResolvedValue('some-hash');
       (getPaymentSourceId as jest.Mock).mockResolvedValue(12345);
       (getWompiTransactionId as jest.Mock).mockResolvedValue('txn-xyz');
     });
 
     it('should generate an ID if not provided', async () => {
-      // Mock waitForTransactionResult
       jest
         .spyOn(service, 'waitForTransactionResult')
         .mockResolvedValue('APPROVED');
-      // Mock the DynamoDB put
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({});
 
       const payment: PaymentModel = {
@@ -135,7 +126,7 @@ describe('PaymentsService', () => {
       };
 
       const result = await service.createPayment(payment);
-      expect(result.id).toBeDefined(); // auto-generated
+      expect(result.id).toBeDefined();
       expect(result.payment_status).toBe(PaymentStatus.APPROVED);
       expect(result.wompiTransactionId).toBe('txn-xyz');
       expect(dynamoDBClientMock.send).toHaveBeenCalledWith(

@@ -23,7 +23,7 @@ export const ShoppingCartList = ({
     <div className={classNames(styles.ShoppingCartList)}>
       {cartContent.map((cartItem) => {
         return (
-          <>
+          <div className={classNames(styles.ProductList)}>
             <p className={classNames(styles.ProductName)}>
               <img
                 className={classNames(styles.ProductIcon)}
@@ -72,7 +72,7 @@ export const ShoppingCartList = ({
                 <p className={classNames(styles.RemoveItem)}>Remove Item</p>
               </SelectableOption>
             ) : null}
-          </>
+          </div>
         );
       })}
     </div>

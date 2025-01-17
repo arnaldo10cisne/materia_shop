@@ -134,9 +134,6 @@ const fetchData = async (url: string) => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    // throw new Error(
-    //   `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
-    // );
     console.error(
       `Error: ${response.status} - ${response.statusText}. Details: ${errorText}`,
     );
@@ -206,7 +203,6 @@ export const createOrderInBackend = async ({
     }
 
     const data = await response.json();
-    console.log("Response:", data);
     return data;
   } catch (error) {
     console.error("Error making POST request:", error);
@@ -246,7 +242,6 @@ export const getCreditCardToken = async (
   } catch (error) {
     console.error("Error making POST request:", error);
     return "ERROR";
-    // throw error;
   }
 };
 
