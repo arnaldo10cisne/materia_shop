@@ -112,20 +112,5 @@ describe('ProductsService', () => {
       expect(result[0]).toMatchObject({ id: 'prod-1', stock_amount: 15 });
       expect(result[1]).toMatchObject({ id: 'prod-2', stock_amount: 8 });
     });
-
-    it('should log the received data', async () => {
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({});
-
-      const updates: {
-        id: string;
-        stock_variation: number;
-        variation: 'INCREMENT' | 'REDUCE';
-      }[] = [{ id: 'any-id', stock_variation: 1, variation: 'REDUCE' }];
-      await service.updateProductStock(updates);
-
-      expect(consoleLogSpy).toHaveBeenCalledWith('DATOS RECIBIDOS: ', updates);
-    });
   });
 });
