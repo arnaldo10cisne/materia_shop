@@ -53,6 +53,9 @@
 .SummaryBlueBox {
   padding: 20px 20px;
   @include responsive-small-desktop {
+    padding: 20px 20px;
+  }
+  @include responsive-desktop {
     padding: 30px 100px;
   }
 }

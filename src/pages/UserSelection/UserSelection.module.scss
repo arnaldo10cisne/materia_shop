@@ -33,7 +33,9 @@
 }
 
 .userList {
+  padding-left: 8vw;
   @include responsive-small-desktop {
+    padding-left: unset;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
