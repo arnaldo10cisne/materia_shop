@@ -2,7 +2,11 @@ import cursorAcceptAudio from "../assets/sfx/Cursor-Accept.mp3";
 import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
 import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
 import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
+import cursorEquip from "../assets/sfx/Cursor-Equip.mp3";
+import addToCartSfx from "../assets/sfx/Item.mp3";
+import removeFromCartSfx from "../assets/sfx/Jump.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
+import eraseSfx from "../assets/sfx/Erase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
 import {
@@ -63,6 +67,44 @@ export const playBuzzerCursorSfx = () => {
     sfx
       .play()
       ?.catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+  }
+};
+
+export const playCursorEquipSfx = () => {
+  const sfx = new Audio(cursorEquip);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Equip sfx:", err));
+  }
+};
+
+export const playAddToCart = () => {
+  const sfx = new Audio(addToCartSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing addToCartSfx:", err));
+  }
+};
+
+export const playRemoveFromCart = () => {
+  const sfx = new Audio(removeFromCartSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing removeFromCartSfx:", err));
+  }
+};
+
+export const playErase = () => {
+  const sfx = new Audio(eraseSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx.play()?.catch((err) => console.error("Error playing eraseSfx:", err));
   }
 };
 

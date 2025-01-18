@@ -2,10 +2,7 @@ import React from "react";
 import styles from "./ShoppingCartList.module.scss";
 import classNames from "classnames";
 import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import {
-  getStylizedNumber,
-  playCancelCursorSfx,
-} from "../../utils/utilityFunctions.ts";
+import { getStylizedNumber, playErase } from "../../utils/utilityFunctions.ts";
 import { RootState } from "../../store/store.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { MATERIA_LIST } from "../../utils/constants.ts";
@@ -75,7 +72,7 @@ export const ShoppingCartList = ({
                     }),
                   );
                 }}
-                sfxOnClick={playCancelCursorSfx}
+                sfxOnClick={playErase}
                 customStyles={styles.RemoveItem}
               >
                 <p className={classNames(styles.RemoveItem)}>Remove Item</p>

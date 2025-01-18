@@ -4,10 +4,7 @@ import { render } from "../../utils/test-utils/custom-render";
 import { ShoppingCartList } from "./ShoppingCartList";
 import { useSelector, useDispatch } from "react-redux";
 import { removeCartItem } from "../../store/cartReducer";
-import {
-  getStylizedNumber,
-  playCancelCursorSfx,
-} from "../../utils/utilityFunctions";
+import { getStylizedNumber, playErase } from "../../utils/utilityFunctions";
 import { CartItem, MateriaTypes } from "../../utils/models";
 
 jest.mock("react-redux", () => {
@@ -26,7 +23,7 @@ jest.mock("../../store/cartReducer", () => ({
 
 jest.mock("../../utils/utilityFunctions", () => ({
   ...jest.requireActual("../../utils/utilityFunctions"),
-  playCancelCursorSfx: jest.fn(),
+  playErase: jest.fn(),
   getStylizedNumber: jest.fn(),
 }));
 
@@ -119,7 +116,7 @@ describe("ShoppingCartList Component", () => {
     });
     expect(mockDispatch).toHaveBeenCalledTimes(1);
 
-    expect(playCancelCursorSfx).toHaveBeenCalled();
+    expect(playErase).toHaveBeenCalled();
   });
 
   test("renders empty when there are no cart items", () => {

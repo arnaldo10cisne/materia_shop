@@ -19,6 +19,7 @@ import {
   getAcceptanceTokens,
   getCreditCardToken,
   playCancelCursorSfx,
+  playCursorEquipSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
 import { PriceSummary } from "../../components/PriceSummary/PriceSummary.tsx";
@@ -160,6 +161,7 @@ export const Summary = () => {
                       checked={hasAcceptedPolicies}
                       onChange={(event) => {
                         setHasAcceptedPolicies(event.target.checked);
+                        playCursorEquipSfx();
                       }}
                     />
                     <label
@@ -187,6 +189,7 @@ export const Summary = () => {
                       checked={hasAuthorizedData}
                       onChange={(event) => {
                         setHasAuthorizedData(event.target.checked);
+                        playCursorEquipSfx();
                       }}
                     />
                     <label

@@ -7,8 +7,10 @@ import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
 import { MATERIA_LIST } from "../../utils/constants.ts";
 import {
   getStylizedNumber,
+  playAddToCart,
   playCancelCursorSfx,
   playPurchaseSfx,
+  playRemoveFromCart,
 } from "../../utils/utilityFunctions.ts";
 import { useDispatch } from "react-redux";
 import {
@@ -122,6 +124,7 @@ export const ProductInfoModal = ({
               <SelectableOption
                 onClickHandler={handleDecreaseAmount}
                 disabled={amountInCart === 0}
+                sfxOnClick={playRemoveFromCart}
               >
                 <span className={classNames(styles.ChangeCartAmount)}>-</span>
               </SelectableOption>
@@ -131,6 +134,7 @@ export const ProductInfoModal = ({
               <SelectableOption
                 onClickHandler={handleIncreaseAmount}
                 disabled={amountInCart >= product.stock_amount}
+                sfxOnClick={playAddToCart}
               >
                 <span className={classNames(styles.ChangeCartAmount)}>+</span>
               </SelectableOption>
