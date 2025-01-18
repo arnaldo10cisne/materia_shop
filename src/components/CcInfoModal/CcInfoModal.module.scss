@@ -77,6 +77,8 @@
 .ModalBlueBox {
   padding: 20px 20px;
   padding-top: 0px;
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .SubmitButton {

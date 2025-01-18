@@ -25,7 +25,7 @@ export const CartModal = ({ onClose }: CartModalProps) => {
   return (
     <div className={classNames(styles.CartModalContainer)}>
       <div className={classNames(styles.CartModal)}>
-        <BlueBox customStyles={styles.CartModalBlueBox}>
+        <BlueBox customStyles={styles.ModalBlueBox}>
           <SelectableOption
             onClickHandler={handleCloseButtonClick}
             sfxOnClick={playCancelCursorSfx}
