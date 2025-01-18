@@ -2,7 +2,11 @@ import cursorAcceptAudio from "../assets/sfx/Cursor-Accept.mp3";
 import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
 import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
 import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
+import cursorEquip from "../assets/sfx/Cursor-Equip.mp3";
+import addToCartSfx from "../assets/sfx/Item.mp3";
+import removeFromCartSfx from "../assets/sfx/Jump.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
+import eraseSfx from "../assets/sfx/Erase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
 import {
@@ -66,6 +70,44 @@ export const playBuzzerCursorSfx = () => {
   }
 };
 
+export const playCursorEquipSfx = () => {
+  const sfx = new Audio(cursorEquip);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Equip sfx:", err));
+  }
+};
+
+export const playAddToCart = () => {
+  const sfx = new Audio(addToCartSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing addToCartSfx:", err));
+  }
+};
+
+export const playRemoveFromCart = () => {
+  const sfx = new Audio(removeFromCartSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing removeFromCartSfx:", err));
+  }
+};
+
+export const playErase = () => {
+  const sfx = new Audio(eraseSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx.play()?.catch((err) => console.error("Error playing eraseSfx:", err));
+  }
+};
+
 export const playPurchaseSfx = () => {
   const sfx = new Audio(purchaseAudio);
   sfx.volume = 0.2;
@@ -124,6 +166,25 @@ export const formatTimestampToReadableDate = (timestamp) => {
   const seconds = date.getSeconds().toString().padStart(2, "0");
 
   return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`;
+};
+
+export const getStylizedNumber = (number: string): string => {
+  const numberRegex = /^-?\d+(\.\d+)?$/;
+  if (!numberRegex.test(number)) {
+    console.error(`Failed converting '${number}' into Number type: NaN `);
+    return number;
+  }
+  const digitRegex = /^[0-9]$/;
+  let stylizedNumber = "";
+  for (const digit of number) {
+    if (digitRegex.test(digit)) {
+      const subscriptCharCode = 0x2080 + parseInt(digit);
+      stylizedNumber += String.fromCharCode(subscriptCharCode);
+    } else {
+      stylizedNumber += digit;
+    }
+  }
+  return stylizedNumber;
 };
 
 /// API CALLS UTILITIES

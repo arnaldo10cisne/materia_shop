@@ -7,12 +7,26 @@
 .infoRow {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+}
+
+.BorderTopLabel {
+  border-top: dashed 2px white;
+  margin-top: 10px;
 }
 
 .infoRow p {
   font-size: 25px;
 }
 
+.stylizedNumber {
+  font-size: 35px;
+  vertical-align: 1px;
+}
+
 .orderTotal {
   color: yellow;
+  span {
+    color: yellow;
+  }
 }

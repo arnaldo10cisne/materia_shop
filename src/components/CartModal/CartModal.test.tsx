@@ -4,7 +4,7 @@ import { render } from "../../utils/test-utils/custom-render";
 import { CartModal } from "./CartModal";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCartContent } from "../../store/cartReducer";
-import { playCancelCursorSfx } from "../../utils/utilityFunctions";
+import { playCancelCursorSfx, playErase } from "../../utils/utilityFunctions";
 import { RootState } from "../../store/store";
 
 jest.mock("react-redux", () => {
@@ -24,6 +24,7 @@ jest.mock("../../store/cartReducer", () => ({
 jest.mock("../../utils/utilityFunctions", () => ({
   ...jest.requireActual("../../utils/utilityFunctions"),
   playCancelCursorSfx: jest.fn(),
+  playErase: jest.fn(),
 }));
 
 describe("CartModal Component", () => {
@@ -104,7 +105,7 @@ describe("CartModal Component", () => {
 
     expect(clearCartContent).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith(clearCartContent());
-    expect(playCancelCursorSfx).toHaveBeenCalled();
+    expect(playErase).toHaveBeenCalled();
   });
 
   test("onClose is not called if we only click 'Empty Cart'", () => {

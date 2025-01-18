@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ShoppingCartList.module.scss";
 import classNames from "classnames";
 import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
+import { getStylizedNumber, playErase } from "../../utils/utilityFunctions.ts";
 import { RootState } from "../../store/store.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { MATERIA_LIST } from "../../utils/constants.ts";
@@ -49,10 +49,16 @@ export const ShoppingCartList = ({
             </div>
             <div className={classNames(styles.CartItemInfoRow)}>
               <p className={classNames(styles.CartItemInfoData)}>
-                {cartItem.product.price} Gil * {cartItem.amount} units
+                <span className={classNames(styles.StylizedNumber)}>
+                  {getStylizedNumber(String(cartItem.product.price))}
+                </span>
+                Gil * {cartItem.amount} units
               </p>
               <p className={classNames(styles.CartItemInfoData)}>
-                {cartItem.total_price} Gil
+                <span className={classNames(styles.StylizedNumber)}>
+                  {getStylizedNumber(String(cartItem.total_price))}
+                </span>
+                Gil
               </p>
             </div>
 
@@ -66,7 +72,7 @@ export const ShoppingCartList = ({
                     }),
                   );
                 }}
-                sfxOnClick={playCancelCursorSfx}
+                sfxOnClick={playErase}
                 customStyles={styles.RemoveItem}
               >
                 <p className={classNames(styles.RemoveItem)}>Remove Item</p>
