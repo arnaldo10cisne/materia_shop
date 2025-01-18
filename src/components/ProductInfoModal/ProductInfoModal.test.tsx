@@ -5,6 +5,7 @@ import { ProductInfoModal } from "./ProductInfoModal";
 import { useDispatch } from "react-redux";
 import { addOrUpdateCartItem, removeCartItem } from "../../store/cartReducer";
 import {
+  getStylizedNumber,
   playCancelCursorSfx,
   playPurchaseSfx,
 } from "../../utils/utilityFunctions";
@@ -28,6 +29,7 @@ jest.mock("../../utils/utilityFunctions", () => ({
   ...jest.requireActual("../../utils/utilityFunctions"),
   playCancelCursorSfx: jest.fn(),
   playPurchaseSfx: jest.fn(),
+  getStylizedNumber: jest.fn(),
 }));
 
 describe("ProductInfoModal", () => {
@@ -40,14 +42,17 @@ describe("ProductInfoModal", () => {
     name: "Potion",
     description: "Heals 100 HP",
     picture: "potion.png",
-    price: 50,
-    stock_amount: 5,
+    price: 70,
+    stock_amount: 6,
     materia_type: MateriaTypes.MAGIC,
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
     (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
+      return `${number}`;
+    });
   });
 
   test("renders nothing and calls onClose if product is null", () => {
@@ -74,11 +79,12 @@ describe("ProductInfoModal", () => {
 
     expect(screen.getByText("Potion")).toBeInTheDocument();
     expect(screen.getByText("Heals 100 HP")).toBeInTheDocument();
-    expect(screen.getByText("Price: 50 Gil")).toBeInTheDocument();
-    expect(screen.getByText("Stock: 5")).toBeInTheDocument();
+    expect(screen.getByText("70")).toBeInTheDocument();
+    expect(screen.getByText("Stock:")).toBeInTheDocument();
+    expect(screen.getByText("6")).toBeInTheDocument();
 
     expect(screen.getByText("Cart: 0")).toBeInTheDocument();
-    expect(screen.getByText("Total Price: 0 Gil")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
 
     expect(screen.getByText("Add to cart")).toBeInTheDocument();
   });
@@ -94,7 +100,7 @@ describe("ProductInfoModal", () => {
     );
 
     expect(screen.getByText("Cart: 2")).toBeInTheDocument();
-    expect(screen.getByText("Total Price: 100 Gil")).toBeInTheDocument();
+    expect(screen.getByText("140")).toBeInTheDocument();
 
     expect(screen.getByText("Update cart")).toBeInTheDocument();
   });
@@ -128,7 +134,8 @@ describe("ProductInfoModal", () => {
     fireEvent.click(incrementButton);
 
     expect(screen.getByText("Cart: 1")).toBeInTheDocument();
-    expect(screen.getByText("Total Price: 50 Gil")).toBeInTheDocument();
+
+    expect(screen.getAllByText("70")).toHaveLength(2);
   });
 
   test("decrement amount in cart when - is clicked", () => {
@@ -145,7 +152,8 @@ describe("ProductInfoModal", () => {
     fireEvent.click(decrementButton);
 
     expect(screen.getByText("Cart: 1")).toBeInTheDocument();
-    expect(screen.getByText("Total Price: 50 Gil")).toBeInTheDocument();
+
+    expect(screen.getAllByText("70")).toHaveLength(2);
   });
 
   test("does not exceed product stock amount when + is clicked", () => {
@@ -162,7 +170,8 @@ describe("ProductInfoModal", () => {
     fireEvent.click(incrementButton);
 
     expect(screen.getByText("Cart: 2")).toBeInTheDocument();
-    expect(screen.getByText("Total Price: 100 Gil")).toBeInTheDocument();
+
+    expect(screen.getByText("140")).toBeInTheDocument();
   });
 
   test("does not go below 0 when - is clicked", () => {
@@ -178,7 +187,8 @@ describe("ProductInfoModal", () => {
     fireEvent.click(decrementButton);
 
     expect(screen.getByText("Cart: 0")).toBeInTheDocument();
-    expect(screen.getByText("Total Price: 0 Gil")).toBeInTheDocument();
+
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 
   test("dispatches removeCartItem if cart amount is 0 on submit (and initialAmount > 0)", () => {

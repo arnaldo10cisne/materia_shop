@@ -98,6 +98,11 @@
   margin-left: 45px;
 }
 
+.StockNumber {
+  color: $ligth-blue-text;
+  margin: 0px 5px;
+}
+
 .ProductStockEmpty {
   color: $danger-red-text;
 }
@@ -112,4 +117,9 @@
 .inCartAmount {
   font-size: 22px;
   color: yellow;
+}
+
+.CartNumber {
+  color: yellow;
+  margin: 0px 5px;
 }

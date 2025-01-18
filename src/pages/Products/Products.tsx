@@ -11,6 +11,7 @@ import {
   disableScroll,
   enableScroll,
   getAllProducts,
+  getStylizedNumber,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CartModal } from "../../components/CartModal/CartModal.tsx";
@@ -139,19 +140,28 @@ export const Products = () => {
                           product.stock_amount <= 0 && styles.ProductStockEmpty,
                         )}
                       >
-                        Stock: {product.stock_amount}
+                        Stock:
+                        <span className={classNames(styles.StockNumber)}>
+                          {getStylizedNumber(String(product.stock_amount))}
+                        </span>
                         {cartContent.some(
                           (item) => item.product.id === product.id,
                         ) ? (
-                          <span className={classNames(styles.inCartAmount)}>
-                            {" "}
-                            - In Cart:{" "}
-                            {
-                              cartContent.find(
-                                (item) => item.product.id === product.id,
-                              )?.amount
-                            }
-                          </span>
+                          <>
+                            <span className={classNames(styles.inCartAmount)}>
+                              {" "}
+                              - In Cart:{" "}
+                            </span>
+                            <span className={classNames(styles.CartNumber)}>
+                              {getStylizedNumber(
+                                String(
+                                  cartContent.find(
+                                    (item) => item.product.id === product.id,
+                                  )?.amount,
+                                ),
+                              )}
+                            </span>
+                          </>
                         ) : null}
                       </p>
                     </div>

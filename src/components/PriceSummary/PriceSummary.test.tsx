@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { PriceSummary } from "./PriceSummary";
 import { CartItem, ProductModel, MateriaTypes } from "../../utils/models";
+import { getStylizedNumber } from "../../utils/utilityFunctions";
 
 const sampleProduct1: ProductModel = {
   id: "p1",
@@ -23,7 +24,19 @@ const sampleProduct2: ProductModel = {
   materia_type: MateriaTypes.MAGIC,
 };
 
+jest.mock("../../utils/utilityFunctions", () => ({
+  ...jest.requireActual("../../utils/utilityFunctions"),
+  getStylizedNumber: jest.fn(),
+}));
+
 describe("PriceSummary Component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
+      return `${number}`;
+    });
+  });
+
   test("renders without crashing and displays 'Price Summary' title", () => {
     render(
       <PriceSummary cart={[]} addCcFee={false} includeDeliveryFee={false} />,
@@ -44,7 +57,8 @@ describe("PriceSummary Component", () => {
       <PriceSummary cart={cart} addCcFee={false} includeDeliveryFee={false} />,
     );
 
-    expect(screen.getAllByText("500 Gil")).toHaveLength(2);
+    expect(screen.getAllByText("500")).toHaveLength(2);
+    expect(screen.getAllByText("Gil")).toHaveLength(2);
   });
 
   test("does not show credit card fee row when addCcFee is false", () => {
@@ -55,7 +69,8 @@ describe("PriceSummary Component", () => {
       <PriceSummary cart={cart} addCcFee={false} includeDeliveryFee={false} />,
     );
 
-    expect(screen.getAllByText("100 Gil")).toHaveLength(2);
+    expect(screen.getAllByText("100")).toHaveLength(2);
+    expect(screen.getAllByText("Gil")).toHaveLength(2);
 
     const ccFeeLabel = screen.queryByText("Credit Card Fee:");
     expect(ccFeeLabel).toBeNull();
@@ -69,13 +84,13 @@ describe("PriceSummary Component", () => {
       <PriceSummary cart={cart} addCcFee={true} includeDeliveryFee={false} />,
     );
 
-    expect(screen.getByText("100 Gil")).toBeInTheDocument();
+    expect(screen.getByText("100")).toBeInTheDocument();
 
     expect(screen.getByText("Credit Card Fee:")).toBeInTheDocument();
 
-    expect(screen.getByText("14 Gil")).toBeInTheDocument();
+    expect(screen.getByText("14")).toBeInTheDocument();
 
-    expect(screen.getByText("114 Gil")).toBeInTheDocument();
+    expect(screen.getByText("114")).toBeInTheDocument();
   });
 
   test("does not show delivery fee row when includeDeliveryFee is false", () => {
@@ -89,7 +104,8 @@ describe("PriceSummary Component", () => {
     const deliveryFeeLabel = screen.queryByText("Delivery Fee:");
     expect(deliveryFeeLabel).toBeNull();
 
-    expect(screen.getAllByText("200 Gil")).toHaveLength(2);
+    expect(screen.getAllByText("200")).toHaveLength(2);
+    expect(screen.getAllByText("Gil")).toHaveLength(2);
   });
 
   test("shows delivery fee row and correct final total when includeDeliveryFee is true", () => {
@@ -100,12 +116,12 @@ describe("PriceSummary Component", () => {
       <PriceSummary cart={cart} addCcFee={false} includeDeliveryFee={true} />,
     );
 
-    expect(screen.getByText("200 Gil")).toBeInTheDocument();
+    expect(screen.getByText("200")).toBeInTheDocument();
 
     expect(screen.getByText("Delivery Fee:")).toBeInTheDocument();
-    expect(screen.getByText("750 Gil")).toBeInTheDocument();
+    expect(screen.getByText("750")).toBeInTheDocument();
 
-    expect(screen.getByText("950 Gil")).toBeInTheDocument();
+    expect(screen.getByText("950")).toBeInTheDocument();
   });
 
   test("displays correct final total with both credit card fee and delivery fee", () => {
@@ -116,12 +132,12 @@ describe("PriceSummary Component", () => {
       <PriceSummary cart={cart} addCcFee={true} includeDeliveryFee={true} />,
     );
 
-    expect(screen.getByText("300 Gil")).toBeInTheDocument();
+    expect(screen.getByText("300")).toBeInTheDocument();
 
-    expect(screen.getByText("42 Gil")).toBeInTheDocument();
+    expect(screen.getByText("42")).toBeInTheDocument();
 
-    expect(screen.getByText("750 Gil")).toBeInTheDocument();
+    expect(screen.getByText("750")).toBeInTheDocument();
 
-    expect(screen.getByText("1092 Gil")).toBeInTheDocument();
+    expect(screen.getByText("1092")).toBeInTheDocument();
   });
 });

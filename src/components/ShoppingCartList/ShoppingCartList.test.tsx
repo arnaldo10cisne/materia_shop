@@ -4,7 +4,10 @@ import { render } from "../../utils/test-utils/custom-render";
 import { ShoppingCartList } from "./ShoppingCartList";
 import { useSelector, useDispatch } from "react-redux";
 import { removeCartItem } from "../../store/cartReducer";
-import { playCancelCursorSfx } from "../../utils/utilityFunctions";
+import {
+  getStylizedNumber,
+  playCancelCursorSfx,
+} from "../../utils/utilityFunctions";
 import { CartItem, MateriaTypes } from "../../utils/models";
 
 jest.mock("react-redux", () => {
@@ -24,6 +27,7 @@ jest.mock("../../store/cartReducer", () => ({
 jest.mock("../../utils/utilityFunctions", () => ({
   ...jest.requireActual("../../utils/utilityFunctions"),
   playCancelCursorSfx: jest.fn(),
+  getStylizedNumber: jest.fn(),
 }));
 
 describe("ShoppingCartList Component", () => {
@@ -36,12 +40,12 @@ describe("ShoppingCartList Component", () => {
         name: "Fire Materia",
         description: "Casts Fire",
         picture: "fire.png",
-        price: 500,
+        price: 400,
         stock_amount: 10,
         materia_type: MateriaTypes.MAGIC,
       },
       amount: 2,
-      total_price: 1000,
+      total_price: 800,
     },
     {
       product: {
@@ -53,13 +57,16 @@ describe("ShoppingCartList Component", () => {
         stock_amount: 5,
         materia_type: MateriaTypes.MAGIC,
       },
-      amount: 1,
-      total_price: 300,
+      amount: 3,
+      total_price: 900,
     },
   ];
 
   beforeEach(() => {
     jest.clearAllMocks();
+    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
+      return `${number}`;
+    });
     (useSelector as jest.Mock).mockImplementation((selectorFn) =>
       selectorFn({
         cart: {
@@ -76,11 +83,13 @@ describe("ShoppingCartList Component", () => {
     expect(screen.getByText("Fire Materia")).toBeInTheDocument();
     expect(screen.getByText("Ice Materia")).toBeInTheDocument();
 
-    expect(screen.getByText("500 Gil * 2 units")).toBeInTheDocument();
-    expect(screen.getByText("1000 Gil")).toBeInTheDocument();
+    expect(screen.getByText("400")).toBeInTheDocument();
+    expect(screen.getByText("Gil * 2 units")).toBeInTheDocument();
+    expect(screen.getByText("800")).toBeInTheDocument();
 
-    expect(screen.getByText("300 Gil * 1 units")).toBeInTheDocument();
-    expect(screen.getByText("300 Gil")).toBeInTheDocument();
+    expect(screen.getByText("300")).toBeInTheDocument();
+    expect(screen.getByText("Gil * 3 units")).toBeInTheDocument();
+    expect(screen.getByText("900")).toBeInTheDocument();
   });
 
   test("does not render remove button by default", () => {

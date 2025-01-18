@@ -126,6 +126,25 @@ export const formatTimestampToReadableDate = (timestamp) => {
   return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`;
 };
 
+export const getStylizedNumber = (number: string): string => {
+  const numberRegex = /^-?\d+(\.\d+)?$/;
+  if (!numberRegex.test(number)) {
+    console.error(`Failed converting '${number}' into Number type: NaN `);
+    return number;
+  }
+  const digitRegex = /^[0-9]$/;
+  let stylizedNumber = "";
+  for (const digit of number) {
+    if (digitRegex.test(digit)) {
+      const subscriptCharCode = 0x2080 + parseInt(digit);
+      stylizedNumber += String.fromCharCode(subscriptCharCode);
+    } else {
+      stylizedNumber += digit;
+    }
+  }
+  return stylizedNumber;
+};
+
 /// API CALLS UTILITIES
 
 // Reusable fetch handler
