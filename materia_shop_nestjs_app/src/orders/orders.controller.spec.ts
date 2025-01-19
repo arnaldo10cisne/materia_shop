@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrdersController } from './orders.controller';
-import { OrdersService } from './orders.service';
+import { OrdersService, createOrderParams } from './orders.service';
 import { OrderModel, OrderStatus } from '../models';
 
 describe('OrdersController', () => {
@@ -8,6 +8,7 @@ describe('OrdersController', () => {
   let service: OrdersService;
 
   beforeEach(async () => {
+    // Create a mock OrdersService
     const mockOrdersService = {
       getAllOrders: jest.fn(),
       getOneOrder: jest.fn(),
@@ -40,10 +41,10 @@ describe('OrdersController', () => {
           id: 'order-1',
           user_id: 'user-1',
           address: '123 Main St',
-          creation_date: '02/28',
+          creation_date: '2025-01-01',
           content: [],
           order_status: OrderStatus.PENDING,
-          payment_method: null,
+          payment_id: 'payment-1',
           total_order_price: 1000,
         },
       ];
@@ -63,10 +64,10 @@ describe('OrdersController', () => {
         id: mockId,
         user_id: 'user-1',
         address: '123 Main St',
-        creation_date: '02/28',
+        creation_date: '2025-01-01',
         content: [],
         order_status: OrderStatus.PENDING,
-        payment_method: null,
+        payment_id: 'payment-123',
         total_order_price: 1000,
       };
 
@@ -80,22 +81,38 @@ describe('OrdersController', () => {
 
   describe('createOrder', () => {
     it('should call OrdersService.createOrder with the correct data and return the created order', async () => {
-      const newOrder: OrderModel = {
+      // This is what the controller receives:
+      const newOrderParams: createOrderParams = {
+        id: '',
+        user_id: 'user-2',
+        acceptance_token: 'accept-token-123',
+        acceptance_auth_token: 'auth-token-456',
+        address: '456 Another St',
+        content: [],
+        creation_date: '2025-01-02',
+        order_status: OrderStatus.PENDING,
+        total_order_price: 2000,
+        customer_email: 'user2@example.com',
+        tokenized_credit_card: 'tok-abc123',
+      };
+
+      // This is the OrderModel the service will return:
+      const createdOrder: OrderModel = {
         id: 'order-2',
         user_id: 'user-2',
+        payment_id: 'payment-xyz',
         address: '456 Another St',
-        creation_date: '02/28',
+        creation_date: '2025-01-02',
         content: [],
-        order_status: OrderStatus.PENDING,
-        payment_method: null,
+        order_status: OrderStatus.COMPLETED,
         total_order_price: 2000,
       };
 
-      jest.spyOn(service, 'createOrder').mockResolvedValueOnce(newOrder);
+      jest.spyOn(service, 'createOrder').mockResolvedValueOnce(createdOrder);
 
-      const result = await controller.createOrder(newOrder);
-      expect(service.createOrder).toHaveBeenCalledWith(newOrder);
-      expect(result).toEqual(newOrder);
+      const result = await controller.createOrder(newOrderParams);
+      expect(service.createOrder).toHaveBeenCalledWith(newOrderParams);
+      expect(result).toEqual(createdOrder);
     });
   });
 
@@ -106,11 +123,11 @@ describe('OrdersController', () => {
       const updatedOrder: OrderModel = {
         id: mockId,
         user_id: 'user-3',
-        address: updatedData.address,
-        creation_date: '02/28',
+        address: 'New address',
+        creation_date: '2025-01-03',
         content: [],
         order_status: OrderStatus.PENDING,
-        payment_method: null,
+        payment_id: 'payment-3',
         total_order_price: 3000,
       };
 

@@ -1,18 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PaymentsService } from './payments.service';
+import { PaymentsService, createPaymentParams } from './payments.service';
 import {
   DynamoDBClient,
   GetItemCommand,
   PutItemCommand,
 } from '@aws-sdk/client-dynamodb';
-import { PaymentModel, PaymentStatus } from '../models';
 import axios from 'axios';
-
 import {
   createIntegritySignature,
   getPaymentSourceId,
   getWompiTransactionId,
 } from './utils/utilityFunctions';
+import { PaymentMethods, PaymentModel, PaymentStatus } from '../models';
 
 jest.mock('@aws-sdk/client-dynamodb', () => {
   const originalModule = jest.requireActual('@aws-sdk/client-dynamodb');
@@ -42,13 +41,12 @@ describe('PaymentsService', () => {
 
   beforeEach(async () => {
     process.env.PAYMENTS_TABLE_NAME = 'MockPaymentsTable';
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [PaymentsService],
     }).compile();
 
     service = module.get<PaymentsService>(PaymentsService);
-
+    // Cast to any to access the private client
     dynamoDBClientMock = (service as any).dynamoDBClient;
   });
 
@@ -103,53 +101,80 @@ describe('PaymentsService', () => {
   });
 
   describe('createPayment', () => {
+    let requestBody: createPaymentParams;
+
     beforeEach(() => {
+      // Default mock request body
+      requestBody = {
+        payment_amount: '10000', // Keep as string if your service expects string, or adapt as needed
+        tokenized_credit_card: 'test-tokenized',
+        acceptance_token: 'test-acceptance',
+        acceptance_auth_token: 'test-acceptance-auth',
+        customer_email: 'test@example.com',
+        order_id: 'order-123',
+        payment_method: PaymentMethods.CARD,
+      };
+
       (createIntegritySignature as jest.Mock).mockResolvedValue('some-hash');
       (getPaymentSourceId as jest.Mock).mockResolvedValue(12345);
       (getWompiTransactionId as jest.Mock).mockResolvedValue('txn-xyz');
     });
 
-    it('should generate an ID if not provided', async () => {
+    it('should create a payment and store it in DynamoDB', async () => {
+      // Mock PutItem success
+      (dynamoDBClientMock.send as jest.Mock).mockResolvedValueOnce({});
+      // Mock final transaction status
       jest
         .spyOn(service, 'waitForTransactionResult')
-        .mockResolvedValue('APPROVED');
-      (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({});
+        .mockResolvedValueOnce('APPROVED');
 
-      const payment: PaymentModel = {
-        id: '',
-        tokenized_credit_card: 'tok-abc',
+      const result = await service.createPayment(requestBody);
+
+      // Verifications: utility functions
+      expect(createIntegritySignature).toHaveBeenCalledWith({
+        amount_in_cents: Number(requestBody.payment_amount),
+        payment_id: expect.any(String), // the generated UUID
+      });
+      expect(getPaymentSourceId).toHaveBeenCalledWith({
+        tokenized_credit_card: 'test-tokenized',
+        acceptance_token: 'test-acceptance',
+        acceptance_auth_token: 'test-acceptance-auth',
         customer_email: 'test@example.com',
-        payment_amount: '5000',
-        payment_status: PaymentStatus.PENDING,
-        acceptance_token: 'abc',
-        acceptance_auth_token: 'def',
-      };
+      });
+      expect(getWompiTransactionId).toHaveBeenCalledWith({
+        amount_in_cents: Number(requestBody.payment_amount),
+        customer_email: 'test@example.com',
+        reference: expect.any(String),
+        payment_source_id: 12345,
+        integritySignature: 'some-hash',
+      });
+      expect(service.waitForTransactionResult).toHaveBeenCalledWith('txn-xyz');
 
-      const result = await service.createPayment(payment);
+      // Verify final PaymentModel
+      expect(result).toMatchObject<Partial<PaymentModel>>({
+        order_id: 'order-123',
+        payment_method: PaymentMethods.CARD,
+        payment_status: PaymentStatus.APPROVED,
+        tokenized_credit_card: 'test-tokenized',
+        wompi_transaction_id: 'txn-xyz',
+      });
+      // The ID should be generated
       expect(result.id).toBeDefined();
-      expect(result.payment_status).toBe(PaymentStatus.APPROVED);
-      expect(result.wompiTransactionId).toBe('txn-xyz');
+
+      // Confirm we wrote it to DynamoDB
       expect(dynamoDBClientMock.send).toHaveBeenCalledWith(
         expect.any(PutItemCommand),
       );
     });
 
-    it('should keep the existing ID if already provided', async () => {
+    it('should handle a non-PENDING final status (e.g., DECLINED)', async () => {
+      // Suppose the final transaction is DECLINED
       jest
         .spyOn(service, 'waitForTransactionResult')
-        .mockResolvedValue('DECLINED');
+        .mockResolvedValueOnce('DECLINED');
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({});
 
-      const payment: PaymentModel = {
-        id: 'existing-id',
-        tokenized_credit_card: 'tok-xyz',
-        customer_email: 'some@example.com',
-        payment_amount: '1000',
-        payment_status: PaymentStatus.PENDING,
-      };
-
-      const result = await service.createPayment(payment);
-      expect(result.id).toBe('existing-id');
+      const result = await service.createPayment(requestBody);
       expect(result.payment_status).toBe('DECLINED');
     });
   });

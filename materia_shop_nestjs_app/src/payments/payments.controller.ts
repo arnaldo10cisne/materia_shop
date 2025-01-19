@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PaymentModel } from 'src/models';
-import { PaymentsService } from './payments.service';
+import { createPaymentParams, PaymentsService } from './payments.service';
 
 @Controller('payments')
 export class PaymentsController {
@@ -12,7 +12,7 @@ export class PaymentsController {
   }
 
   @Post()
-  createOrder(@Body() newPayment: PaymentModel) {
+  createOrder(@Body() newPayment: createPaymentParams) {
     return this.paymentsService.createPayment(newPayment);
   }
 }
