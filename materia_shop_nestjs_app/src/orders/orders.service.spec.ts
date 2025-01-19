@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrdersService } from './orders.service';
+import { OrdersService, createOrderParams } from './orders.service';
 import {
   DynamoDBClient,
   ScanCommand,
@@ -8,8 +8,15 @@ import {
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import axios from 'axios';
-import { OrderModel, OrderStatus, PaymentStatus } from '../models';
 import { marshall } from '@aws-sdk/util-dynamodb';
+import {
+  CartItem,
+  OrderModel,
+  OrderStatus,
+  PaymentStatus,
+  PaymentMethods,
+  PaymentModel,
+} from '../models';
 
 jest.mock('@aws-sdk/client-dynamodb', () => {
   const originalModule = jest.requireActual('@aws-sdk/client-dynamodb');
@@ -39,7 +46,7 @@ describe('OrdersService', () => {
     }).compile();
 
     service = module.get<OrdersService>(OrdersService);
-
+    // Cast to `any` to access the private `dynamoDBClient`
     dynamoDBClientMock = (service as any).dynamoDBClient;
   });
 
@@ -52,7 +59,7 @@ describe('OrdersService', () => {
   });
 
   describe('getAllOrders', () => {
-    it('should return an empty array if no items are in the table', async () => {
+    it('should return an empty array if no items are found', async () => {
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValueOnce({
         Items: [],
       });
@@ -103,48 +110,69 @@ describe('OrdersService', () => {
   });
 
   describe('createRelatedPayment', () => {
-    it('should call axios.post with the correct payload and return response data', async () => {
-      mockedAxios.post.mockResolvedValueOnce({
-        data: { success: true, wompiTransactionId: 'abc123' },
-      });
+    it('should call axios.post with the correct payload and return the response data', async () => {
+      // Mock server response for a created Payment
+      const mockPaymentResponse: PaymentModel = {
+        id: 'payment-xyz',
+        tokenized_credit_card: 'tok-abc',
+        payment_status: PaymentStatus.APPROVED,
+        payment_method: PaymentMethods.CARD,
+        wompi_transaction_id: 'wompi-123',
+      };
+      mockedAxios.post.mockResolvedValueOnce({ data: mockPaymentResponse });
 
-      const mockOrder: OrderModel = {
+      // Create an object matching createOrderParams
+      const mockOrderParams: createOrderParams = {
         id: 'order-1',
         user_id: 'user-1',
-        address: 'Mock Address',
-        creation_date: '02/28',
+        acceptance_token: 'acceptance-foo',
+        acceptance_auth_token: 'acceptance-auth-bar',
+        address: '123 Main St',
         content: [],
+        creation_date: '2025-01-01',
         order_status: OrderStatus.PENDING,
-        payment_method: {
-          id: 'pay-1',
-          tokenized_credit_card: 'tok-abc',
-          payment_status: PaymentStatus.PENDING,
-          customer_email: 'test@example.com',
-          payment_amount: '1000',
-          order: null,
-        },
         total_order_price: 1000,
+        customer_email: 'test@example.com',
+        tokenized_credit_card: 'tok-abc',
       };
 
-      const result = await service.createRelatedPayment(mockOrder);
-      expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+      const result = await service.createRelatedPayment(mockOrderParams);
+
+      // If your code sends payment_amount as a string, update to expect '1000'
+      // If your code sends it as a number, expect 1000
       expect(mockedAxios.post).toHaveBeenCalledWith(
         'http://mock-api.local/payments',
         expect.objectContaining({
-          id: 'pay-1',
+          payment_amount: 1000, // or '1000' depending on your actual service code
           tokenized_credit_card: 'tok-abc',
-          payment_amount: 1000,
+          acceptance_token: 'acceptance-foo',
+          acceptance_auth_token: 'acceptance-auth-bar',
+          customer_email: 'test@example.com',
+          order_id: 'order-1',
+          payment_method: PaymentMethods.CARD,
         }),
       );
-      expect(result).toEqual({ success: true, wompiTransactionId: 'abc123' });
+      expect(result).toEqual(mockPaymentResponse);
     });
 
-    it('should log an error if the request fails and return undefined', async () => {
+    it('should log an error and return undefined if the request fails', async () => {
       mockedAxios.post.mockRejectedValueOnce(new Error('Network Error'));
-
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
-      const result = await service.createRelatedPayment({} as any);
+      const result = await service.createRelatedPayment({
+        // minimal object to satisfy createOrderParams
+        id: 'order-1',
+        user_id: 'user-1',
+        acceptance_token: 'abc',
+        acceptance_auth_token: 'xyz',
+        address: 'Some Address',
+        content: [],
+        creation_date: '2025-01-01',
+        order_status: OrderStatus.PENDING,
+        total_order_price: 100,
+        customer_email: 'fail@example.com',
+        tokenized_credit_card: 'tok-fail',
+      });
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         'Error making POST request in /payments:',
         expect.any(Error),
@@ -157,12 +185,13 @@ describe('OrdersService', () => {
     it('should patch products with the correct data', async () => {
       mockedAxios.patch.mockResolvedValueOnce({ data: { updated: true } });
 
-      const mockCartItems = [
-        { id: 'item-1', product: 'prod-1', amount: 2 },
-        { id: 'item-2', product: 'prod-2', amount: 3 },
+      const cartItems: CartItem[] = [
+        { id: 'cart-1', product: 'prod-1', amount: 2 },
+        { id: 'cart-2', product: 'prod-2', amount: 3 },
       ];
 
-      await service.updateStock(mockCartItems);
+      await service.updateStock(cartItems);
+
       expect(mockedAxios.patch).toHaveBeenCalledWith(
         'http://mock-api.local/products',
         [
@@ -176,7 +205,9 @@ describe('OrdersService', () => {
       mockedAxios.patch.mockRejectedValueOnce(new Error('Patch Error'));
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
-      await service.updateStock([]);
+      await service.updateStock([
+        { id: 'cart-1', product: 'prod-1', amount: 2 },
+      ]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         'Error making PATCH request in /products:',
         expect.any(Error),
@@ -185,96 +216,130 @@ describe('OrdersService', () => {
   });
 
   describe('createOrder', () => {
-    it('should generate a UUID if newOrder.id is not provided', async () => {
-      mockedAxios.post.mockResolvedValueOnce({
+    it('should generate a UUID if requestBody.id is not provided and payment is approved', async () => {
+      // Payment is approved
+      const mockPayment: PaymentModel = {
+        id: 'payment-xyz',
+        tokenized_credit_card: 'tok-abc',
         payment_status: PaymentStatus.APPROVED,
-        wompiTransactionId: '123456789',
-      });
+        payment_method: PaymentMethods.CARD,
+        wompi_transaction_id: 'wompi-123',
+      };
+      mockedAxios.post.mockResolvedValueOnce({ data: mockPayment });
+
+      // Mock the DB put call
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({});
 
-      const newOrder: OrderModel = {
-        id: '',
-        user_id: 'user-X',
-        address: 'Some Address',
-        creation_date: '02/28',
-        content: [],
+      const newOrderParams: createOrderParams = {
+        id: '', // intentionally empty to trigger UUID generation
+        user_id: 'user-1',
+        acceptance_token: 'accept-123',
+        acceptance_auth_token: 'auth-123',
+        address: '789 New Road',
+        content: [{ id: 'cart-1', product: 'prod-123', amount: 1 }],
+        creation_date: '2025-01-02',
         order_status: OrderStatus.PENDING,
-        payment_method: {
-          id: 'pay-123',
-          tokenized_credit_card: 'tok-123',
-          payment_status: PaymentStatus.PENDING,
-          customer_email: 'email@example.com',
-          payment_amount: '1000',
-          order: null,
-        },
-        total_order_price: 1000,
+        total_order_price: 500,
+        customer_email: 'approved@example.com',
+        tokenized_credit_card: 'tok-abc',
       };
 
-      const createdOrder = await service.createOrder(newOrder);
-      expect(createdOrder.id).toBeDefined();
+      const createdOrder = await service.createOrder(newOrderParams);
+
+      // Expect a new UUID, so just check it's not empty
+      expect(createdOrder.id).toBeTruthy();
+      expect(createdOrder.order_status).toBe(OrderStatus.COMPLETED);
+      expect(createdOrder.payment_id).toBe('payment-xyz');
+      expect(mockedAxios.patch).toHaveBeenCalledTimes(1); // stock updated
+
+      // Confirm the order got saved to DynamoDB
       expect(dynamoDBClientMock.send).toHaveBeenCalledWith(
         expect.any(PutItemCommand),
       );
     });
 
-    it('should set order_status to FAILED if the payment is not APPROVED', async () => {
-      mockedAxios.post.mockResolvedValueOnce({
-        data: { payment_status: PaymentStatus.FAILED },
-      });
+    it('should set order_status to FAILED if the payment is not approved', async () => {
+      // Payment fails
+      const mockPayment: PaymentModel = {
+        id: 'payment-fail',
+        tokenized_credit_card: 'tok-xxx',
+        payment_status: PaymentStatus.FAILED,
+        payment_method: PaymentMethods.CARD,
+      };
+      mockedAxios.post.mockResolvedValueOnce({ data: mockPayment });
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValue({});
 
-      const orderWithoutId: OrderModel = {
-        user_id: 'user-X',
-        address: 'Another Address',
-        creation_date: '02/28',
-        content: [],
+      const newOrderParams: createOrderParams = {
+        id: 'order-fail',
+        user_id: 'user-fail',
+        acceptance_token: 'accept-fail',
+        acceptance_auth_token: 'auth-fail',
+        address: 'No Stock Rd',
+        content: [{ id: 'cart-1', product: 'prod-999', amount: 1 }],
+        creation_date: '2025-01-03',
         order_status: OrderStatus.PENDING,
-        payment_method: {
-          id: 'pay-456',
-          tokenized_credit_card: 'tok-456',
-          payment_status: PaymentStatus.PENDING,
-          customer_email: 'test@example.com',
-          payment_amount: '2000',
-          order: null,
-        },
-        total_order_price: 2000,
-      } as any;
+        total_order_price: 1000,
+        customer_email: 'fail@example.com',
+        tokenized_credit_card: 'tok-xxx',
+      };
 
-      const createdOrder = await service.createOrder(orderWithoutId);
+      const createdOrder = await service.createOrder(newOrderParams);
+
+      expect(createdOrder.id).toBe('order-fail');
       expect(createdOrder.order_status).toBe(OrderStatus.FAILED);
+      expect(createdOrder.payment_id).toBe('payment-fail');
+
+      // Should NOT update the stock if payment fails
+      expect(mockedAxios.patch).not.toHaveBeenCalled();
+
+      // Confirm the order got saved with FAILED status
+      expect(dynamoDBClientMock.send).toHaveBeenCalledWith(
+        expect.any(PutItemCommand),
+      );
     });
   });
 
   describe('updateOrder', () => {
     it('should update the provided fields and return the updated order', async () => {
+      // Mock the DB update
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValueOnce({
         Attributes: marshall({
           id: 'order-123',
-          address: 'New Address',
-          order_status: 'PENDING',
+          address: 'Updated Address',
+          order_status: OrderStatus.PENDING,
+          payment_id: 'payment-123',
+          user_id: 'user-123',
+          creation_date: '2025-01-01',
+          content: [],
+          total_order_price: 999,
         }),
       });
 
-      const updatedData = { address: 'New Address' };
-      const result = await service.updateOrder('order-123', updatedData);
+      const partialUpdate: Partial<OrderModel> = {
+        address: 'Updated Address',
+      };
+
+      const result = await service.updateOrder('order-123', partialUpdate);
+
       expect(dynamoDBClientMock.send).toHaveBeenCalledWith(
         expect.any(UpdateItemCommand),
       );
       expect(result).toEqual(
         expect.objectContaining({
           id: 'order-123',
-          address: 'New Address',
+          address: 'Updated Address',
+          order_status: 'PENDING',
         }),
       );
     });
 
-    it('should return null if no attributes are returned', async () => {
+    it('should return null if no attributes are returned after update', async () => {
       (dynamoDBClientMock.send as jest.Mock).mockResolvedValueOnce({
         Attributes: undefined,
       });
 
       const result = await service.updateOrder('non-existent', {
-        address: '123',
+        address: 'No Address',
       });
       expect(result).toBeNull();
     });
