@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { OrderModel } from 'src/models';
-import { OrdersService } from './orders.service';
+import { createOrderParams, OrdersService } from './orders.service';
 
 @Controller('orders')
 export class OrdersController {
@@ -17,8 +17,8 @@ export class OrdersController {
   }
 
   @Post()
-  createOrder(@Body() newOrder: OrderModel) {
-    return this.ordersService.createOrder(newOrder);
+  createOrder(@Body() requestBody: createOrderParams) {
+    return this.ordersService.createOrder(requestBody);
   }
 
   @Patch(':id')

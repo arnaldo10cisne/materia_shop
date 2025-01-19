@@ -14,7 +14,6 @@ import {
   CreditCardModel,
   OrderModel,
   OrderStatus,
-  PaymentStatus,
 } from "./models.ts";
 import {
   API_ADDRESS,
@@ -212,29 +211,27 @@ export const getAllProducts = async () => {
 };
 
 interface CreatedOrderModel {
+  order_id: string;
   content: [];
   user_id: string;
-  payment_method: {
-    id: string;
-    tokenized_credit_card: string;
-    payment_status: PaymentStatus;
-    order: string;
-    customer_email: string;
-  };
   total_order_price: number;
   address: string;
   acceptance_auth_token: string;
   acceptance_token: string;
+  customer_email: string;
+  tokenized_credit_card: string;
 }
 
 export const createOrderInBackend = async ({
+  order_id,
   user_id,
   content,
-  payment_method,
   total_order_price,
   address,
   acceptance_auth_token,
   acceptance_token,
+  customer_email,
+  tokenized_credit_card,
 }: CreatedOrderModel): Promise<OrderModel | null> => {
   try {
     const response = await fetch(`${API_ADDRESS}/orders`, {
@@ -243,15 +240,17 @@ export const createOrderInBackend = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content,
-        order_status: OrderStatus.PENDING,
-        user_id,
-        payment_method,
-        total_order_price,
-        address,
+        id: order_id,
+        user_id: user_id,
+        acceptance_token: acceptance_token,
+        acceptance_auth_token: acceptance_auth_token,
+        address: address,
+        content: content,
         creation_date: formatTimestampToReadableDate(Date.now()),
-        acceptance_auth_token,
-        acceptance_token,
+        order_status: OrderStatus.PENDING,
+        total_order_price: total_order_price,
+        customer_email: customer_email,
+        tokenized_credit_card: tokenized_credit_card,
       }),
     });
 

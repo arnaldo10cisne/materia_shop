@@ -11,6 +11,10 @@ export enum PaymentStatus {
   FAILED = 'FAILED',
 }
 
+export enum PaymentMethods {
+  CARD = 'CARD',
+}
+
 export enum CreditCardCompany {
   VISA = 'VISA',
   MASTER_CARD = 'MASTER_CARD',
@@ -42,11 +46,11 @@ export interface CartItem {
 export interface OrderModel {
   id: string;
   user_id: string;
+  payment_id: string;
   address: string;
   creation_date: string;
   content: CartItem[];
   order_status: OrderStatus;
-  payment_method: PaymentModel;
   total_order_price: number;
   acceptance_auth_token?: string;
   acceptance_token?: string;
@@ -62,10 +66,7 @@ export interface PaymentModel {
   id: string;
   tokenized_credit_card: string;
   payment_status: PaymentStatus;
-  customer_email: string;
-  payment_amount: string;
-  order?: string;
-  wompiTransactionId?: string;
-  acceptance_auth_token?: string;
-  acceptance_token?: string;
+  order_id?: string;
+  payment_method: PaymentMethods;
+  wompi_transaction_id?: string;
 }
