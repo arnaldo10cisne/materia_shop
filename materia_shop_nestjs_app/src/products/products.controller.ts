@@ -10,13 +10,18 @@ export class ProductsController {
     return this.productsService.findAllProducts();
   }
 
+  @Get('restock')
+  restockProducts() {
+    return this.productsService.restockProducts();
+  }
+
   @Get(':id')
   findOneProduct(@Param('id') id: string) {
     return this.productsService.findOneProduct(id);
   }
 
   @Patch()
-  async updateProducts(
+  updateProducts(
     @Body()
     updates: {
       id: string;

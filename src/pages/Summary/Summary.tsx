@@ -88,7 +88,12 @@ export const Summary = () => {
 
   return (
     <>
-      {waitingForPayment ? <WaitingModal /> : null}
+      {waitingForPayment ? (
+        <WaitingModal
+          title="Your payment is being processed."
+          description="Our chocobos can hardly contain their excitement as they prepare to deliver your shiny new Materia!"
+        />
+      ) : null}
       <div className={classNames(styles.Summary)}>
         <BlueBox>
           <SelectableOption

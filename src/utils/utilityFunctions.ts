@@ -210,6 +210,10 @@ export const getAllProducts = async () => {
   return await fetchData(`${API_ADDRESS}/products`);
 };
 
+export const restockProducts = async () => {
+  return await fetchData(`${API_ADDRESS}/products/restock`);
+};
+
 interface CreatedOrderModel {
   order_id: string;
   content: [];

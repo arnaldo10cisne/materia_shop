@@ -7,6 +7,7 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import 'dotenv/config';
+import { ProductModel } from 'src/models';
 
 @Injectable()
 export class ProductsService {
@@ -63,5 +64,29 @@ export class ProductsService {
     }
 
     return updatedItems;
+  }
+
+  async restockProducts() {
+    const command = new ScanCommand({ TableName: this.table_name });
+    const response = await this.dynamoDBClient.send(command);
+    const list_of_products: ProductModel[] = response.Items.map((item) =>
+      unmarshall(item),
+    ) as ProductModel[];
+    for (const product of list_of_products) {
+      const key = marshall({ id: product.id });
+      const updateCommand = new UpdateItemCommand({
+        TableName: this.table_name,
+        Key: key,
+        UpdateExpression: 'SET stock_amount = :newStock',
+        ExpressionAttributeValues: marshall({
+          ':newStock': 20,
+        }),
+        ReturnValues: 'ALL_NEW',
+      });
+      await this.dynamoDBClient.send(updateCommand);
+    }
+    return {
+      message: 'Products restocked succesfully!',
+    };
   }
 }
