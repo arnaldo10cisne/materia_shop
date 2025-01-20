@@ -29,10 +29,12 @@
   margin-top: 20px;
 }
 
-.CartModalBlueBox {
+.ModalBlueBox {
   padding-left: 30px;
   padding-right: 20px;
   padding-bottom: 20px;
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .CloseModal {

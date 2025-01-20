@@ -11,7 +11,9 @@ import {
   disableScroll,
   enableScroll,
   getAllProducts,
+  getStylizedNumber,
   playCancelCursorSfx,
+  restockProducts,
 } from "../../utils/utilityFunctions.ts";
 import { CartModal } from "../../components/CartModal/CartModal.tsx";
 import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
@@ -19,10 +21,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
 import { useQuery } from "react-query";
 import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
+import { WaitingModal } from "../../components/WaitingModal/WaitingModal.tsx";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);
   const [openCartModal, setOpenCartModal] = useState<boolean>(false);
+  const [waitingForRestock, setWaitingForRestock] = useState(false);
   const [productInModal, setProductInModal] = useState<ProductModel | null>(
     null,
   );
@@ -34,7 +38,11 @@ export const Products = () => {
 
   const cartContent = useSelector((state: RootState) => state.cart.currentCart);
 
-  const { data: productsList, isLoading } = useQuery<ProductModel[]>(
+  const {
+    data: productsList,
+    isLoading,
+    refetch: refetchProductList,
+  } = useQuery<ProductModel[]>(
     ["Products", "product_list"],
     () => getAllProducts(),
     {
@@ -50,12 +58,27 @@ export const Products = () => {
     navigate("/order");
   };
 
+  const handleRestockMateria = async () => {
+    setWaitingForRestock(true);
+    await restockProducts();
+    refetchProductList();
+    setWaitingForRestock(false);
+  };
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartContent));
   }, [cartContent]);
 
   return (
     <>
+      {waitingForRestock ? (
+        <WaitingModal
+          title="We are restocking our Materia."
+          description="Our chocobos are gathering the Materia from the Moogle Market!"
+          play_song={false}
+          show_gif={false}
+        />
+      ) : null}
       {openProductModal ? (
         <ProductInfoModal
           product={productInModal}
@@ -114,50 +137,79 @@ export const Products = () => {
             {isLoading ? (
               <LoadingChocobo />
             ) : (
-              <div className={classNames(styles.ProductList)}>
-                {productsList?.map((product: ProductModel) => {
-                  return (
-                    <div>
-                      <SelectableOption
-                        key={product.id}
-                        onClickHandler={() => {
-                          setProductInModal(product);
-                          setOpenProductModal(true);
-                          disableScroll();
-                        }}
-                        icon={MATERIA_LIST.find((materia: MateriaIconModel) => {
-                          return materia.type === product.materia_type;
-                        })}
-                        disabled={product.stock_amount <= 0}
-                        customStyles={styles.ProductItem}
-                      >
-                        {product.name}
-                      </SelectableOption>
-                      <p
-                        className={classNames(
-                          styles.ProductStock,
-                          product.stock_amount <= 0 && styles.ProductStockEmpty,
-                        )}
-                      >
-                        Stock: {product.stock_amount}
-                        {cartContent.some(
-                          (item) => item.product.id === product.id,
-                        ) ? (
-                          <span className={classNames(styles.inCartAmount)}>
-                            {" "}
-                            - In Cart:{" "}
-                            {
-                              cartContent.find(
-                                (item) => item.product.id === product.id,
-                              )?.amount
-                            }
+              <>
+                <div>
+                  <SelectableOption
+                    onClickHandler={handleRestockMateria}
+                    customStyles={styles.RestockMateria}
+                  >
+                    Restock Materia
+                  </SelectableOption>
+                </div>
+                <div className={classNames(styles.ProductList)}>
+                  {productsList?.map((product: ProductModel) => {
+                    return (
+                      <div>
+                        <SelectableOption
+                          key={product.id}
+                          onClickHandler={() => {
+                            setProductInModal(product);
+                            setOpenProductModal(true);
+                            disableScroll();
+                          }}
+                          icon={MATERIA_LIST.find(
+                            (materia: MateriaIconModel) => {
+                              return materia.type === product.materia_type;
+                            },
+                          )}
+                          disabled={product.stock_amount <= 0}
+                          customStyles={styles.ProductItem}
+                        >
+                          {product.name}
+                        </SelectableOption>
+                        <p
+                          className={classNames(
+                            styles.ProductStock,
+                            product.stock_amount <= 0 &&
+                              styles.ProductStockEmpty,
+                          )}
+                        >
+                          Stock:
+                          <span
+                            className={classNames(
+                              styles.StockNumber,
+                              product.stock_amount <= 0
+                                ? styles.ProductStockEmpty
+                                : null,
+                            )}
+                          >
+                            {getStylizedNumber(String(product.stock_amount))}
                           </span>
-                        ) : null}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+                          {cartContent.some(
+                            (item) => item.product.id === product.id,
+                          ) ? (
+                            <>
+                              <span className={classNames(styles.inCartAmount)}>
+                                {" "}
+                                - In Cart:{" "}
+                              </span>
+                              <span className={classNames(styles.CartNumber)}>
+                                {getStylizedNumber(
+                                  String(
+                                    cartContent.find(
+                                      (item) => item.product.id === product.id,
+                                    )?.amount,
+                                  ),
+                                )}
+                              </span>
+                            </>
+                          ) : null}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
             )}
           </BlueBox>
         </div>

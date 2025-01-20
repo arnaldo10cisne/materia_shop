@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import {
   disableScroll,
+  getStylizedNumber,
   playCancelCursorSfx,
 } from "../../utils/utilityFunctions";
 import { RootState } from "../../store/store";
@@ -16,26 +17,21 @@ jest.mock("react-query", () => ({
   ...jest.requireActual("react-query"),
   useQuery: jest.fn(),
 }));
-jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom");
-  return {
-    ...originalModule,
-    useNavigate: jest.fn(),
-  };
-});
-jest.mock("react-redux", () => {
-  const actual = jest.requireActual("react-redux");
-  return {
-    ...actual,
-    useSelector: jest.fn(),
-  };
-});
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: jest.fn(),
+}));
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useSelector: jest.fn(),
+}));
 jest.mock("../../utils/utilityFunctions", () => ({
   ...jest.requireActual("../../utils/utilityFunctions"),
   disableScroll: jest.fn(),
   enableScroll: jest.fn(),
   playCancelCursorSfx: jest.fn(),
   getAllProducts: jest.fn(),
+  getStylizedNumber: jest.fn(),
 }));
 
 describe("Products Component", () => {
@@ -43,6 +39,9 @@ describe("Products Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
+      return `${number}`;
+    });
     (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
     (useQuery as jest.Mock).mockImplementation((_, __, ___) => ({
       data: [],
@@ -161,8 +160,8 @@ describe("Products Component", () => {
     expect(screen.getByText("Fire Materia")).toBeInTheDocument();
     expect(screen.getByText("Ice Materia")).toBeInTheDocument();
 
-    expect(screen.getByText("Stock: 5")).toBeInTheDocument();
-    expect(screen.getByText("Stock: 0")).toBeInTheDocument();
+    expect(screen.getByText("5")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 
   test("clicking on a product with stock > 0 opens the ProductInfoModal", () => {

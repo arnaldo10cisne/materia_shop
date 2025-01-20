@@ -2,7 +2,11 @@ import cursorAcceptAudio from "../assets/sfx/Cursor-Accept.mp3";
 import cursorMoveAudio from "../assets/sfx/Cursor-Move.mp3";
 import cursorBuzzerAudio from "../assets/sfx/Cursor-Buzzer.mp3";
 import cursorCancelAudio from "../assets/sfx/Cursor-Cancel.mp3";
+import cursorEquip from "../assets/sfx/Cursor-Equip.mp3";
+import addToCartSfx from "../assets/sfx/Item.mp3";
+import removeFromCartSfx from "../assets/sfx/Jump.mp3";
 import purchaseAudio from "../assets/sfx/Purchase.mp3";
+import eraseSfx from "../assets/sfx/Erase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
 import {
@@ -10,7 +14,6 @@ import {
   CreditCardModel,
   OrderModel,
   OrderStatus,
-  PaymentStatus,
 } from "./models.ts";
 import {
   API_ADDRESS,
@@ -63,6 +66,44 @@ export const playBuzzerCursorSfx = () => {
     sfx
       .play()
       ?.catch((err) => console.error("Error playing Cursor-Buzzer sfx:", err));
+  }
+};
+
+export const playCursorEquipSfx = () => {
+  const sfx = new Audio(cursorEquip);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing Cursor-Equip sfx:", err));
+  }
+};
+
+export const playAddToCart = () => {
+  const sfx = new Audio(addToCartSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing addToCartSfx:", err));
+  }
+};
+
+export const playRemoveFromCart = () => {
+  const sfx = new Audio(removeFromCartSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx
+      .play()
+      ?.catch((err) => console.error("Error playing removeFromCartSfx:", err));
+  }
+};
+
+export const playErase = () => {
+  const sfx = new Audio(eraseSfx);
+  sfx.volume = 0.2;
+  if (sfx) {
+    sfx.play()?.catch((err) => console.error("Error playing eraseSfx:", err));
   }
 };
 
@@ -126,6 +167,25 @@ export const formatTimestampToReadableDate = (timestamp) => {
   return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`;
 };
 
+export const getStylizedNumber = (number: string): string => {
+  const numberRegex = /^-?\d+(\.\d+)?$/;
+  if (!numberRegex.test(number)) {
+    console.error(`Failed converting '${number}' into Number type: NaN `);
+    return number;
+  }
+  const digitRegex = /^[0-9]$/;
+  let stylizedNumber = "";
+  for (const digit of number) {
+    if (digitRegex.test(digit)) {
+      const subscriptCharCode = 0x2080 + parseInt(digit);
+      stylizedNumber += String.fromCharCode(subscriptCharCode);
+    } else {
+      stylizedNumber += digit;
+    }
+  }
+  return stylizedNumber;
+};
+
 /// API CALLS UTILITIES
 
 // Reusable fetch handler
@@ -150,30 +210,32 @@ export const getAllProducts = async () => {
   return await fetchData(`${API_ADDRESS}/products`);
 };
 
+export const restockProducts = async () => {
+  return await fetchData(`${API_ADDRESS}/products/restock`);
+};
+
 interface CreatedOrderModel {
+  order_id: string;
   content: [];
   user_id: string;
-  payment_method: {
-    id: string;
-    tokenized_credit_card: string;
-    payment_status: PaymentStatus;
-    order: string;
-    customer_email: string;
-  };
   total_order_price: number;
   address: string;
   acceptance_auth_token: string;
   acceptance_token: string;
+  customer_email: string;
+  tokenized_credit_card: string;
 }
 
 export const createOrderInBackend = async ({
+  order_id,
   user_id,
   content,
-  payment_method,
   total_order_price,
   address,
   acceptance_auth_token,
   acceptance_token,
+  customer_email,
+  tokenized_credit_card,
 }: CreatedOrderModel): Promise<OrderModel | null> => {
   try {
     const response = await fetch(`${API_ADDRESS}/orders`, {
@@ -182,15 +244,17 @@ export const createOrderInBackend = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content,
-        order_status: OrderStatus.PENDING,
-        user_id,
-        payment_method,
-        total_order_price,
-        address,
+        id: order_id,
+        user_id: user_id,
+        acceptance_token: acceptance_token,
+        acceptance_auth_token: acceptance_auth_token,
+        address: address,
+        content: content,
         creation_date: formatTimestampToReadableDate(Date.now()),
-        acceptance_auth_token,
-        acceptance_token,
+        order_status: OrderStatus.PENDING,
+        total_order_price: total_order_price,
+        customer_email: customer_email,
+        tokenized_credit_card: tokenized_credit_card,
       }),
     });
 

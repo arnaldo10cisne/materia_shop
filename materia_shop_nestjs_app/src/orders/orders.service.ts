@@ -11,12 +11,27 @@ import {
   CartItem,
   OrderModel,
   OrderStatus,
+  PaymentMethods,
   PaymentModel,
   PaymentStatus,
 } from '../models';
 import axios from 'axios';
 import * as crypto from 'crypto';
 import 'dotenv/config';
+
+export interface createOrderParams {
+  id: string;
+  user_id: string;
+  acceptance_token: string;
+  acceptance_auth_token: string;
+  address: string;
+  content: CartItem[];
+  creation_date: string;
+  order_status: OrderStatus;
+  total_order_price: number;
+  customer_email: string;
+  tokenized_credit_card: string;
+}
 
 @Injectable()
 export class OrdersService {
@@ -33,18 +48,16 @@ export class OrdersService {
     return response.Items?.map((item) => unmarshall(item) as OrderModel) || [];
   }
 
-  async createRelatedPayment(relatedOrder: OrderModel) {
+  async createRelatedPayment(relatedOrder: createOrderParams) {
     try {
       const response = await axios.post(`${this.apiAddress}/payments`, {
-        id: relatedOrder.payment_method.id,
-        tokenized_credit_card:
-          relatedOrder.payment_method.tokenized_credit_card,
-        payment_status: relatedOrder.payment_method.payment_status,
-        customer_email: relatedOrder.payment_method.customer_email,
         payment_amount: relatedOrder.total_order_price,
-        order: relatedOrder.id,
-        acceptance_auth_token: relatedOrder.acceptance_auth_token,
+        tokenized_credit_card: relatedOrder.tokenized_credit_card,
         acceptance_token: relatedOrder.acceptance_token,
+        acceptance_auth_token: relatedOrder.acceptance_auth_token,
+        customer_email: relatedOrder.customer_email,
+        order_id: relatedOrder.id,
+        payment_method: PaymentMethods.CARD,
       });
       return response.data;
     } catch (error) {
@@ -83,30 +96,43 @@ export class OrdersService {
     }
   }
 
-  async createOrder(newOrder: OrderModel): Promise<OrderModel> {
-    if (!newOrder.id) {
-      newOrder.id = String(crypto.randomUUID());
+  async createOrder(requestBody: createOrderParams): Promise<OrderModel> {
+    if (!requestBody.id) {
+      requestBody.id = String(crypto.randomUUID());
     }
 
     const relatedPayment: PaymentModel =
-      await this.createRelatedPayment(newOrder);
+      await this.createRelatedPayment(requestBody);
 
     if (relatedPayment?.payment_status === PaymentStatus.APPROVED) {
-      newOrder.order_status = OrderStatus.COMPLETED;
+      requestBody.order_status = OrderStatus.COMPLETED;
 
-      await this.updateStock(newOrder.content);
+      await this.updateStock(requestBody.content);
     } else {
-      newOrder.order_status = OrderStatus.FAILED;
+      requestBody.order_status = OrderStatus.FAILED;
     }
+
+    const orderToCreate: OrderModel = {
+      id: requestBody.id,
+      payment_id: relatedPayment.id,
+      user_id: requestBody.user_id,
+      acceptance_token: requestBody.acceptance_token,
+      acceptance_auth_token: requestBody.acceptance_auth_token,
+      address: requestBody.address,
+      content: requestBody.content,
+      creation_date: requestBody.creation_date,
+      order_status: requestBody.order_status,
+      total_order_price: requestBody.total_order_price,
+    };
 
     const command = new PutItemCommand({
       TableName: this.tableName,
-      Item: marshall(newOrder),
+      Item: marshall(orderToCreate),
     });
 
     await this.dynamoDBClient.send(command);
 
-    return newOrder;
+    return orderToCreate;
   }
 
   async updateOrder(

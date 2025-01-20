@@ -6,8 +6,11 @@ import { BlueBox } from "../BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
 import { MATERIA_LIST } from "../../utils/constants.ts";
 import {
+  getStylizedNumber,
+  playAddToCart,
   playCancelCursorSfx,
   playPurchaseSfx,
+  playRemoveFromCart,
 } from "../../utils/utilityFunctions.ts";
 import { useDispatch } from "react-redux";
 import {
@@ -105,15 +108,23 @@ export const ProductInfoModal = ({
               {product.description}
             </p>
             <p className={classNames(styles.ProductPrice)}>
-              Price: {product.price} Gil
+              Price:
+              <span className={classNames(styles.StylizedNumber)}>
+                {getStylizedNumber(String(product.price))}
+              </span>
+              Gil
             </p>
             <p className={classNames(styles.ProductStock)}>
-              Stock: {product.stock_amount}
+              Stock:
+              <span className={classNames(styles.StylizedNumber)}>
+                {getStylizedNumber(String(product.stock_amount))}
+              </span>
             </p>
             <div className={classNames(styles.AddToCartController)}>
               <SelectableOption
                 onClickHandler={handleDecreaseAmount}
                 disabled={amountInCart === 0}
+                sfxOnClick={playRemoveFromCart}
               >
                 <span className={classNames(styles.ChangeCartAmount)}>-</span>
               </SelectableOption>
@@ -123,13 +134,18 @@ export const ProductInfoModal = ({
               <SelectableOption
                 onClickHandler={handleIncreaseAmount}
                 disabled={amountInCart >= product.stock_amount}
+                sfxOnClick={playAddToCart}
               >
                 <span className={classNames(styles.ChangeCartAmount)}>+</span>
               </SelectableOption>
             </div>
 
             <p className={classNames(styles.TotalPrice)}>
-              Total Price: {product.price * amountInCart} Gil
+              Total Price:
+              <span className={classNames(styles.StylizedNumber)}>
+                {getStylizedNumber(String(product.price * amountInCart))}
+              </span>
+              Gil
             </p>
 
             <SelectableOption

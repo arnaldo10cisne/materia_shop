@@ -3,7 +3,10 @@ import styles from "./CartModal.module.scss";
 import classNames from "classnames";
 import { BlueBox } from "../BlueBox/BlueBox.tsx";
 import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import { playCancelCursorSfx } from "../../utils/utilityFunctions.ts";
+import {
+  playCancelCursorSfx,
+  playErase,
+} from "../../utils/utilityFunctions.ts";
 import { RootState } from "../../store/store.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCartContent } from "../../store/cartReducer.ts";
@@ -25,7 +28,7 @@ export const CartModal = ({ onClose }: CartModalProps) => {
   return (
     <div className={classNames(styles.CartModalContainer)}>
       <div className={classNames(styles.CartModal)}>
-        <BlueBox customStyles={styles.CartModalBlueBox}>
+        <BlueBox customStyles={styles.ModalBlueBox}>
           <SelectableOption
             onClickHandler={handleCloseButtonClick}
             sfxOnClick={playCancelCursorSfx}
@@ -47,7 +50,7 @@ export const CartModal = ({ onClose }: CartModalProps) => {
                 onClickHandler={() => {
                   dispatch(clearCartContent());
                 }}
-                sfxOnClick={playCancelCursorSfx}
+                sfxOnClick={playErase}
                 customStyles={styles.EmptyCartOption}
               >
                 <p className={classNames(styles.EmptyCart)}>Empty Cart</p>

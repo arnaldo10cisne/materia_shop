@@ -42,6 +42,8 @@ export const CHOCOBO_WALTZ = new Audio(chocoboWaltz);
 export const CHECKBOX_ON = checkboxOn;
 export const CHECKBOX_OFF = checkboxOff;
 
+export const CONVERSION_GIL_COP = 1000;
+
 export const MASTERCARD_CARD: CreditCardIconModel = {
   company: CreditCardCompany.MASTER_CARD,
   src: mc_logo,

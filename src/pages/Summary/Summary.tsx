@@ -10,7 +10,6 @@ import {
   CartItem,
   CreditCardModel,
   OrderStatus,
-  PaymentStatus,
   UserModel,
 } from "../../utils/models.ts";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +18,7 @@ import {
   getAcceptanceTokens,
   getCreditCardToken,
   playCancelCursorSfx,
+  playCursorEquipSfx,
 } from "../../utils/utilityFunctions.ts";
 import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
 import { PriceSummary } from "../../components/PriceSummary/PriceSummary.tsx";
@@ -27,6 +27,7 @@ import { updateOrderStatus } from "../../store/orderReducer.ts";
 import { ShoppingCartList } from "../../components/ShoppingCartList/ShoppingCartList.tsx";
 import { useQuery } from "react-query";
 import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
+import { CONVERSION_GIL_COP } from "../../utils/constants.ts";
 
 export const Summary = () => {
   const [waitingForPayment, setWaitingForPayment] = useState(false);
@@ -58,24 +59,24 @@ export const Summary = () => {
       return;
     }
 
-    const response = await createOrderInBackend({
-      content: order.currentOrder?.content.map((cartItem: CartItem) => ({
+    const formattedOrderContent = order.currentOrder?.content.map(
+      (cartItem: CartItem) => ({
         product: cartItem.product.id,
         amount: cartItem.amount,
-      })) as [],
+      }),
+    ) as [];
+
+    const response = await createOrderInBackend({
+      order_id: order.currentOrder?.id as string,
+      content: formattedOrderContent,
       user_id: order.currentOrder?.user.id as string,
-      payment_method: {
-        id: order.currentOrder?.payment_method?.id as string,
-        tokenized_credit_card: creditCardToken,
-        payment_status: PaymentStatus.PENDING,
-        order: order.currentOrder?.id as string,
-        customer_email: order.currentOrder?.user.email as string,
-      },
       total_order_price:
-        (order.currentOrder?.total_order_price as number) * 1000,
+        (order.currentOrder?.total_order_price as number) * CONVERSION_GIL_COP,
       address: order.currentOrder?.address as string,
-      acceptance_token: acceptanceTokens?.acceptance_token,
       acceptance_auth_token: acceptanceTokens?.acceptance_auth_token,
+      acceptance_token: acceptanceTokens?.acceptance_token,
+      customer_email: order.currentOrder?.user.email as string,
+      tokenized_credit_card: creditCardToken,
     });
 
     setWaitingForPayment(false);
@@ -87,7 +88,12 @@ export const Summary = () => {
 
   return (
     <>
-      {waitingForPayment ? <WaitingModal /> : null}
+      {waitingForPayment ? (
+        <WaitingModal
+          title="Your payment is being processed."
+          description="Our chocobos can hardly contain their excitement as they prepare to deliver your shiny new Materia!"
+        />
+      ) : null}
       <div className={classNames(styles.Summary)}>
         <BlueBox>
           <SelectableOption
@@ -160,6 +166,7 @@ export const Summary = () => {
                       checked={hasAcceptedPolicies}
                       onChange={(event) => {
                         setHasAcceptedPolicies(event.target.checked);
+                        playCursorEquipSfx();
                       }}
                     />
                     <label
@@ -187,6 +194,7 @@ export const Summary = () => {
                       checked={hasAuthorizedData}
                       onChange={(event) => {
                         setHasAuthorizedData(event.target.checked);
+                        playCursorEquipSfx();
                       }}
                     />
                     <label
