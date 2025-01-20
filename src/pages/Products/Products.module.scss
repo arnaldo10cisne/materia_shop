@@ -16,6 +16,7 @@
     width: 95%;
   }
 }
+
 .ReturnBlueBox {
   @include responsive-tablet {
     padding-top: 30px;
@@ -23,10 +24,18 @@
     padding-left: 50px;
   }
 }
+
 .Return {
   margin: 20px 45px;
   @include responsive-tablet {
     margin: 0px;
+  }
+}
+
+.RestockMateria {
+  margin-bottom: 20px;
+  * {
+    color: $ligth-blue-text;
   }
 }
 

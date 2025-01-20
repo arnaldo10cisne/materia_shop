@@ -20,7 +20,14 @@ describe("WaitingModal", () => {
   });
 
   it("renders the correct text", () => {
-    render(<WaitingModal />);
+    render(
+      <WaitingModal
+        title={"Your payment is being processed."}
+        description={
+          "Our chocobos can hardly contain their excitement as they prepare"
+        }
+      />,
+    );
 
     expect(
       screen.getByText("Your payment is being processed."),
@@ -33,7 +40,7 @@ describe("WaitingModal", () => {
   });
 
   it("renders the chocobo waiting image with the correct src", () => {
-    render(<WaitingModal />);
+    render(<WaitingModal title={""} description={""} />);
     const chocoboImg = screen.getByAltText(
       "chocobo_waiting",
     ) as HTMLImageElement;
@@ -42,7 +49,7 @@ describe("WaitingModal", () => {
   });
 
   it("plays the chocobo waltz on mount and pauses/resets it on unmount", () => {
-    const { unmount } = render(<WaitingModal />);
+    const { unmount } = render(<WaitingModal title={""} description={""} />);
 
     expect(CHOCOBO_WALTZ.volume).toBe(0.2);
     expect(CHOCOBO_WALTZ.play).toHaveBeenCalledTimes(1);
@@ -58,7 +65,7 @@ describe("WaitingModal", () => {
     );
     const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
 
-    render(<WaitingModal />);
+    render(<WaitingModal title={""} description={""} />);
 
     expect(CHOCOBO_WALTZ.play).toHaveBeenCalledTimes(1);
 
