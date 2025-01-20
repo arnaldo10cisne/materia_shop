@@ -193,6 +193,7 @@ export const Products = () => {
                                   : 0,
                               ),
                             )}
+                            {getStylizedNumber(String(product.stock_amount))}
                           </span>
                           {cartContent.some(
                             (item) => item.product.id === product.id,
