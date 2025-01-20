@@ -148,6 +148,9 @@ export const Products = () => {
                 </div>
                 <div className={classNames(styles.ProductList)}>
                   {productsList?.map((product: ProductModel) => {
+                    if (!product?.name || !product?.description) {
+                      return null;
+                    }
                     return (
                       <div>
                         <SelectableOption
@@ -183,7 +186,13 @@ export const Products = () => {
                                 : null,
                             )}
                           >
-                            {getStylizedNumber(String(product.stock_amount))}
+                            {getStylizedNumber(
+                              String(
+                                product.stock_amount >= 0
+                                  ? product.stock_amount
+                                  : 0,
+                              ),
+                            )}
                           </span>
                           {cartContent.some(
                             (item) => item.product.id === product.id,
