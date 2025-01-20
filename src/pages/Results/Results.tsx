@@ -29,7 +29,7 @@ export const Results = () => {
     if (orderCompleted) {
       navigate("/");
     } else {
-      navigate("/summary");
+      navigate("/order");
     }
   };
 

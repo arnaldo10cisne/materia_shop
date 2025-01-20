@@ -237,6 +237,13 @@ export const createOrderInBackend = async ({
   customer_email,
   tokenized_credit_card,
 }: CreatedOrderModel): Promise<OrderModel | null> => {
+  const controller = new AbortController();
+  const timeout = 34000;
+
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, timeout);
+
   try {
     const response = await fetch(`${API_ADDRESS}/orders`, {
       method: "POST",
@@ -256,7 +263,10 @@ export const createOrderInBackend = async ({
         customer_email: customer_email,
         tokenized_credit_card: tokenized_credit_card,
       }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -269,7 +279,12 @@ export const createOrderInBackend = async ({
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error making POST request:", error);
+    clearTimeout(timeoutId);
+    if (error instanceof DOMException && error.name === "AbortError") {
+      console.error("createOrderInBackend Request aborted due to timeout");
+    } else {
+      console.error("Error making POST request:", error);
+    }
     return null;
   }
 };

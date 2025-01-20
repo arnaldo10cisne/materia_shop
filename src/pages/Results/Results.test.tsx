@@ -144,7 +144,7 @@ describe("Results Component", () => {
 
     fireEvent.click(returnButton);
 
-    expect(mockNavigate).toHaveBeenCalledWith("/summary");
+    expect(mockNavigate).toHaveBeenCalledWith("/order");
     expect(playCancelCursorSfx).toHaveBeenCalledTimes(1);
   });
 

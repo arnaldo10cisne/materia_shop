@@ -81,7 +81,11 @@ export const Summary = () => {
 
     setWaitingForPayment(false);
 
-    dispatch(updateOrderStatus(response?.order_status as OrderStatus));
+    dispatch(
+      updateOrderStatus(
+        response ? (response?.order_status as OrderStatus) : OrderStatus.FAILED,
+      ),
+    );
 
     navigate("/results");
   };
