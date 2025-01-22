@@ -1,7 +1,7 @@
-import React, { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { store } from "../../store/store.ts";
+import { store } from "../../store/store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 

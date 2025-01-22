@@ -1,12 +1,11 @@
-import React from "react";
-import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
+import { BlueBox } from "../../components/BlueBox/BlueBox";
+import { SelectableOption } from "../../components/SelectableOption/SelectableOption";
 import classNames from "classnames";
 import styles from "./Homepage.module.scss";
-import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store.ts";
+import { RootState } from "../../store/store";
 
 export const Homepage = () => {
   const selectedUser = useSelector(

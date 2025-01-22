@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./App.module.scss";
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "./components/layout/Layout.tsx";
-import { Homepage } from "./pages/Homepage/Homepage.tsx";
-import { Products } from "./pages/Products/Products.tsx";
-import { Order } from "./pages/Order/Order.tsx";
-import { UserSelection } from "./pages/UserSelection/UserSelection.tsx";
+import { Layout } from "./components/layout/Layout";
+import { Homepage } from "./pages/Homepage/Homepage";
+import { Products } from "./pages/Products/Products";
+import { Order } from "./pages/Order/Order";
+import { UserSelection } from "./pages/UserSelection/UserSelection";
 import classNames from "classnames";
-import { Summary } from "./pages/Summary/Summary.tsx";
-import { Results } from "./pages/Results/Results.tsx";
+import { Summary } from "./pages/Summary/Summary";
+import { Results } from "./pages/Results/Results";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./store/store.ts";
-import { setUser } from "./store/userReducer.ts";
-import { addOrUpdateCartItem } from "./store/cartReducer.ts";
-import { setCreditCard } from "./store/creditCardReducer.ts";
+import { RootState } from "./store/store";
+import { setUser } from "./store/userReducer";
+import { addOrUpdateCartItem } from "./store/cartReducer";
+import { setCreditCard } from "./store/creditCardReducer";
 
 interface ProtectedRouteProps {
   condition: boolean;

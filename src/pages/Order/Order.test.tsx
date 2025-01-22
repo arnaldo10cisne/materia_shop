@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { Order } from "./Order";
@@ -48,30 +47,32 @@ describe("Order Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
+    (useNavigate as unknown as jest.Mock).mockReturnValue(mockNavigate);
 
-    (useSelector as jest.Mock).mockImplementation((selectorFn: any) => {
-      return selectorFn({
-        order: {
-          currentOrder: null,
-        },
-        user: {
-          selectedUser: {
-            id: "user123",
-            name: "Cloud Strife",
-            email: "cloud@example.com",
-            portrait: "cloud.png",
+    (useSelector as unknown as jest.Mock).mockImplementation(
+      (selectorFn: any) => {
+        return selectorFn({
+          order: {
+            currentOrder: null,
           },
-        },
-        creditCard: {
-          creditCard: null,
-        },
-        cart: {
-          currentCart: [],
-        },
-      });
-    });
+          user: {
+            selectedUser: {
+              id: "user123",
+              name: "Cloud Strife",
+              email: "cloud@example.com",
+              portrait: "cloud.png",
+            },
+          },
+          creditCard: {
+            creditCard: null,
+          },
+          cart: {
+            currentCart: [],
+          },
+        });
+      },
+    );
   });
 
   test("renders 'Return to Materia List' button and navigates on click", () => {
@@ -101,7 +102,7 @@ describe("Order Component", () => {
   });
 
   test("displays address if order.currentOrder?.address is set", () => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         order: {
           currentOrder: {
@@ -156,7 +157,7 @@ describe("Order Component", () => {
   });
 
   test("if creditCard is not null, displays the CreditCardInfo component", () => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         order: {
           currentOrder: null,
@@ -202,7 +203,7 @@ describe("Order Component", () => {
   });
 
   test("View Summary is enabled if address is present and creditCard is not null, then dispatches createOrder", () => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         order: {
           currentOrder: null,
@@ -253,7 +254,8 @@ describe("Order Component", () => {
     fireEvent.click(viewSummaryButton);
 
     expect(createOrder).toHaveBeenCalledTimes(1);
-    const createOrderPayload = (createOrder as jest.Mock).mock.calls[0][0];
+    const createOrderPayload = (createOrder as unknown as jest.Mock).mock
+      .calls[0][0];
     expect(createOrderPayload.user.name).toBe("Cloud Strife");
     expect(createOrderPayload.address).toBe("Midgar Sector 7");
     expect(createOrderPayload.credit_card.last_four_digits).toBe("9999");
@@ -283,7 +285,7 @@ describe("Order Component", () => {
       JSON.stringify(null),
     );
 
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         order: {
           currentOrder: null,

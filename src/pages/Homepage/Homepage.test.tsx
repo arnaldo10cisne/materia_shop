@@ -1,14 +1,14 @@
-import React from "react";
-import { Homepage } from "./Homepage.tsx";
-import { render } from "../../utils/test-utils/custom-render.tsx";
+import { Homepage } from "./Homepage";
+import { render } from "../../utils/test-utils/custom-render";
 import { screen } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import userReducer from "../../store/userReducer.ts";
+import userReducer from "../../store/userReducer";
+import { RootState } from "../../store/store";
 
 describe("Homepage", () => {
   const renderWithStore = (initialState: any) => {
-    const store = configureStore({
+    const store = configureStore<Partial<RootState>>({
       reducer: { user: userReducer },
       preloadedState: initialState,
     });

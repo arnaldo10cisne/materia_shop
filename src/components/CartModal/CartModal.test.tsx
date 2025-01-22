@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { CartModal } from "./CartModal";
@@ -33,18 +32,20 @@ describe("CartModal Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
   });
 
   const renderWithState = (cartItems: any[]) => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn: any) => {
-      const mockState: Partial<RootState> = {
-        cart: {
-          currentCart: cartItems,
-        },
-      };
-      return selectorFn(mockState);
-    });
+    (useSelector as unknown as jest.Mock).mockImplementation(
+      (selectorFn: any) => {
+        const mockState: Partial<RootState> = {
+          cart: {
+            currentCart: cartItems,
+          },
+        };
+        return selectorFn(mockState);
+      },
+    );
 
     return render(<CartModal onClose={mockOnClose} />);
   };

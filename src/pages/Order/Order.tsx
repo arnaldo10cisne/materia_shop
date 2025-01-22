@@ -1,21 +1,21 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Order.module.scss";
-import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
+import { BlueBox } from "../../components/BlueBox/BlueBox";
+import { SelectableOption } from "../../components/SelectableOption/SelectableOption";
 import { useNavigate } from "react-router-dom";
-import { CcInfoModal } from "../../components/CcInfoModal/CcInfoModal.tsx";
+import { CcInfoModal } from "../../components/CcInfoModal/CcInfoModal";
 import {
   disableScroll,
   enableScroll,
   playCancelCursorSfx,
-} from "../../utils/utilityFunctions.ts";
-import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+} from "../../utils/utilityFunctions";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store.ts";
-import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
-import { createOrder } from "../../store/orderReducer.ts";
-import { CreditCardModel, UserModel } from "../../utils/models.ts";
+import { RootState } from "../../store/store";
+import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo";
+import { createOrder } from "../../store/orderReducer";
+import { CreditCardModel, UserModel } from "../../utils/models";
 
 export const Order = () => {
   const order = useSelector((state: RootState) => state.order);

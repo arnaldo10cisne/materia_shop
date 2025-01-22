@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { Products } from "./Products";
@@ -39,30 +38,34 @@ describe("Products Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
-      return `${number}`;
-    });
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-    (useQuery as jest.Mock).mockImplementation((_, __, ___) => ({
+    (getStylizedNumber as unknown as jest.Mock).mockImplementation(
+      (number: string) => {
+        return `${number}`;
+      },
+    );
+    (useNavigate as unknown as jest.Mock).mockReturnValue(mockNavigate);
+    (useQuery as unknown as jest.Mock).mockImplementation((_, __, ___) => ({
       data: [],
       isLoading: false,
     }));
-    (useSelector as jest.Mock).mockImplementation((selectorFn: any) => {
-      const mockState: Partial<RootState> = {
-        user: {
-          selectedUser: {
-            id: "1",
-            name: "Cloud Strife",
-            portrait: "cloud.png",
-            email: "cloud@example.com",
+    (useSelector as unknown as jest.Mock).mockImplementation(
+      (selectorFn: any) => {
+        const mockState: Partial<RootState> = {
+          user: {
+            selectedUser: {
+              id: "1",
+              name: "Cloud Strife",
+              portrait: "cloud.png",
+              email: "cloud@example.com",
+            },
           },
-        },
-        cart: {
-          currentCart: [],
-        },
-      };
-      return selectorFn(mockState);
-    });
+          cart: {
+            currentCart: [],
+          },
+        };
+        return selectorFn(mockState);
+      },
+    );
   });
 
   test("renders 'Return' button and navigates to '/' when clicked", () => {
@@ -77,7 +80,7 @@ describe("Products Component", () => {
   });
 
   test("enables 'Pay with Credit card' button if cart has items", () => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       const mockState: Partial<RootState> = {
         user: {
           selectedUser: {
@@ -118,7 +121,7 @@ describe("Products Component", () => {
   });
 
   test("shows loading spinner when isLoading = true", () => {
-    (useQuery as jest.Mock).mockReturnValue({
+    (useQuery as unknown as jest.Mock).mockReturnValue({
       data: undefined,
       isLoading: true,
     });
@@ -150,7 +153,7 @@ describe("Products Component", () => {
         materia_type: MateriaTypes.MAGIC,
       },
     ];
-    (useQuery as jest.Mock).mockReturnValue({
+    (useQuery as unknown as jest.Mock).mockReturnValue({
       data: mockProducts,
       isLoading: false,
     });
@@ -176,7 +179,7 @@ describe("Products Component", () => {
         materia_type: MateriaTypes.MAGIC,
       },
     ];
-    (useQuery as jest.Mock).mockReturnValue({
+    (useQuery as unknown as jest.Mock).mockReturnValue({
       data: mockProducts,
       isLoading: false,
     });
@@ -205,7 +208,7 @@ describe("Products Component", () => {
         materia_type: MateriaTypes.MAGIC,
       },
     ];
-    (useQuery as jest.Mock).mockReturnValue({
+    (useQuery as unknown as jest.Mock).mockReturnValue({
       data: mockProducts,
       isLoading: false,
     });
@@ -232,7 +235,7 @@ describe("Products Component", () => {
   test("updates local storage whenever cartContent changes", () => {
     const setItemSpy = jest.spyOn(window.localStorage.__proto__, "setItem");
 
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         user: { selectedUser: null },
         cart: { currentCart: [] },
@@ -241,7 +244,7 @@ describe("Products Component", () => {
     render(<Products />);
     expect(setItemSpy).toHaveBeenLastCalledWith("cart", JSON.stringify([]));
 
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         user: { selectedUser: null },
         cart: {

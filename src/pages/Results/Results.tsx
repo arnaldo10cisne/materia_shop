@@ -1,22 +1,22 @@
 import classNames from "classnames";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./Results.module.scss";
-import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
+import { BlueBox } from "../../components/BlueBox/BlueBox";
+import { SelectableOption } from "../../components/SelectableOption/SelectableOption";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store.ts";
-import { OrderStatus } from "../../utils/models.ts";
+import { RootState } from "../../store/store";
+import { OrderStatus } from "../../utils/models";
 import { useNavigate } from "react-router-dom";
 import {
   playCancelCursorSfx,
   playChocoboCry,
   playChocoboDance,
-} from "../../utils/utilityFunctions.ts";
+} from "../../utils/utilityFunctions";
 import {
   DELIVERY_CHOCOBO_IMAGE,
   FAT_CHOCOBO_IMAGE,
-} from "../../utils/constants.ts";
-import { clearCartContent } from "../../store/cartReducer.ts";
+} from "../../utils/constants";
+import { clearCartContent } from "../../store/cartReducer";
 
 export const Results = () => {
   const order = useSelector((state: RootState) => state.order);

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./WaitingModal.module.scss";
 import classNames from "classnames";
-import { BlueBox } from "../BlueBox/BlueBox.tsx";
-import { CHOCOBO_WAITING, CHOCOBO_WALTZ } from "../../utils/constants.ts";
+import { BlueBox } from "../BlueBox/BlueBox";
+import { CHOCOBO_WAITING, CHOCOBO_WALTZ } from "../../utils/constants";
 
 interface WaitingModalProps {
   title: string;

@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import { PriceSummary } from "./PriceSummary";
 import { CartItem, ProductModel, MateriaTypes } from "../../utils/models";
@@ -32,9 +31,11 @@ jest.mock("../../utils/utilityFunctions", () => ({
 describe("PriceSummary Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
-      return `${number}`;
-    });
+    (getStylizedNumber as unknown as jest.Mock).mockImplementation(
+      (number: string) => {
+        return `${number}`;
+      },
+    );
   });
 
   test("renders without crashing and displays 'Price Summary' title", () => {

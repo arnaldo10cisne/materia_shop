@@ -9,17 +9,8 @@ import purchaseAudio from "../assets/sfx/Purchase.mp3";
 import eraseSfx from "../assets/sfx/Erase.mp3";
 import chocoboDance from "../assets/sfx/Chocobo-dance.mp3";
 import chocoboCry from "../assets/sfx/Chocobo-cry.mp3";
-import {
-  CartItem,
-  CreditCardModel,
-  OrderModel,
-  OrderStatus,
-} from "./models.ts";
-import {
-  API_ADDRESS,
-  WOMPI_PUBLIC_KEY,
-  WOMPI_SANDBOX_API,
-} from "./constants.ts";
+import { CartItem, CreditCardModel, OrderModel, OrderStatus } from "./models";
+import { API_ADDRESS, WOMPI_PUBLIC_KEY, WOMPI_SANDBOX_API } from "./constants";
 
 export const disableScroll = () => {
   document.body.style.overflow = "hidden";
