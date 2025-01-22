@@ -22,12 +22,12 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+const ProtectedRoute = ({
   condition,
   redirectTo,
   children,
-}) => {
-  return condition ? children : <Navigate to={redirectTo} replace />;
+}: ProtectedRouteProps) => {
+  return <>{condition ? children : <Navigate to={redirectTo} replace />}</>;
 };
 
 export function App() {
