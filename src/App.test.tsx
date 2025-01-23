@@ -13,8 +13,4 @@ describe("Hero", () => {
     expect(screen.getByText("Select Character")).toBeInTheDocument();
     expect(screen.getByText("Buy Materia")).toBeInTheDocument();
   });
-
-  test("BUY MATERIA disabled if no character if selected", () => {
-    render(<App />);
-  });
 });
