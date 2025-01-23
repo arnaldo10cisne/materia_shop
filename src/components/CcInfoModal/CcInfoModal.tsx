@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./CcInfoModal.module.scss";
 import classNames from "classnames";
-import { BlueBox } from "../BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
+import { BlueBox } from "../BlueBox/BlueBox";
+import { SelectableOption } from "../SelectableOption/SelectableOption";
 import {
   playAcceptCursorSfx,
   playCancelCursorSfx,
-} from "../../utils/utilityFunctions.ts";
+} from "../../utils/utilityFunctions";
 import {
   CreditCardCompany,
   CreditCardModel,
   CreditCardSensitiveDataModel,
-} from "../../utils/models.ts";
+} from "../../utils/models";
 import { useDispatch } from "react-redux";
-import { setCreditCard } from "../../store/creditCardReducer.ts";
-import { CARD_COMPANY_LIST, SHINRA } from "../../utils/constants.ts";
+import { setCreditCard } from "../../store/creditCardReducer";
+import { CARD_COMPANY_LIST, SHINRA } from "../../utils/constants";
 
 interface CcInfoModalProps {
   onClose: () => any;

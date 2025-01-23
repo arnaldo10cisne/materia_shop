@@ -1,17 +1,13 @@
-import React from "react";
 import styles from "./CartModal.module.scss";
 import classNames from "classnames";
-import { BlueBox } from "../BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import {
-  playCancelCursorSfx,
-  playErase,
-} from "../../utils/utilityFunctions.ts";
-import { RootState } from "../../store/store.ts";
+import { BlueBox } from "../BlueBox/BlueBox";
+import { SelectableOption } from "../SelectableOption/SelectableOption";
+import { playCancelCursorSfx, playErase } from "../../utils/utilityFunctions";
+import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCartContent } from "../../store/cartReducer.ts";
-import { PriceSummary } from "../PriceSummary/PriceSummary.tsx";
-import { ShoppingCartList } from "../ShoppingCartList/ShoppingCartList.tsx";
+import { clearCartContent } from "../../store/cartReducer";
+import { PriceSummary } from "../PriceSummary/PriceSummary";
+import { ShoppingCartList } from "../ShoppingCartList/ShoppingCartList";
 
 interface CartModalProps {
   onClose: () => any;

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { CURSOR_POINTER } from "../../utils/constants.ts";
+import { useState } from "react";
+import { CURSOR_POINTER } from "../../utils/constants";
 import classNames from "classnames";
 import styles from "./SelectableOption.module.scss";
-import { MateriaIconModel } from "../../utils/models.ts";
+import { MateriaIconModel } from "../../utils/models";
 import {
   playAcceptCursorSfx,
   playBuzzerCursorSfx,
   playMoveCursorSfx,
-} from "../../utils/utilityFunctions.ts";
+} from "../../utils/utilityFunctions";
 
 interface SelectableOptionProps {
   icon?: MateriaIconModel | null;

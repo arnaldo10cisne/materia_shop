@@ -6,11 +6,11 @@ import {
   UserModel,
   PaymentStatus,
   CreditCardModel,
-} from "../utils/models.ts";
+} from "../utils/models";
 import {
   calculateOrderPrice,
   formatTimestampToReadableDate,
-} from "../utils/utilityFunctions.ts";
+} from "../utils/utilityFunctions";
 
 interface OrderStateModel {
   currentOrder: OrderModel | null;

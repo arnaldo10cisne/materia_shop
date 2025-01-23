@@ -1,4 +1,3 @@
-import React from "react";
 import { screen } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { WaitingModal } from "./WaitingModal";
@@ -60,7 +59,7 @@ describe("WaitingModal", () => {
   });
 
   it("catches and logs errors if play fails", () => {
-    (CHOCOBO_WALTZ.play as jest.Mock).mockRejectedValueOnce(
+    (CHOCOBO_WALTZ.play as unknown as jest.Mock).mockRejectedValueOnce(
       new Error("Test play error"),
     );
     const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();

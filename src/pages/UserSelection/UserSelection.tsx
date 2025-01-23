@@ -1,22 +1,18 @@
-import React from "react";
-import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
-import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+import { BlueBox } from "../../components/BlueBox/BlueBox";
+import { SelectableOption } from "../../components/SelectableOption/SelectableOption";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait";
 import styles from "./UserSelection.module.scss";
 import { useQuery } from "react-query";
-import { UserModel } from "../../utils/models.ts";
+import { UserModel } from "../../utils/models";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/userReducer.ts";
-import {
-  getAllUsers,
-  playCancelCursorSfx,
-} from "../../utils/utilityFunctions.ts";
-import { clearCartContent } from "../../store/cartReducer.ts";
-import { clearCreditCard } from "../../store/creditCardReducer.ts";
-import { clearOrder } from "../../store/orderReducer.ts";
-import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
+import { setUser } from "../../store/userReducer";
+import { getAllUsers, playCancelCursorSfx } from "../../utils/utilityFunctions";
+import { clearCartContent } from "../../store/cartReducer";
+import { clearCreditCard } from "../../store/creditCardReducer";
+import { clearOrder } from "../../store/orderReducer";
+import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo";
 
 export const UserSelection = () => {
   const navigate = useNavigate();

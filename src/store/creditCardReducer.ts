@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CreditCardModel, CreditCardCompany } from "../utils/models.ts";
+import { CreditCardModel, CreditCardCompany } from "../utils/models";
 
 interface CreditCardStateModel {
   creditCard: CreditCardModel | null;

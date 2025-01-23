@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { CcInfoModal } from "./CcInfoModal";
@@ -44,7 +43,7 @@ describe("CcInfoModal", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
     alertSpy = jest.spyOn(window, "alert").mockImplementation(() => {});
   });
 
@@ -192,7 +191,8 @@ describe("CcInfoModal", () => {
     expect(alertSpy).not.toHaveBeenCalled();
 
     expect(setCreditCard).toHaveBeenCalledTimes(1);
-    const dispatchedArg = (setCreditCard as jest.Mock).mock.calls[0][0];
+    const dispatchedArg = (setCreditCard as unknown as jest.Mock).mock
+      .calls[0][0];
     expect(dispatchedArg.id).toBe(mockUUID);
     expect(dispatchedArg.company).toBe(CreditCardCompany.VISA);
     expect(dispatchedArg.last_four_digits).toBe("1111");
