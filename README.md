@@ -19,8 +19,6 @@ A web application to simulate an online store for buying Materia, inspired by Fi
     - [Orders Module](#orders-module)
     - [Payments Module](#payments-module)
   - [Architecture and Infrastructure](#architecture-and-infrastructure)
-  - [Installation](#installation)
-  - [Usage](#usage)
   - [Integration with WOMPI API](#integration-with-wompi-api)
   - [Database Structure](#database-structure)
     - [Users Table](#users-table)
