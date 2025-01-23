@@ -1,5 +1,4 @@
-import React from "react";
-import { CHOCOBO_WALKING } from "../../utils/constants.ts";
+import { CHOCOBO_WALKING } from "../../utils/constants";
 import classNames from "classnames";
 import styles from "./LoadingChocobo.module.scss";
 

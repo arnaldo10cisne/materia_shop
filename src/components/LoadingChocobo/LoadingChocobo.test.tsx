@@ -1,7 +1,6 @@
-import React from "react";
 import { render, screen } from "../../utils/test-utils/custom-render";
 import { LoadingChocobo } from "./LoadingChocobo";
-import { CHOCOBO_WALKING } from "../../utils/constants.ts";
+import { CHOCOBO_WALKING } from "../../utils/constants";
 
 describe("LoadingChocobo Component", () => {
   test("renders without crashing", () => {

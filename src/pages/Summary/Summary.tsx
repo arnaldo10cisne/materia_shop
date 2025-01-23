@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./Summary.module.scss";
 import classNames from "classnames";
-import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
-import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+import { BlueBox } from "../../components/BlueBox/BlueBox";
+import { SelectableOption } from "../../components/SelectableOption/SelectableOption";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import {
@@ -11,7 +11,7 @@ import {
   CreditCardModel,
   OrderStatus,
   UserModel,
-} from "../../utils/models.ts";
+} from "../../utils/models";
 import { useNavigate } from "react-router-dom";
 import {
   createOrderInBackend,
@@ -19,15 +19,15 @@ import {
   getCreditCardToken,
   playCancelCursorSfx,
   playCursorEquipSfx,
-} from "../../utils/utilityFunctions.ts";
-import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo.tsx";
-import { PriceSummary } from "../../components/PriceSummary/PriceSummary.tsx";
-import { WaitingModal } from "../../components/WaitingModal/WaitingModal.tsx";
-import { updateOrderStatus } from "../../store/orderReducer.ts";
-import { ShoppingCartList } from "../../components/ShoppingCartList/ShoppingCartList.tsx";
+} from "../../utils/utilityFunctions";
+import { CreditCardInfo } from "../../components/CreditCardInfo/CreditCardInfo";
+import { PriceSummary } from "../../components/PriceSummary/PriceSummary";
+import { WaitingModal } from "../../components/WaitingModal/WaitingModal";
+import { updateOrderStatus } from "../../store/orderReducer";
+import { ShoppingCartList } from "../../components/ShoppingCartList/ShoppingCartList";
 import { useQuery } from "react-query";
-import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
-import { CONVERSION_GIL_COP } from "../../utils/constants.ts";
+import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo";
+import { CONVERSION_GIL_COP } from "../../utils/constants";
 
 export const Summary = () => {
   const [waitingForPayment, setWaitingForPayment] = useState(false);

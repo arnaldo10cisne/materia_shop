@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import React from "react";
 import styles from "./Header.module.scss";
-import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import { METEOR } from "../../utils/constants.ts";
+import { SelectableOption } from "../SelectableOption/SelectableOption";
+import { METEOR } from "../../utils/constants";
 
 export const Header = () => {
   return (

@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ProductInfoModal.module.scss";
 import classNames from "classnames";
-import { MateriaIconModel, ProductModel } from "../../utils/models.ts";
-import { BlueBox } from "../BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import { MATERIA_LIST } from "../../utils/constants.ts";
+import { MateriaIconModel, ProductModel } from "../../utils/models";
+import { BlueBox } from "../BlueBox/BlueBox";
+import { SelectableOption } from "../SelectableOption/SelectableOption";
+import { MATERIA_LIST } from "../../utils/constants";
 import {
   getStylizedNumber,
   playAddToCart,
   playCancelCursorSfx,
   playPurchaseSfx,
   playRemoveFromCart,
-} from "../../utils/utilityFunctions.ts";
+} from "../../utils/utilityFunctions";
 import { useDispatch } from "react-redux";
-import {
-  addOrUpdateCartItem,
-  removeCartItem,
-} from "../../store/cartReducer.ts";
+import { addOrUpdateCartItem, removeCartItem } from "../../store/cartReducer";
 
 interface ProductInfoModalProps {
   product: ProductModel | null;

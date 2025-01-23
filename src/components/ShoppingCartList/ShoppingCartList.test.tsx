@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { ShoppingCartList } from "./ShoppingCartList";
@@ -61,17 +60,19 @@ describe("ShoppingCartList Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
-      return `${number}`;
-    });
-    (useSelector as jest.Mock).mockImplementation((selectorFn) =>
+    (getStylizedNumber as unknown as jest.Mock).mockImplementation(
+      (number: string) => {
+        return `${number}`;
+      },
+    );
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) =>
       selectorFn({
         cart: {
           currentCart: mockCartItems,
         },
       }),
     );
-    (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
   });
 
   test("renders cart items from Redux store", () => {
@@ -120,7 +121,7 @@ describe("ShoppingCartList Component", () => {
   });
 
   test("renders empty when there are no cart items", () => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) =>
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) =>
       selectorFn({
         cart: {
           currentCart: [],

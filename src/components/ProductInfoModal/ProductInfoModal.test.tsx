@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { ProductInfoModal } from "./ProductInfoModal";
@@ -49,10 +48,12 @@ describe("ProductInfoModal", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
-    (getStylizedNumber as jest.Mock).mockImplementation((number: string) => {
-      return `${number}`;
-    });
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
+    (getStylizedNumber as unknown as jest.Mock).mockImplementation(
+      (number: string) => {
+        return `${number}`;
+      },
+    );
   });
 
   test("renders nothing and calls onClose if product is null", () => {

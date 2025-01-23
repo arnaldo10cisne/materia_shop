@@ -1,4 +1,3 @@
-import React from "react";
 import { UserModel } from "../../utils/models";
 import classNames from "classnames";
 import styles from "./CharacterPortrait.module.scss";

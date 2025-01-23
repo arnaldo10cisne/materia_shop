@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { Results } from "./Results";
@@ -47,12 +46,12 @@ describe("Results Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
+    (useNavigate as unknown as jest.Mock).mockReturnValue(mockNavigate);
   });
 
   const mockUseSelector = (status: OrderStatus | null) => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         order: {
           currentOrder: status
@@ -149,7 +148,7 @@ describe("Results Component", () => {
   });
 
   test("renders default fail screen if currentOrder is null (e.g., no order)", () => {
-    (useSelector as jest.Mock).mockImplementation((selectorFn) => {
+    (useSelector as unknown as jest.Mock).mockImplementation((selectorFn) => {
       return selectorFn({
         order: {},
       });

@@ -1,8 +1,7 @@
-import React from "react";
-import { CreditCardModel } from "../../utils/models.ts";
+import { CreditCardModel } from "../../utils/models";
 import styles from "./CreditCardInfo.module.scss";
 import classNames from "classnames";
-import { CARD_COMPANY_LIST } from "../../utils/constants.ts";
+import { CARD_COMPANY_LIST } from "../../utils/constants";
 
 interface CreditCardInfoProps {
   creditCard: CreditCardModel;

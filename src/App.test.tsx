@@ -1,6 +1,5 @@
-import React from "react";
-import { App } from "./App.tsx";
-import { render } from "./utils/test-utils/custom-render.tsx";
+import { App } from "./App";
+import { render } from "./utils/test-utils/custom-render";
 import { screen } from "@testing-library/react";
 
 describe("Hero", () => {

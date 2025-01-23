@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { BlueBox } from "../../components/BlueBox/BlueBox.tsx";
-import { SelectableOption } from "../../components/SelectableOption/SelectableOption.tsx";
+import { useEffect, useState } from "react";
+import { BlueBox } from "../../components/BlueBox/BlueBox";
+import { SelectableOption } from "../../components/SelectableOption/SelectableOption";
 import styles from "./Products.module.scss";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import { MateriaIconModel, ProductModel } from "../../utils/models.ts";
-import { MATERIA_LIST } from "../../utils/constants.ts";
-import { ProductInfoModal } from "../../components/ProductInfoModal/ProductInfoModal.tsx";
+import { MateriaIconModel, ProductModel } from "../../utils/models";
+import { MATERIA_LIST } from "../../utils/constants";
+import { ProductInfoModal } from "../../components/ProductInfoModal/ProductInfoModal";
 import {
   disableScroll,
   enableScroll,
@@ -14,14 +14,14 @@ import {
   getStylizedNumber,
   playCancelCursorSfx,
   restockProducts,
-} from "../../utils/utilityFunctions.ts";
-import { CartModal } from "../../components/CartModal/CartModal.tsx";
-import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait.tsx";
+} from "../../utils/utilityFunctions";
+import { CartModal } from "../../components/CartModal/CartModal";
+import { CharacterPortrait } from "../../components/CharacterPortrait/CharacterPortrait";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store.ts";
+import { RootState } from "../../store/store";
 import { useQuery } from "react-query";
-import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo.tsx";
-import { WaitingModal } from "../../components/WaitingModal/WaitingModal.tsx";
+import { LoadingChocobo } from "../../components/LoadingChocobo/LoadingChocobo";
+import { WaitingModal } from "../../components/WaitingModal/WaitingModal";
 
 export const Products = () => {
   const [openProductModal, setOpenProductModal] = useState<boolean>(false);

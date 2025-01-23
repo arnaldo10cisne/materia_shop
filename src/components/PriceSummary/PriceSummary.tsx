@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import React from "react";
+
 import { CartItem } from "../../utils/models";
 import styles from "./PriceSummary.module.scss";
 import {
   calculateOrderPrice,
   getStylizedNumber,
-} from "../../utils/utilityFunctions.ts";
+} from "../../utils/utilityFunctions";
 
 interface PriceSummaryProps {
   cart: CartItem[];

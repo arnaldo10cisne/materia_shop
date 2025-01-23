@@ -1,13 +1,12 @@
-import React from "react";
 import styles from "./ShoppingCartList.module.scss";
 import classNames from "classnames";
-import { SelectableOption } from "../SelectableOption/SelectableOption.tsx";
-import { getStylizedNumber, playErase } from "../../utils/utilityFunctions.ts";
-import { RootState } from "../../store/store.ts";
+import { SelectableOption } from "../SelectableOption/SelectableOption";
+import { getStylizedNumber, playErase } from "../../utils/utilityFunctions";
+import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { MATERIA_LIST } from "../../utils/constants.ts";
-import { MateriaIconModel } from "../../utils/models.ts";
-import { removeCartItem } from "../../store/cartReducer.ts";
+import { MATERIA_LIST } from "../../utils/constants";
+import { MateriaIconModel } from "../../utils/models";
+import { removeCartItem } from "../../store/cartReducer";
 
 interface ShoppingCartListProps {
   showRemoveButton?: boolean;

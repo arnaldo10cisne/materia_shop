@@ -22,7 +22,7 @@ import {
   CreditCardIconModel,
   MateriaIconModel,
   MateriaTypes,
-} from "./models.ts";
+} from "./models";
 
 export const API_ADDRESS = process.env.REACT_APP_API_ADDRESS;
 export const WOMPI_SANDBOX_API = process.env.REACT_APP_WOMPI_SANDBOX_API;

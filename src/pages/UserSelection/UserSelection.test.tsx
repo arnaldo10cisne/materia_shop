@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { render } from "../../utils/test-utils/custom-render";
 import { UserSelection } from "./UserSelection";
@@ -70,7 +69,7 @@ describe("UserSelection Component", () => {
     const { useDispatch } = require("react-redux");
     useDispatch.mockImplementation(() => mockDispatch);
 
-    (useQuery as jest.Mock).mockReturnValue({
+    (useQuery as unknown as jest.Mock).mockReturnValue({
       data: mockCharacters,
       isLoading: false,
     });
@@ -82,7 +81,7 @@ describe("UserSelection Component", () => {
   });
 
   test("displays loading spinner (LoadingChocobo) if isLoading is true", () => {
-    (useQuery as jest.Mock).mockReturnValue({
+    (useQuery as unknown as jest.Mock).mockReturnValue({
       data: undefined,
       isLoading: true,
     });
