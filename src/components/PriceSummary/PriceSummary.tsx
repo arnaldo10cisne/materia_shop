@@ -11,12 +11,14 @@ interface PriceSummaryProps {
   cart: CartItem[];
   addCcFee: boolean;
   includeDeliveryFee: boolean;
+  includeVatFee?: boolean;
 }
 
 export const PriceSummary = ({
   cart,
   addCcFee = false,
   includeDeliveryFee = false,
+  includeVatFee = false,
 }: PriceSummaryProps) => {
   return (
     <div className={classNames(styles.PriceSummary)}>
@@ -40,6 +42,22 @@ export const PriceSummary = ({
               {getStylizedNumber(
                 String(
                   parseFloat((calculateOrderPrice(cart) * 0.14).toFixed(2)),
+                ),
+              )}
+            </span>{" "}
+            Gil
+          </p>
+        </div>
+      ) : null}
+      {includeVatFee ? (
+        <div className={classNames(styles.infoRow)}>
+          <p>VAT Fee:</p>
+          <p>
+            {" "}
+            <span className={classNames(styles.stylizedNumber)}>
+              {getStylizedNumber(
+                String(
+                  parseFloat((calculateOrderPrice(cart) * 0.19).toFixed(2)),
                 ),
               )}
             </span>{" "}
