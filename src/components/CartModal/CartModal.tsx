@@ -41,6 +41,7 @@ export const CartModal = ({ onClose }: CartModalProps) => {
                 cart={cartContent}
                 addCcFee={false}
                 includeDeliveryFee={false}
+                includeVatFee={false}
               />
               <SelectableOption
                 onClickHandler={() => {

@@ -82,7 +82,12 @@ describe("PriceSummary Component", () => {
       { product: sampleProduct1, amount: 1, total_price: 100 },
     ];
     render(
-      <PriceSummary cart={cart} addCcFee={true} includeDeliveryFee={false} />,
+      <PriceSummary
+        cart={cart}
+        addCcFee={true}
+        includeDeliveryFee={false}
+        includeVatFee={true}
+      />,
     );
 
     expect(screen.getByText("100")).toBeInTheDocument();
@@ -91,7 +96,9 @@ describe("PriceSummary Component", () => {
 
     expect(screen.getByText("14")).toBeInTheDocument();
 
-    expect(screen.getByText("114")).toBeInTheDocument();
+    expect(screen.getByText("19")).toBeInTheDocument();
+
+    expect(screen.getByText("133")).toBeInTheDocument();
   });
 
   test("does not show delivery fee row when includeDeliveryFee is false", () => {
@@ -130,7 +137,12 @@ describe("PriceSummary Component", () => {
       { product: sampleProduct1, amount: 3, total_price: 300 },
     ];
     render(
-      <PriceSummary cart={cart} addCcFee={true} includeDeliveryFee={true} />,
+      <PriceSummary
+        cart={cart}
+        addCcFee={true}
+        includeDeliveryFee={true}
+        includeVatFee={true}
+      />,
     );
 
     expect(screen.getByText("300")).toBeInTheDocument();
@@ -139,6 +151,8 @@ describe("PriceSummary Component", () => {
 
     expect(screen.getByText("750")).toBeInTheDocument();
 
-    expect(screen.getByText("1092")).toBeInTheDocument();
+    expect(screen.getByText("57")).toBeInTheDocument();
+
+    expect(screen.getByText("1149")).toBeInTheDocument();
   });
 });

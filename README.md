@@ -19,8 +19,6 @@ A web application to simulate an online store for buying Materia, inspired by Fi
     - [Orders Module](#orders-module)
     - [Payments Module](#payments-module)
   - [Architecture and Infrastructure](#architecture-and-infrastructure)
-  - [Installation](#installation)
-  - [Usage](#usage)
   - [Integration with WOMPI API](#integration-with-wompi-api)
   - [Database Structure](#database-structure)
     - [Users Table](#users-table)
@@ -117,32 +115,6 @@ The project follows a **hexagonal architecture**, ensuring modularity and indepe
    - Steps for compilation, unit tests, code linting, and deployment.
    - S3 bucket for frontend hosting with a CloudFront distribution.
    - Automatic CloudFront cache invalidation to ensure users see the latest updates.
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd your-repo
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-1. Start the development server:
-   ```bash
-   npm run dev
-   ```
-2. Open your browser and navigate to:
-   ```
-   http://localhost:3000
-   ```
 
 ## Integration with WOMPI API
 

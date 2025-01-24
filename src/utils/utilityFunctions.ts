@@ -132,6 +132,7 @@ export const calculateOrderPrice = (
   cartItems: CartItem[],
   addCcFee = false,
   includeDeliveryFee = false,
+  includeVatFee = false,
 ): number => {
   const sum_of_items = cartItems.reduce(
     (total, item) => total + (item.total_price || 0),
@@ -139,9 +140,10 @@ export const calculateOrderPrice = (
   );
 
   const cc_fee = addCcFee ? parseFloat((sum_of_items * 0.14).toFixed(2)) : 0;
+  const vat_fee = addCcFee ? parseFloat((sum_of_items * 0.19).toFixed(2)) : 0;
   const delivery_fee = includeDeliveryFee ? 750 : 0;
 
-  return sum_of_items + cc_fee + delivery_fee;
+  return sum_of_items + cc_fee + delivery_fee + vat_fee;
 };
 
 export const formatTimestampToReadableDate = (timestamp) => {

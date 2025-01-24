@@ -140,6 +140,7 @@ export const Summary = () => {
                   cart={order.currentOrder?.content as CartItem[]}
                   addCcFee={true}
                   includeDeliveryFee={true}
+                  includeVatFee={true}
                 />
 
                 <div>
