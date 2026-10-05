@@ -1,6 +1,6 @@
 ![chocobo](./src/assets/images/delivery_chocobo.gif "Singing Chocobo")
 
-# Project Title
+# The Materia Shop
 
 A web application to simulate an online store for buying Materia, inspired by Final Fantasy 7.
 
